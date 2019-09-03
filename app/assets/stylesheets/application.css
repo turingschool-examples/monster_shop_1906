@@ -37,6 +37,24 @@ img{
   width:50px;
 }
 
+#home-img {
+  width: 11em;
+}
+
+.home-link {
+  width: 11em;
+}
+
+.home-link p{
+  color: #002244;
+}
+
+#home-pic {
+  margin-right: 35em;
+  height: 100%;
+  /* align-items: center; */
+}
+
 section[id*='review'] {
   background-color: #DCDCDC;
 }
@@ -77,8 +95,12 @@ section[id*='review'] {
  }
 
  .topnav {
-   overflow: hidden;
-   background-color: #002244;
+  background-color: #003D5B;
+  display: flex;
+  height: 14em;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: #002244;
  }
 
  .topnav a {

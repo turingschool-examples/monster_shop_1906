@@ -10,9 +10,19 @@
 
   <body>
     <nav class = "topnav">
-      <%= link_to "All Merchants", "/merchants"%>
-      <%= link_to "All Items", "/items"%>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <section class="topnav-index">
+        <%= link_to "All Merchants", "/merchants"%>
+        <%= link_to "All Items", "/items"%>
+        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      </section>
+      <section id="home-pic">
+        <%= link_to "/" do %>
+        <section class="home-link">
+          <p>I wanna go home</p>
+          <%= image_tag  "https://www.davidbrassrarebooks.com/pictures/03815_8.jpg?v=1478033010", id: "home-img"%>
+        </section>
+        <% end %>
+      </section>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
