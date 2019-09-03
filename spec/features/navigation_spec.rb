@@ -34,13 +34,12 @@ RSpec.describe 'Site Navigation' do
 
       visit '/cart'
 
-      within 'nav' do
-        within "#home-pic" do
-          find(:css, 'img[src*="https://www.davidbrassrarebooks.com/pictures/03815_8.jpg?v=1478033010"]').click
-        end
+      within "#home-pic" do
+        expect(page).to have_css('img[src*="https://www.davidbrassrarebooks.com/pictures/03815_8.jpg?v=1478033010"]')
+        click_link
+        expect(current_path).to eq("/")
       end
 
-      expect(current_path).to eq("/")
 
       within 'nav' do
         click_link 'Login'
