@@ -19,14 +19,9 @@
 # I see a flash message indicating that I am now registered and logged in
 require 'rails_helper'
 
-
 RSpec.describe 'As a visitor I see a link to register on the nav bar' do
   it 'can click register and sign up as a user' do
-    visit '/'
-
-    click_link 'Register'
-
-    expect(current_path).to eq('/register')
+    visit '/register'
 
     fill_in :name, with: 'Corina Allen'
     fill_in :address, with: '1488 S Kenton St'
@@ -39,7 +34,9 @@ RSpec.describe 'As a visitor I see a link to register on the nav bar' do
 
     click_button 'Save Me'
 
-    expect(page).to eq('/profile')
+    user = User.last
+
+    expect(current_path).to eq(profile_path(user))
     expect(page).to have_content('You are now a registered user and have been logged in.')
   end
 end
