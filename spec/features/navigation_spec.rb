@@ -1,3 +1,13 @@
+#
+# As a visitor
+# I see a navigation bar
+# This navigation bar includes links for the following:
+# - a link to return to the welcome / home page of the application ("/") OK
+# - a link to browse all items for sale ("/items") OK
+# - a link to see all merchants ("/merchants") OK
+# - a link to my shopping cart ("/cart") OK
+# - a link to log in ("/login") NEEDED
+# - a link to the user registration page ("/register") NEEDED
 
 require 'rails_helper'
 
@@ -31,7 +41,18 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to have_content("Cart: 0")
       end
-
     end
+
+    it 'can return to the welcome / home page of the application' do
+      visit '/merchants'
+
+      within 'nav' do
+        click_link('Home')
+      end
+
+      expect(current_path).to eq('/')
+    end
+
+    it ''
   end
 end
