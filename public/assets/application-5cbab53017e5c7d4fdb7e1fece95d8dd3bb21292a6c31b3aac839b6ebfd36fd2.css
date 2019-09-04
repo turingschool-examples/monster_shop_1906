@@ -10,9 +10,10 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+
+
  */
+
 
  body {
  background-color: white;
@@ -35,24 +36,6 @@ img{
 
 #cart-image{
   width:50px;
-}
-
-#home-img {
-  width: 11em;
-}
-
-.home-link {
-  width: 11em;
-}
-
-.home-link p{
-  color: #002244;
-}
-
-#home-pic {
-  margin-right: 35em;
-  height: 100%;
-  /* align-items: center; */
 }
 
 section[id*='review'] {
@@ -95,12 +78,8 @@ section[id*='review'] {
  }
 
  .topnav {
-  background-color: #003D5B;
-  display: flex;
-  height: 14em;
-  justify-content: space-between;
-  overflow: hidden;
-  background-color: #002244;
+   overflow: hidden;
+   background-color: #002244;
  }
 
  .topnav a {

@@ -1,9 +1,15 @@
 class CartController < ApplicationController
+
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
-    redirect_to "/items"
+    if item.active?
+      cart.add_item(item.id.to_s)
+      flash[:success] = "#{item.name} was successfully added to your cart"
+      redirect_to "/items"
+    else
+      flash[:error] = "You cannot add  #{item.name} to your cart because it is inactive"
+      redirect_to "/items/#{item.id}"
+    end
   end
 
   def show
