@@ -13,8 +13,11 @@
       </li>
     </ul>
 
+    <% unless current_user %>
       <%= link_to "Login", "/login", class: "nav-link nav-item"%>
       <%= link_to "Register", "/register", class: "nav-link nav-item" %>
-      <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
+    <% end %>
+    
+    <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
   </div>
 </nav>
