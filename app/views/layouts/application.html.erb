@@ -24,11 +24,17 @@
         <% end %>
       </section>
       <section>
+        <% if current_user %>
+          <%= link_to "Logout" %>
+          <%= link_to "Profile" %>
+          <p>Logged in as <%= current_user.name %></p>
+        <% else %>
         <%= link_to 'Login', '/login' %>
       </section>
       <section>
         <%= link_to 'Register', '/register' %>
       </section>
+      <% end %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
