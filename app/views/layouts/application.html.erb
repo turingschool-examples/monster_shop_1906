@@ -23,6 +23,12 @@
           </section>
         <% end %>
       </section>
+      <section>
+        <%= link_to 'Login', '/user/login' %>
+      </section>
+      <section>
+        <%= link_to 'Register', '/user/register' %>
+      </section>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">

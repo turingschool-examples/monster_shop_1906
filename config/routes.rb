@@ -35,4 +35,8 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
+
+  get "/user/login", to: "user#login"
+  get "/user/register", to: "user#register"
+
 end

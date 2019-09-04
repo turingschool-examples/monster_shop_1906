@@ -45,13 +45,13 @@ RSpec.describe 'Site Navigation' do
         click_link 'Login'
       end
 
-      expect(current_path).to eq('/login')
+      expect(current_path).to eq('/user/login')
 
       within 'nav' do
         click_link 'Register'
       end
 
-      expect(current_path).to eq('/registration')
+      expect(current_path).to eq('/user/register')
 
     end
   end
