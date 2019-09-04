@@ -5,8 +5,8 @@
 # - a link to return to the welcome / home page of the application ("/") OK
 # - a link to browse all items for sale ("/items") OK
 # - a link to see all merchants ("/merchants") OK
-# - a link to my shopping cart ("/cart") NEED
-# - a link to log in ("/login") NEEDED
+# - a link to my shopping cart ("/cart") OK
+# - a link to log in ("/login") OK
 # - a link to the user registration page ("/register") NEEDED
 
 require 'rails_helper'
@@ -54,6 +54,16 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/')
+    end
+
+    it 'I can click login link' do
+      visit '/'
+
+      within 'nav' do
+        click_link('Login')
+      end
+
+      expect(current_path).to eq('/login')
     end
   end
 end
