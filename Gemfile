@@ -23,6 +23,7 @@ group :development, :test do
   gem 'pry'
   gem 'simplecov'
   gem 'shoulda-matchers'
+  gem 'bcrypt', '~> 3.1.7'
 end
 
 group :development do
