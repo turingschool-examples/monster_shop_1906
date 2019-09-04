@@ -1,11 +1,16 @@
 require 'rails_helper'
 
 describe 'User Registration' do
-  describe 'when user clicks on rigister' do
+  describe 'when user clicks on register' do
     it 'they can fill out a form to register new user' do
-      visit '/users/register' do
 
-      name = alec
+      visit '/items'
+
+      within 'nav' do
+        click_link 'Register'
+      end
+
+      name = "alec"
       address = "234 Main"
       city = "Denver"
       state = "CO"
@@ -25,8 +30,7 @@ describe 'User Registration' do
 
       click_button "Submit"
 
-      expect(current_path).to eq("/user/profile")
-      end
+      expect(current_path).to eq("/profile")
     end
   end
 end
