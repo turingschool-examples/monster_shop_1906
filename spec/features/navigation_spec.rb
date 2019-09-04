@@ -7,7 +7,7 @@
 # - a link to see all merchants ("/merchants") OK
 # - a link to my shopping cart ("/cart") OK
 # - a link to log in ("/login") OK
-# - a link to the user registration page ("/register") NEEDED
+# - a link to the user registration page ("/register") Ok
 
 require 'rails_helper'
 
@@ -64,6 +64,16 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/login')
+    end
+
+    it 'I can click on registration link' do
+      visit '/'
+
+      within 'nav' do
+        click_link('Register')
+      end
+
+      expect(current_path).to eq('/register')
     end
   end
 end
