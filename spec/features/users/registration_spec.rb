@@ -19,6 +19,7 @@
 # I see a flash message indicating that I am now registered and logged in
 require 'rails_helper'
 
+
 RSpec.describe 'As a visitor I see a link to register on the nav bar' do
   it 'can click register and sign up as a user' do
     visit '/'
