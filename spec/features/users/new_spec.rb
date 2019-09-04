@@ -26,6 +26,7 @@ RSpec.describe "Registering User" do
 
     expect(current_path).to eq("/profile")
     expect(page).to have_content("Welcome #{user_name}! You are now registered and logged in.")
+    expect(page).to have_content("Hello, #{user_name}!")
     expect(page).to_not have_link("Login")
     expect(page).to_not have_link("Register")
   end
