@@ -24,6 +24,12 @@ RSpec.describe 'User Navigation' do
         expect(page).to have_link("Profile")
 
       end
+      visit '/merchant'
+      expect(page).to have_link("404 error")
+
+
+      visit '/admin'
+      expect(page).to have_link("404 error")
     end
   end
 end
