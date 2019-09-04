@@ -5,7 +5,7 @@
 # - a link to return to the welcome / home page of the application ("/") OK
 # - a link to browse all items for sale ("/items") OK
 # - a link to see all merchants ("/merchants") OK
-# - a link to my shopping cart ("/cart") OK
+# - a link to my shopping cart ("/cart") NEED
 # - a link to log in ("/login") NEEDED
 # - a link to the user registration page ("/register") NEEDED
 
@@ -29,17 +29,20 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/merchants')
     end
 
-    it "I can see a cart indicator on all pages" do
+    it "I can see a cart indicator on all pages and click link" do
       visit '/merchants'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_link("Cart: 0")
+        click_link("Cart: 0")
       end
+
+      expect(current_path).to eq("/cart")
 
       visit '/items'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_link("Cart: 0")
       end
     end
 
@@ -52,7 +55,5 @@ RSpec.describe 'Site Navigation' do
 
       expect(current_path).to eq('/')
     end
-
-    it ''
   end
 end
