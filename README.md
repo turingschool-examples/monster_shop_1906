@@ -192,7 +192,7 @@ When I try to access any path that begins with the following, then I see a 404 e
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 9, Admin Navigation Restrictions
 
