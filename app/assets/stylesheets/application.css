@@ -16,14 +16,20 @@
 
  body {
  background-color: white;
+ font-family: 'nixie one'
  }
 
  h1 {
   text-align: center;
  	font-size: 40px;
- 	color: #002244;
+ 	color: #36413E;
  	font-family: "Marker Felt", fantasy;
  }
+
+
+a {
+  color: #5D5E60;
+}
 
 ul{
   padding: 0px;
@@ -56,11 +62,11 @@ section[id*='review'] {
  }
 
  .grid-item{
- 	background-color: #17BEBB;
+ 	background-color: #BEB2C8;
  	padding: 20px;
   border: solid;
  	border-radius: 12px;
-  border-color: #002244;
+  border-color: #36413E;
  	text-align: center
  }
  .item-show-grid{
@@ -78,20 +84,21 @@ section[id*='review'] {
 
  .topnav {
    overflow: hidden;
-   background-color: #002244;
+   background-color: #36413E;
  }
 
  .topnav a {
    float: left;
-   color: #f2f2f2;
+   color: #D7D6D6;
    text-align: center;
    padding: 14px 16px;
    text-decoration: none;
    font-size: 17px;
+   font-weight: bold;
  }
 
  .topnav a:hover {
-   background-color: #17BEBB;
+   background-color: #BEB2C8;
    color: black;
  }
 
@@ -107,21 +114,25 @@ section[id*='review'] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 15px;
+  font-family: 'nixie one'
 }
 
 input[type=submit] {
   width: 100%;
-  background-color: #17BEBB;
+  background-color: #BEB2C8;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 20px;
+  font-family: 'nixie one'
 }
 
 input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #8D8D92;
 }
 form {
   align-content: center;
