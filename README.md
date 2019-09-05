@@ -223,7 +223,7 @@ And I see a form where I input the following data:
 - my zip code
 - my email address
 - my preferred password
-- a confirmation field for my password
+- a password_confirmationation field for my password
 
 When I fill in this form completely,
 And with a unique email address not already in the system
@@ -395,7 +395,7 @@ As a registered user
 When I visit my profile page
 I see a link to edit my password
 When I click on the link to edit my password
-I see a form with fields for a new password, and a new password confirmation
+I see a form with fields for a new password, and a new password password_confirmationation
 When I fill in the same password in both fields
 And I submit the form
 Then I am returned to my profile page
