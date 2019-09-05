@@ -4,7 +4,7 @@ class SessionsController<ApplicationController
     if session[:user_id].nil?
       render "users/login"
     else
-      user = User.find(session[:user_id])
+      user = current_user
       flash[:notice] = "You are already logged in"
       if user.admin_user?
         redirect_to "/admin"
