@@ -116,7 +116,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 3, User Navigation
 
@@ -133,7 +133,7 @@ I also see text that says "Logged in as Ian Douglas" (or whatever my name is)
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 4, Merchant Navigation
 
@@ -144,7 +144,7 @@ Plus the following links:
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 5, Admin Navigation
 
@@ -159,7 +159,7 @@ Minus the following links/info
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 6, Visitor Navigation Restrictions
 
@@ -171,7 +171,7 @@ When I try to access any path that begins with the following, then I see a 404 e
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 7, User Navigation Restrictions
 
@@ -182,7 +182,7 @@ When I try to access any path that begins with the following, then I see a 404 e
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 8, Merchant Navigation Restrictions
 
@@ -208,7 +208,7 @@ When I try to access any path that begins with the following, then I see a 404 e
 This series of stories will allow a user to register on the site.
 
 ```
-[ ] done
+[x] done
 
 User Story 10, User Registration
 
@@ -234,7 +234,7 @@ I see a flash message indicating that I am now registered and logged in
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 11, User Registration Missing Details
 
