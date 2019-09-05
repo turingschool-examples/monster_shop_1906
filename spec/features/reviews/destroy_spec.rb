@@ -27,6 +27,7 @@ RSpec.describe 'review edit and update', type: :feature do
     it "I can delete a review when I click on delete" do
       review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       review_1_id = review_1.id
+      
       visit "/items/#{@chain.id}"
 
       within "#review-#{review_1.id}" do
