@@ -1,7 +1,19 @@
 class SessionsController<ApplicationController
 
   def new
-    render "users/login"
+    if session[:user_id].nil?
+      render "users/login"
+    else
+      user = User.find(session[:user_id])
+      flash[:notice] = "You are already logged in"
+      if user.admin_user?
+        redirect_to "/admin"
+      elsif user.merchant_admin?
+        redirect_to "/merchant"
+      else
+        redirect_to "/profile"
+      end
+    end
   end
 
   def create

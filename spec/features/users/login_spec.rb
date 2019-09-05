@@ -37,6 +37,11 @@ RSpec.describe "User Login" do
 
     expect(current_path).to eq("/profile")
     expect(page).to have_content("Welcome, #{@regular_user.name}!")
+
+    visit "/login"
+
+    expect(current_path).to eq("/profile")
+    expect(page).to have_content("You are already logged in")
   end
 
   it "can log in a merchant user" do
@@ -49,6 +54,11 @@ RSpec.describe "User Login" do
 
     expect(current_path).to eq("/merchant")
     expect(page).to have_content("Welcome, #{@merchant_user.name}!")
+
+    visit "/login"
+
+    expect(current_path).to eq("/merchant")
+    expect(page).to have_content("You are already logged in")
   end
 
   it "can log in an admin user" do
@@ -61,6 +71,11 @@ RSpec.describe "User Login" do
 
     expect(current_path).to eq("/admin")
     expect(page).to have_content("Welcome, #{@admin_user.name}!")
+
+    visit "/login"
+
+    expect(current_path).to eq("/admin")
+    expect(page).to have_content("You are already logged in")
   end
 
   it "displays a flash message for invalid entries" do
