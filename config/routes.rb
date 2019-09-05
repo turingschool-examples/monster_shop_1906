@@ -40,5 +40,7 @@ Rails.application.routes.draw do
   post "/users", to: "users#create"
 
   get "/login", to: "users#login"
+  post '/login', to: 'users#login'
+
   get "/profile", to: "users#show"
 end
