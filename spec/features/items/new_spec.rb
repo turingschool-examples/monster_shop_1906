@@ -7,13 +7,13 @@ RSpec.describe "Create Merchant Items" do
     end
 
     it 'I see a link to add a new item for that merchant' do
-      visit "/merchants/#{@brian.id}/items"
+      visit merchant_items_path(@brian)
 
       expect(page).to have_link "Add New Item"
     end
 
     it 'I can add a new item by filling out a form' do
-      visit "/merchants/#{@brian.id}/items"
+      visit merchant_items_path(@brian)
 
       name = "Chamois Buttr"
       price = 18
@@ -24,7 +24,7 @@ RSpec.describe "Create Merchant Items" do
       click_on "Add New Item"
 
       expect(page).to have_link(@brian.name)
-      expect(current_path).to eq("/merchants/#{@brian.id}/items/new")
+      expect(current_path).to eq(new_merchant_item_path(@brian))
       fill_in :name, with: name
       fill_in :price, with: price
       fill_in :description, with: description
@@ -35,7 +35,7 @@ RSpec.describe "Create Merchant Items" do
 
       new_item = Item.last
 
-      expect(current_path).to eq("/merchants/#{@brian.id}/items")
+      expect(current_path).to eq(merchant_items_path(@brian))
       expect(new_item.name).to eq(name)
       expect(new_item.price).to eq(price)
       expect(new_item.description).to eq(description)
@@ -52,7 +52,7 @@ RSpec.describe "Create Merchant Items" do
     end
 
     it 'I get an alert if I dont fully fill out the form' do
-      visit "/merchants/#{@brian.id}/items"
+      visit merchant_items_path(@brian)
 
       name = ""
       price = 18

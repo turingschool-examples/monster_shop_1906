@@ -13,7 +13,7 @@ RSpec.describe 'Review statistics', type: :feature do
       review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
 
-      visit "/items/#{@chain.id}"
+      visit item_path(@chain)
 
       expect(page).to have_css(".review-stats")
       within ".review-stats" do

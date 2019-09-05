@@ -24,7 +24,7 @@ RSpec.describe "User Logout" do
 
     click_button "Submit"
 
-    visit "/items/#{@paper.id}"
+    visit item_path(@paper)
       click_on "Add To Cart"
 
     within 'nav' do

@@ -13,7 +13,7 @@ RSpec.describe 'review creation', type: :feature do
 
       click_on "Add Review"
 
-      expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
+      expect(current_path).to eq(new_item_review_path(@chain))
     end
     describe "and click on a link to add a review" do
       it "I can create a new review by following the link" do
@@ -21,7 +21,7 @@ RSpec.describe 'review creation', type: :feature do
         content = "Took my bike in for a service and all is working well!"
         rating = 5
 
-        visit "/items/#{@chain.id}"
+        visit item_path(@chain)
 
         click_on "Add Review"
 
@@ -32,7 +32,7 @@ RSpec.describe 'review creation', type: :feature do
         click_button "Create Review"
 
         last_review = Review.last
-        expect(current_path).to eq("/items/#{@chain.id}")
+        expect(current_path).to eq(item_path(@chain))
         expect(last_review.title).to eq(title)
         expect(last_review.content).to eq(content)
         expect(last_review.rating).to eq(rating)
@@ -47,7 +47,7 @@ RSpec.describe 'review creation', type: :feature do
         title = "Thanks Brian's Bike Shop!"
         rating = 5
 
-        visit "/items/#{@chain.id}"
+        visit item_path(@chain)
 
         click_on "Add Review"
 
@@ -57,7 +57,7 @@ RSpec.describe 'review creation', type: :feature do
         click_on "Create Review"
 
         expect(page).to have_content("Please fill in all fields in order to create a review.")
-        expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
+        expect(current_path).to eq(new_item_review_path(@chain))
       end
 
       it 'I get an error if my rating is not between 1 and 5' do
@@ -65,7 +65,7 @@ RSpec.describe 'review creation', type: :feature do
         rating = 6
         content = "SO FUN SO GREAT"
 
-        visit "/items/#{@chain.id}"
+        visit item_path(@chain)
 
         click_on "Add Review"
 

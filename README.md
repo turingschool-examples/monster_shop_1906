@@ -106,7 +106,7 @@ As a visitor
 I see a navigation bar
 This navigation bar includes links for the following:
 - a link to return to the welcome / home page of the application ("/")
-- a link to browse all items for sale ("/items")
+- a link to browse all items for sale (items_path)
 - a link to see all merchants ("/merchants")
 - a link to my shopping cart ("/cart")
 - a link to log in ("/login")
@@ -166,7 +166,7 @@ User Story 6, Visitor Navigation Restrictions
 As a Visitor
 When I try to access any path that begins with the following, then I see a 404 error:
 - '/merchant'
-- '/admin'
+- admin_path
 - '/profile'
 ```
 
@@ -178,7 +178,7 @@ User Story 7, User Navigation Restrictions
 As a User
 When I try to access any path that begins with the following, then I see a 404 error:
 - '/merchant'
-- '/admin'
+- admin_path
 ```
 
 ```
@@ -188,7 +188,7 @@ User Story 8, Merchant Navigation Restrictions
 
 As a merchant employee or admin
 When I try to access any path that begins with the following, then I see a 404 error:
-- '/admin'
+- admin_path
 ```
 
 ```
@@ -329,7 +329,7 @@ This is the main "catalog" page of the entire site where users will start their 
 User Story 17, Items Index Page
 
 As any kind of user on the system
-I can visit the items catalog ("/items")
+I can visit the items catalog (items_path)
 I see all items in the system except disabled items
 
 The item image is a link to that item's show page
@@ -341,7 +341,7 @@ The item image is a link to that item's show page
 User Story 18, Items Index Page Statistics
 
 As any kind of user on the system
-When I visit the items index page ("/items")
+When I visit the items index page (items_path)
 I see an area with statistics:
 - the top 5 most popular items by quantity purchased, plus the quantity bought
 - the bottom 5 least popular items, plus the quantity bought

@@ -29,7 +29,7 @@ RSpec.describe 'merchant show page', type: :feature do
     end
 
     it 'I can see a merchants statistics' do
-      visit "/merchants/#{@brian.id}"
+      visit merchant_path(@brian)
 
       within ".merchant-stats" do
         expect(page).to have_content("Number of Items: 2")

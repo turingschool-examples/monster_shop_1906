@@ -13,7 +13,7 @@ RSpec.describe "Items Index Page" do
     end
 
     it "all items or merchant names are links" do
-      visit '/items'
+      visit items_path
 
       expect(page).to have_link(@tire.name)
       expect(page).to have_link(@tire.merchant.name)
@@ -25,7 +25,7 @@ RSpec.describe "Items Index Page" do
 
     it "I can see a list of all of the items "do
 
-      visit '/items'
+      visit items_path
 
       within "#item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
