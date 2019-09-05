@@ -71,7 +71,7 @@ Disabled content should also be restricted from showing up in the statistics pag
 Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
 
 ```
-[ ] done
+[x] done
 
 User Story 1, Deploy your application to Heroku
 
@@ -98,7 +98,7 @@ There is no requirement that the nav bar be "locked" to the top of the screen.
 You will need to set up some basic routing and empty controller actions and empty action view files.
 
 ```
-[ ] done
+[x] done
 
 User Story 2, Visitor Navigation
 
@@ -1038,4 +1038,3 @@ If the user's desired quantity is greater than my current inventory quantity for
 Then I do not see a "fulfill" button or link
 Instead I see a big red notice next to the item indicating I cannot fulfill this item
 ```
-
