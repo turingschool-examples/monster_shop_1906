@@ -5,7 +5,7 @@ require 'rails_helper'
 # I see a link to edit my profile data OK
 # When I click on the link to edit my profile data OK
 # I see a form like the registration page OK
-# The form is prepopulated with all my current information except my password NEEDED
+# The form is prepopulated with all my current information except my password OK
 # When I change any or all of that information OK
 # And I submit the form OK
 # Then I am returned to my profile page OK
@@ -49,6 +49,7 @@ RSpec.describe "User Profile" do
     expect(page).to have_content("Denver")
     expect(page).to have_content("CO")
     expect(page).to have_content("chicken@email.com")
+    expect(page).to have_content("Your profile has been updated")
   end
 
   it 'cannot user enter nil information' do
