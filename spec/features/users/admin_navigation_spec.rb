@@ -15,18 +15,14 @@ RSpec.describe 'Admin Navigation' do
   describe 'As a admin user' do
     it 'I see the same links as a regular user plus link to my asmin
     dashboard and a link to see all users, but not a cart link nor cart counter' do
+    user = User.create(name:"Santiago", address:"123 tree st", city:"lakewood", state:"CO", zip: "19283", email:"santamonica@hotmail.com", role:3)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit '/'
 
-    expect(page).to have_link("Dashbord")
-    expect(page).to have_link("All Users")
+    expect(page).to have_link("Dashboard")
+    expect(page).to have_link("Users")
     expect(page).to_not have_link("Cart")
-
-    visit '/merchant'
-    expect(page).to have_link("404 error")
-
-    visit '/cart'
-    expect(page).to have_link("404 error")
     end
   end
 end
