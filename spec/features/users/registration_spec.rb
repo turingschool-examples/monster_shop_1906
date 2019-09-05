@@ -40,3 +40,28 @@ RSpec.describe 'As a visitor I see a link to register on the nav bar' do
     expect(page).to have_content('You are now a registered user and have been logged in.')
   end
 end
+# As a visitor
+# When I visit the user registration page
+# And I do not fill in this form completely,
+# I am returned to the registration page
+# And I see a flash message indicating that I am missing required fields
+RSpec.describe 'Incomplete registration form' do
+  it 'sees a flash notification' do
+    visit '/register'
+
+    fill_in :name, with: nil
+    fill_in :address, with: '1488 S Kenton St'
+    fill_in :city, with: 'Aurora'
+    fill_in :state, with: 'CO'
+    fill_in :zip, with: nil
+    fill_in :email, with: 'StarPerfect@gmail.com'
+    fill_in :password, with: nil
+    fill_in :confirm, with: 'Hello123'
+
+    click_button 'Save Me'
+
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Zip can't be blank")
+    expect(page).to have_content("Password can't be blank")
+  end
+end
