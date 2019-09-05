@@ -10,4 +10,12 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  def current_merchant_admin?
+    current_user && current_user.merchant_admin?
+  end
+
+  def current_admin?
+    current_user && current_user.admin_user?
+  end 
 end

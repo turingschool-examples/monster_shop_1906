@@ -5,11 +5,20 @@ Rails.application.routes.draw do
   root to: "welcome#index"
 
   get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
 
   get "/register", to: "users#new"
   post "/users", to: "users#create"
 
   get "/profile", to: "users#show"
+
+  namespace :merchant do
+    get "/", to: "dashboard#index"
+  end
+
+  namespace :admin do
+    get "/", to: "dashboard#index"
+  end
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
