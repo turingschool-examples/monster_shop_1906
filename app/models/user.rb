@@ -11,4 +11,6 @@ class User < ApplicationRecord
   # validates :password_confirm, presence: true
   validates_length_of :zip, :is => 5
   validates_numericality_of :zip
+
+  enum role: %w(regular_user merchant_employee merchant_admin admin )
 end
