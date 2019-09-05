@@ -36,7 +36,7 @@ RSpec.describe "User Login" do
     click_button "Submit"
 
     expect(current_path).to eq("/profile")
-    expect(page).to have_content("Welcome, #{@regular_user.name}!")
+    expect(page).to have_content("Logged in as #{@regular_user.name}")
 
     visit "/login"
 
@@ -53,7 +53,7 @@ RSpec.describe "User Login" do
     click_button "Submit"
 
     expect(current_path).to eq("/merchant")
-    expect(page).to have_content("Welcome, #{@merchant_user.name}!")
+    expect(page).to have_content("Logged in as #{@merchant_user.name}")
 
     visit "/login"
 
@@ -70,7 +70,7 @@ RSpec.describe "User Login" do
     click_button "Submit"
 
     expect(current_path).to eq("/admin")
-    expect(page).to have_content("Welcome, #{@admin_user.name}!")
+    expect(page).to have_content("Logged in as #{@admin_user.name}")
 
     visit "/login"
 
@@ -98,5 +98,22 @@ RSpec.describe "User Login" do
 
     expect(current_path).to eq("/login")
     expect(page).to have_content("Please enter valid user information")
+  end
+
+  describe "When a regular user tries to access merchant or admin path" do
+    it "should respond with 404 page" do
+      visit "/login"
+
+      fill_in :email, with: @regular_user.email
+      fill_in :password, with: @regular_user.password
+
+      click_button "Submit"
+
+      visit '/merchant'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 end

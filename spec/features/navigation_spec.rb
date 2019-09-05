@@ -76,4 +76,40 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/register')
     end
   end
+
+  describe "As a Registered User" do
+    it "I see profile and logout links but not login and register links on navigation bar" do
+      regular_user = User.create!(name: "George Jungle",
+                    address: "1 Jungle Way",
+                    city: "Jungleopolis",
+                    state: "FL",
+                    zipcode: "77652",
+                    email: "junglegeorge@email.com",
+                    password: "Tree123")
+
+      visit '/login'
+
+      within 'nav' do
+        click_link('Login')
+      end
+
+      fill_in :email, with: regular_user.email
+      fill_in :password, with: regular_user.password
+
+      click_button "Submit"
+
+      expect(current_path).to eq('/profile')
+
+
+      within 'nav' do
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Profile")
+
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+      end
+
+      expect(page).to have_content("Logged in as #{regular_user.name}")
+    end
+  end
 end

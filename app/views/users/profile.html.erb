@@ -1,1 +1,17 @@
-<h1>Hello, <%= @user.name %>!</h1>
+
+<div class="jumbotron">
+  <section id="user-info-<%=@user.id %>">
+  <h1 class="display-4">Hello, <%= @user.name %>!</h1>
+    <p class="lead">Address: <%= @user.address %></p>
+    <p class="lead">City: <%= @user.city %></p>
+    <p class="lead">State: <%= @user.state %></p>
+    <p class="lead">Zipcode: <%= @user.zipcode %></p>
+    <p class="lead">Email: <%= @user.email %></p>
+  </section>
+
+  <section id= "user-profile-actions">
+    <p class="lead">
+       <%= link_to "Edit Profile", "profile/edit" %>
+    </p>
+  </section>
+</div>
