@@ -24,6 +24,7 @@ class UsersController<ApplicationController
     @user.update(user_params)
 
     if @user.save
+      flash[:sucess] = "Your profile has been updated"
       redirect_to "/profile"
     else
       flash[:error] = @user.errors.full_messages.to_sentence
