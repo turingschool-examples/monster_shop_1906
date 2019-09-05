@@ -8,5 +8,7 @@ class User < ApplicationRecord
                         :zip,
                         :email
 
+  validates_uniqueness_of :email
+
   enum role: %w(default employee merchant admin)
 end
