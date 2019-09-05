@@ -1,5 +1,17 @@
 require 'rails_helper'
 
+# As a registered user
+# When I visit my profile page OK
+# I see a link to edit my profile data OK
+# When I click on the link to edit my profile data OK
+# I see a form like the registration page OK
+# The form is prepopulated with all my current information except my password NEEDED
+# When I change any or all of that information OK
+# And I submit the form OK
+# Then I am returned to my profile page OK
+# And I see a flash message telling me that my data is updated NEEDED
+# And I see my updated information OK
+
 RSpec.describe "User Profile" do
   before :each do
     @regular_user = User.create!(name: "George Jungle",
