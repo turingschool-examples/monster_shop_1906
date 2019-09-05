@@ -1,7 +1,19 @@
 class SessionsController<ApplicationController
 
   def new
-    render "users/login"
+    if session[:user_id].nil?
+      render "users/login"
+    else
+      user = current_user
+      flash[:notice] = "You are already logged in"
+      if user.admin_user?
+        redirect_to "/admin"
+      elsif user.merchant_admin?
+        redirect_to "/merchant"
+      else
+        redirect_to "/profile"
+      end
+    end
   end
 
   def create
@@ -17,8 +29,8 @@ class SessionsController<ApplicationController
         redirect_to "/profile"
       end
     else
-      render "users/login"
-      flash[:error] = "You have entered incorrect login information"
+      flash[:error] = "Please enter valid user information"
+      redirect_to "/login"
     end
   end
 end
