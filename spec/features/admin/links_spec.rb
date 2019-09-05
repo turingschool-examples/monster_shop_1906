@@ -19,7 +19,7 @@ describe "As an Admin User" do
       expect(page).to have_link('Logout')
       expect(page).to have_link('Admin Dashboard')
       expect(page).to have_link('Users')
-      expect(page).to not_have_link("Cart: #{cart.total_items}")
+      expect(page).to_not have_link("Cart: 0")
     end
   end
 end
