@@ -8,20 +8,20 @@ RSpec.describe 'merchant index page', type: :feature do
     end
 
     it 'I can see a list of merchants in the system' do
-      visit '/merchants'
+      visit merchants_path
 
       expect(page).to have_link("Brian's Bike Shop")
       expect(page).to have_link("Meg's Dog Shop")
     end
 
     it 'I can see a link to create a new merchant' do
-      visit '/merchants'
+      visit merchants_path
 
       expect(page).to have_link("New Merchant")
 
       click_on "New Merchant"
 
-      expect(current_path).to eq("/merchants/new")
+      expect(current_path).to eq(new_merchant_path)
     end
   end
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant new page', type: :feature do
   describe 'As a user' do
     it 'I can create a new merchant' do
-      visit '/merchants/new'
+      visit new_merchant_path
 
       name = "Sal's Calz(ones)"
       address = '123 Kindalikeapizza Dr.'
@@ -21,7 +21,7 @@ RSpec.describe 'merchant new page', type: :feature do
 
       new_merchant = Merchant.last
 
-      expect(current_path).to eq('/merchants')
+      expect(current_path).to eq(merchants_path)
       expect(page).to have_content(name)
       expect(new_merchant.name).to eq(name)
       expect(new_merchant.address).to eq(address)
@@ -30,7 +30,7 @@ RSpec.describe 'merchant new page', type: :feature do
       expect(new_merchant.zip).to eq(zip)
     end
     it 'I cant create a merchant if all fields are not filled in' do
-      visit '/merchants/new'
+      visit new_merchant_path
 
       name = "Sal's Calz(ones)"
       address = ''

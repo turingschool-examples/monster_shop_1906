@@ -15,7 +15,7 @@ RSpec.describe 'review edit and update', type: :feature do
 
       reviews = [review_1,review_2,review_3,review_4,review_5]
 
-      visit "/items/#{@chain.id}"
+      visit item_path(@chain)
 
       reviews.each do |review|
         within "#review-#{review.id}" do
@@ -30,13 +30,13 @@ RSpec.describe 'review edit and update', type: :feature do
       content = "It's great!"
       rating = 4
 
-      visit "/items/#{@chain.id}"
+      visit item_path(@chain)
 
       within "#review-#{review_1.id}" do
         click_on "Edit"
       end
 
-      expect(current_path).to eq("/reviews/#{review_1.id}/edit")
+      expect(current_path).to eq(edit_item_review_path(@chain, review_1))
       expect(find_field(:title).value).to eq(review_1.title)
       expect(find_field(:content).value).to eq(review_1.content)
       expect(find_field(:rating).value).to eq(review_1.rating.to_s)
@@ -47,7 +47,7 @@ RSpec.describe 'review edit and update', type: :feature do
 
       click_on "Update Review"
 
-      expect(current_path).to eq("/items/#{@chain.id}")
+      expect(current_path).to eq(item_path(@chain))
       within "#review-#{review_1.id}" do
         expect(page).to have_content(title)
         expect(page).to have_content(content)
@@ -59,7 +59,7 @@ RSpec.describe 'review edit and update', type: :feature do
       review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       title = "Nice Bike Shop!"
 
-      visit "/items/#{@chain.id}"
+      visit item_path(@chain)
 
       within "#review-#{review_1.id}" do
         click_on "Edit"
@@ -69,7 +69,7 @@ RSpec.describe 'review edit and update', type: :feature do
 
       click_on "Update Review"
 
-      expect(current_path).to eq("/items/#{@chain.id}")
+      expect(current_path).to eq(item_path(@chain))
       within "#review-#{review_1.id}" do
         expect(page).to have_content(title)
         expect(page).to_not have_content(review_1.title)

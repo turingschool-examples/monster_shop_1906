@@ -6,7 +6,7 @@ RSpec.describe "As a Visitor" do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 11234)
     end
     it 'I can see prepopulated info on that user in the edit form' do
-      visit "/merchants/#{@bike_shop.id}"
+      visit merchant_path(@bike_shop)
       click_on "Update Merchant"
 
       expect(page).to have_link(@bike_shop.name)
@@ -18,7 +18,7 @@ RSpec.describe "As a Visitor" do
     end
 
     it 'I can edit merchant info by filling in the form and clicking submit' do
-      visit "/merchants/#{@bike_shop.id}"
+      visit merchant_path(@bike_shop)
       click_on "Update Merchant"
 
       fill_in 'Name', with: "Brian's Super Cool Bike Shop"
@@ -29,13 +29,13 @@ RSpec.describe "As a Visitor" do
 
       click_button "Update Merchant"
 
-      expect(current_path).to eq("/merchants/#{@bike_shop.id}")
+      expect(current_path).to eq(merchant_path(@bike_shop))
       expect(page).to have_content("Brian's Super Cool Bike Shop")
       expect(page).to have_content("1234 New Bike Rd.\nDenver, CO 80204")
     end
 
     it 'I see a flash message if i dont fully complete form' do
-      visit "/merchants/#{@bike_shop.id}"
+      visit merchant_path(@bike_shop)
       click_on "Update Merchant"
 
       fill_in 'Name', with: ""

@@ -15,7 +15,7 @@ RSpec.describe 'review edit and update', type: :feature do
 
       reviews = [review_1,review_2,review_3,review_4,review_5]
 
-      visit "/items/#{@chain.id}"
+      visit item_path(@chain)
 
       reviews.each do |review|
         within "#review-#{review.id}" do
@@ -27,13 +27,14 @@ RSpec.describe 'review edit and update', type: :feature do
     it "I can delete a review when I click on delete" do
       review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       review_1_id = review_1.id
-      visit "/items/#{@chain.id}"
+      
+      visit item_path(@chain)
 
       within "#review-#{review_1.id}" do
         click_on "Delete"
       end
 
-      expect(current_path).to eq("/items/#{@chain.id}")
+      expect(current_path).to eq(item_path(@chain))
       expect(page).to_not have_css("#review-#{review_1_id}")
     end
   end
