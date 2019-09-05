@@ -62,4 +62,26 @@ RSpec.describe "User Login" do
     expect(current_path).to eq("/admin")
     expect(page).to have_content("Welcome, #{@admin_user.name}!")
   end
+
+  it "displays a flash message for invalid entries" do
+    visit "/login"
+
+    fill_in :email, with: @admin_user.email
+    fill_in :password, with: "Gibberish"
+
+    click_button "Submit"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Please enter valid user information")
+
+    visit "/login"
+
+    fill_in :email, with: ""
+    fill_in :password, with: @merchant_user.password
+
+    click_button "Submit"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Please enter valid user information")
+  end
 end

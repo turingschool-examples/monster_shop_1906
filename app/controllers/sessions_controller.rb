@@ -6,8 +6,8 @@ class SessionsController<ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    flash[:success] = "Welcome, #{user.name}!"
     if user && user.authenticate(params[:password])
+      flash[:success] = "Welcome, #{user.name}!"
       session[:user_id] = user.id
       if user.admin_user?
         redirect_to "/admin"
@@ -17,8 +17,8 @@ class SessionsController<ApplicationController
         redirect_to "/profile"
       end
     else
-      render "users/login"
-      flash[:error] = "You have entered incorrect login information"
+      flash[:error] = "Please enter valid user information"
+      redirect_to "/login"
     end
   end
 end
