@@ -22,6 +22,7 @@ class UsersController<ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
+
     if @user.save
       redirect_to "/profile"
     else
