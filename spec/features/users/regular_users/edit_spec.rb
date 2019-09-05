@@ -39,13 +39,11 @@ RSpec.describe "User Profile" do
     expect(page).to have_content("chicken@email.com")
   end
 
-  it 'cannot enter invalid or nil information' do
+  it 'cannot user enter nil information' do
 
     within "#user-profile-actions" do
       click_link("Edit Profile")
     end
-
-    expect(current_path).to eq("/profile/edit")
 
     fill_in :name, with: "Adam Smith"
     fill_in :address, with: "1234 Happy St"
@@ -57,5 +55,24 @@ RSpec.describe "User Profile" do
     click_button "Update Profile"
 
     expect(current_path).to eq("/profile/edit")
+    expect(page).to have_content("City can't be blank and Zipcode can't be blank")
+  end
+
+  it 'user cannot enter invalid email' do
+    within "#user-profile-actions" do
+      click_link("Edit Profile")
+    end
+
+    fill_in :name, with: "Adam Smith"
+    fill_in :address, with: "1234 Happy St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zipcode, with: "80205"
+    fill_in :email, with: "waffle"
+
+    click_button "Update Profile"
+
+    expect(current_path).to eq("/profile/edit")
+    expect(page).to have_content("Email is invalid")
   end
 end
