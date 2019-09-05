@@ -5,21 +5,17 @@ class UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
-    if user.save
-      session[:user_id] = user.id
-      flash[:success] = "Welcome, #{user.name}"
-      redirect_to '/profile'
-    end
+    session[:user_id] = user.id
+    flash[:success] = "Welcome, #{user.name}!"
+    redirect_to "/profile"
   end
 
   def show
   end
 
-  def login
-  end
 
 private
-
+  #Need to make sure that user_params doesn't store password
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password)
   end

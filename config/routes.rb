@@ -38,9 +38,11 @@ Rails.application.routes.draw do
 
   get "/register", to: "users#new"
   post "/users", to: "users#create"
-
-  get "/login", to: "users#login"
-  post '/login', to: 'users#login'
-
+  
   get "/profile", to: "users#show"
+
+  #I think login action is like a new action, could also call it new
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+
 end
