@@ -16,8 +16,25 @@ class UsersController<ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = current_user
     render :profile
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.update(user_params)
+
+    if @user.save
+      flash[:sucess] = "Your profile has been updated"
+      redirect_to "/profile"
+    else
+      flash[:error] = @user.errors.full_messages.to_sentence
+      redirect_to "/profile/edit"
+    end
   end
 
   private
