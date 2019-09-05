@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :email,
             uniqueness: true,
             presence: true
-  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   enum role: [:regular_user, :merchant_employee, :merchant_admin, :admin_user]
 end
