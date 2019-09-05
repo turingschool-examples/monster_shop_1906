@@ -40,7 +40,7 @@ RSpec.describe "User Profile" do
     expect(page).to have_content("Your profile has been updated")
   end
 
-  it 'cannot user enter nil information' do
+  it 'user cannot enter nil information' do
 
     within "#user-profile-actions" do
       click_link("Edit Profile")
