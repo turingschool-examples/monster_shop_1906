@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
 
 private
-
+  #Need to make sure that user_params doesn't store password
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password)
   end
