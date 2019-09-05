@@ -20,7 +20,7 @@ RSpec.describe "Registering User" do
     fill_in :zipcode, with: user_zipcode
     fill_in :email, with: user_email
     fill_in :password, with: user_password
-    fill_in :confirm_password, with: user_confirm_password
+    fill_in :password_confirmation, with: user_confirm_password
 
     click_on "Submit"
 
@@ -43,10 +43,35 @@ RSpec.describe "Registering User" do
     expect(page).to have_content("City can't be blank")
     expect(page).to have_content("State can't be blank")
     expect(page).to have_content("Zipcode can't be blank")
-    expect(page).to have_content("Password digest can't be blank")
     expect(page).to have_content("Email can't be blank")
     expect(page).to have_content("Email is invalid")
     expect(page).to have_content("Password can't be blank")
+  end
+
+  it "confirms passwords match" do
+    visit "/register"
+
+    user_name = "Larry Pug"
+    user_address = "123 Sesame St"
+    user_city = "Denver"
+    user_state = "CO"
+    user_zipcode = "80222"
+    user_email = "larrypug@email.com"
+    user_password = "password123"
+    user_confirm_password = "password456"
+
+    fill_in :name, with: user_name
+    fill_in :address, with: user_address
+    fill_in :city, with: user_city
+    fill_in :state, with: user_state
+    fill_in :zipcode, with: user_zipcode
+    fill_in :email, with: user_email
+    fill_in :password, with: user_password
+    fill_in :password_confirmation, with: user_confirm_password
+
+    click_on "Submit"
+
+    expect(page).to have_content("Password confirmation doesn't match")
   end
 
   # it "doesn't allow duplicate email registrations and returns me to the registration page with a filled-out form, without saving my details and I see a flash message saying that email is already in use" do
