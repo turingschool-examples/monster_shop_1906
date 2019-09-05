@@ -17,6 +17,10 @@ class UsersController < ApplicationController
   def show
   end
 
+  def login
+    
+  end
+
   private
 
   def user_params
