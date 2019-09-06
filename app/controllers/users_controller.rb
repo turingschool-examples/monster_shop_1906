@@ -42,8 +42,4 @@ class UsersController< ApplicationController
   def user_params
     params.permit(:name, :address, :city, :state, :zipcode, :email, :password, :password_confirmation)
   end
-
-  def require_user
-    render file: "/public/404" if current_user.nil?
-  end
 end
