@@ -1,4 +1,4 @@
-class Merchant <ApplicationRecord
+class Merchant < ApplicationRecord
   has_many :items
   has_many :item_orders, through: :items
 
@@ -7,7 +7,7 @@ class Merchant <ApplicationRecord
                         :city,
                         :state,
                         :zip
-
+  validates_inclusion_of :enabled?, :in => [true, false]
 
   def no_orders?
     item_orders.empty?
@@ -24,5 +24,4 @@ class Merchant <ApplicationRecord
   def distinct_cities
     item_orders.distinct.joins(:order).pluck(:city)
   end
-
 end
