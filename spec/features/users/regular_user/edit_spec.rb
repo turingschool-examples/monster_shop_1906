@@ -79,6 +79,7 @@ RSpec.describe "User Profile" do
 
   it "user can edit password" do
     expect(page).to have_link("")
+
     within "#user-profile-actions" do
       click_link("Edit Password")
     end
