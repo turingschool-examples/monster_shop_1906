@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :create, :show]
 
   namespace :merchant do
-    get "/", to: "dashboard#index"
+    get "/", to: "dashboard#index", as: :user
   end
 
   namespace :admin do
