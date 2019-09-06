@@ -91,5 +91,15 @@ RSpec.describe "User Profile" do
 
     expect(current_path).to eq("/profile")
     expect(page).to have_content("Your password has been updated")
+
+    click_link "Logout"
+
+    visit '/login'
+
+    fill_in :email, with: "junglegeorge@email.com"
+    fill_in :password, with: "Tree123"
+    click_on "Submit"
+
+    expect(page).to have_content("Please enter valid user information")
   end
 end
