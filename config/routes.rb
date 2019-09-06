@@ -17,10 +17,11 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
-  end
-
+  end 
+  
   namespace :admin do
     get "/", to: "dashboard#index"
+    resources :users, only: [:index, :show]
   end
 
   get "/login", to: "sessions#new"
@@ -28,6 +29,9 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get "/register", to: "users#new"
+
+  get "/profile/edit_password", to: "users#edit_password"
+  patch "/profile/update_password", to: "users#update_password"
 
   get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"

@@ -18,10 +18,11 @@ RSpec.describe "User Profile" do
 
     within "#user-info-#{@regular_user.id}" do
       expect(page).to have_content(@regular_user.name)
+      expect(page).to have_content(@regular_user.address)
       expect(page).to have_content(@regular_user.city)
+      expect(page).to have_content(@regular_user.state)
       expect(page).to have_content(@regular_user.zipcode)
       expect(page).to have_content(@regular_user.email)
-      expect(page).to have_content(@regular_user.name)
     end
 
     within "#user-profile-actions" do

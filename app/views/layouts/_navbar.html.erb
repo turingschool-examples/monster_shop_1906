@@ -11,18 +11,31 @@
       <li class="nav-item">
         <%= link_to "All Items", items_path, class: "nav-link"%>
       </li>
+      <li class="nav-item">
+        <% if current_admin? %>
+          <%= link_to "All Users", admin_users_path, class: "nav-link"%>
+        <% end %>
+      </li>
     </ul>
 
-    <% unless current_user %>
+    <% if current_user %>
+      <%= link_to "Profile", "/profile", method: :get, class: "nav-link nav-item" %>
+      <%= link_to "Logout", "/logout", method: :delete, class: "nav-link nav-item"%>
+    <% else %>
       <%= link_to "Login", "/login", class: "nav-link nav-item"%>
       <%= link_to "Register", "/register", class: "nav-link nav-item" %>
     <% end %>
 
-    <% if current_user %>
-    <%= link_to "Profile", "/profile", method: :get, class: "nav-link nav-item" %>
-      <%= link_to "Logout", "/logout", method: :delete, class: "nav-link nav-item"%>
+    <% if current_merchant_employee? || current_merchant_admin? %>
+      <%= link_to "Merchant Dashboard", "/merchant" %>
     <% end %>
 
-    <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
+    <% if current_admin? %>
+      <%= link_to "Admin Dashboard", admin_path, method: :get, class: "nav-link nav-item" %>
+    <% end %>
+
+    <% unless current_admin? %>
+      <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
+    <% end %>
   </div>
 </nav>

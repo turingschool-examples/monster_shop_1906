@@ -7,7 +7,7 @@ RSpec.describe 'item show page', type: :feature do
 
   end
   it 'shows item info' do
-    visit "items/#{@chain.id}"
+    visit item_path(@chain)
 
     expect(page).to have_link(@chain.merchant.name)
     expect(page).to have_link(@chain.name)
@@ -23,7 +23,7 @@ RSpec.describe 'item show page', type: :feature do
     review_1 = @chain.reviews.create(title: "Great place!", content: "They have cool bike stuff and I'd recommend them to anyone.", rating: 5)
     review_2 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but not a good selection of things", rating: 3)
 
-    visit "items/#{@chain.id}"
+    visit item_path(@chain)
 
     within "#review-#{review_1.id}" do
       expect(page).to have_content(review_1.title)

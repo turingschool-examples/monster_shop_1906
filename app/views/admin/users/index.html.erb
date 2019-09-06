@@ -1,0 +1,10 @@
+<h1>All Users</h1>
+<section class="grid-container">
+  <% @users.each do |user| %>
+    <section class = "grid-item" id= 'user-<%=user.id%>'>
+      <h2> <%=link_to user.name, admin_user_path(user) %> </h2>
+      <p>User Type: <%= user.role %> </p>
+      <p>User Since: <%= user.created_at.strftime("%Y-%m-%d") %> </p>
+    </section>
+  <% end %>
+</section>

@@ -12,7 +12,65 @@ describe User, type: :model do
 
     it {should validate_confirmation_of(:password).on(:create)}
 
+    it {should validate_uniqueness_of(:email).case_insensitive}
     it {should allow_value('user@example.com').for(:email)}
     it {should_not allow_value("foo").for(:email)}
+  end
+
+  describe "roles" do
+    it "can be created as a default user" do
+      regular_user = User.create!(name: "George Jungle",
+                    address: "1 Jungle Way",
+                    city: "Jungleopolis",
+                    state: "FL",
+                    zipcode: "77652",
+                    email: "junglegeorge@email.com",
+                    password: "Tree123")
+
+      expect(regular_user.role).to eq("regular_user")
+      expect(regular_user.regular_user?).to be_truthy
+    end
+
+    it "can be created as a merchant employee" do
+      merchant_employee = User.create!(name: "Dwight Schrute",
+        address: "175 Beet Rd",
+        city: "Scranton",
+        state: "PA",
+        zipcode: "18501",
+        email: "dwightkschrute@email.com",
+        password: "IdentityTheftIsNotAJoke",
+        role: 1)
+
+      expect(merchant_employee.role).to eq("merchant_employee")
+      expect(merchant_employee.merchant_employee?).to be_truthy
+    end
+
+    it "can be created as a merchant admin" do
+      merchant_admin = User.create!(name: "Michael Scott",
+                    address: "1725 Slough Ave",
+                    city: "Scranton",
+                    state: "PA",
+                    zipcode: "18501",
+                    email: "michael.s@email.com",
+                    password: "WorldBestBoss",
+                    role: 2)
+
+      expect(merchant_admin.role).to eq("merchant_admin")
+      expect(merchant_admin.merchant_admin?).to be_truthy
+    end
+
+    it "can be created as a admin user" do
+      admin_user = User.create!(name: "Leslie Knope",
+                    address: "14 Somewhere Ave",
+                    city: "Pawnee",
+                    state: "IN",
+                    zipcode: "18501",
+                    email: "recoffice@email.com",
+                    password: "Waffles",
+                    role: 3)
+
+      expect(admin_user.role).to eq("admin_user")
+      expect(admin_user.admin_user?).to be_truthy
+    end
   end
 end
