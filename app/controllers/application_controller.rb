@@ -17,5 +17,9 @@ class ApplicationController < ActionController::Base
 
   def current_admin?
     current_user && current_user.admin_user?
-  end 
+  end
+
+  def require_user
+    render file: "/public/404" if current_user.nil?
+  end
 end
