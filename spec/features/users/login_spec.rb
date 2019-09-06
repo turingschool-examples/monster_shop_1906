@@ -115,6 +115,7 @@ RSpec.describe "User Login" do
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit admin_path
+      
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
