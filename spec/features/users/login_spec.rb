@@ -8,7 +8,8 @@ RSpec.describe "User Login" do
                   state: "FL",
                   zipcode: "77652",
                   email: "junglegeorge@email.com",
-                  password: "Tree123")
+                  password: "Tree123"
+                  )
     @merchant_user = User.create!(name: "Michael Scott",
                   address: "1725 Slough Ave",
                   city: "Scranton",
@@ -110,9 +111,10 @@ RSpec.describe "User Login" do
       click_button "Submit"
 
       visit '/merchant'
+
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
-      visit admin_path
+      visit '/admin'
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
