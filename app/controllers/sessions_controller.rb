@@ -17,15 +17,14 @@ class SessionsController < ApplicationController
   private
 
   def login_redirection
-    user = User.find_by(email: params[:email])
-    if user.default?
-      redirect_to profile_path
-    elsif user.employee?
-      redirect_to profile_path
-    elsif user.merchant?
-      redirect_to merchant_dashboard_path
-    else user.admin?
+    if current_admin?
       redirect_to admin_dashboard_path
+    elsif current_employee?
+      redirect_to employee_dashboard_path
+    elsif current_merchant?
+      redirect_to merchant_dashboard_path
+    else current_user
+      redirect_to profile_path
     end
   end
 end

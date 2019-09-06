@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
 
-  get "/items", to: "items#index"
-  get "/items/:id", to: "items#show"
+  get "/items", to: "items#index", as: :items
+  get "/items/:id", to: "items#show", as: :item
   get "/items/:id/edit", to: "items#edit"
   patch "/items/:id", to: "items#update"
   get "/merchants/:merchant_id/items", to: "items#index"
@@ -39,6 +39,14 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show', as: :profile
+  get '/profile/edit', to: 'users#edit'
+
+  get '/employee', to: 'employee/dashboard#show', as: :employee_dashboard
+
+  get '/admin', to: 'admin/dashboard#show', as: :admin_dashboard
+
+  get '/merchant', to: 'merchant/dashboard#show', as: :merchant_dashboard
+
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
 end

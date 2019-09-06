@@ -36,7 +36,7 @@ RSpec.describe 'As a visitor I see a link to register on the nav bar' do
 
     user = User.last
 
-    expect(current_path).to eq(profile_path(user))
+    expect(current_path).to eq(profile_path)
     expect(page).to have_content('You are now a registered user and have been logged in.')
   end
 end

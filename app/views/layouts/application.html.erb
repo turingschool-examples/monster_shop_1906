@@ -18,16 +18,16 @@
       <%= link_to 'Login', '/login' unless current_user %>
       <% if current_user %>
         <%= link_to 'Logout'%>
-        <%= link_to 'Profile' %>
+        <%= link_to 'Profile', profile_path %>
         <p>Logged in as <%= current_user.name %></p>
         <% if current_employee? %>
         <br>
           <%= link_to 'Dashboard' %>
         <% elsif current_merchant? %>
         <br>
-          <%= link_to 'Dashboard' %>
+          <%= link_to 'Dashboard', merchant_dashboard_path %>
         <% elsif current_admin? %>
-          <%= link_to 'Dashboard' %>
+          <%= link_to 'Dashboard', admin_dashboard_path %>
           <%= link_to 'Users'%>
         <% end %>
       <% end %>
