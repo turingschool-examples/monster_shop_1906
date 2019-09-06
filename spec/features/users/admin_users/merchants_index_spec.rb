@@ -31,7 +31,6 @@ RSpec.describe "Admin_user Merchant Index Page " do
 
   it "has a button that disables/enables merchants" do
     visit merchants_path
-
     within "#merchant-#{@merchant_1.id}" do
       expect(page).to have_content("Current status: enabled")
       click_button("Disable")
