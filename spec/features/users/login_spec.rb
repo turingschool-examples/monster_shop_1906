@@ -9,6 +9,14 @@ RSpec.describe "User Login" do
                   zipcode: "77652",
                   email: "junglegeorge@email.com",
                   password: "Tree123")
+    @merchant_employee = User.create!(name: "Dwight Schrute",
+                  address: "175 Beet Rd",
+                  city: "Scranton",
+                  state: "PA",
+                  zipcode: "18501",
+                  email: "dwightkschrute@email.com",
+                  password: "IdentityTheftIsNotAJoke",
+                  role: 1)
     @merchant_user = User.create!(name: "Michael Scott",
                   address: "1725 Slough Ave",
                   city: "Scranton",
@@ -41,6 +49,23 @@ RSpec.describe "User Login" do
     visit "/login"
 
     expect(current_path).to eq("/profile")
+    expect(page).to have_content("You are already logged in")
+  end
+
+  it "can log in a merchant employee" do
+    visit "/login"
+
+    fill_in :email, with: @merchant_employee.email
+    fill_in :password, with: @merchant_employee.password
+
+    click_button "Submit"
+
+    expect(current_path).to eq("/merchant")
+    expect(page).to have_content("Logged in as #{@merchant_employee.name}")
+
+    visit "/login"
+
+    expect(current_path).to eq("/merchant")
     expect(page).to have_content("You are already logged in")
   end
 
@@ -98,22 +123,5 @@ RSpec.describe "User Login" do
 
     expect(current_path).to eq("/login")
     expect(page).to have_content("Please enter valid user information")
-  end
-
-  describe "When a regular user tries to access merchant or admin path" do
-    it "should respond with 404 page" do
-      visit "/login"
-
-      fill_in :email, with: @regular_user.email
-      fill_in :password, with: @regular_user.password
-
-      click_button "Submit"
-
-      visit '/merchant'
-      expect(page).to have_content("The page you were looking for doesn't exist.")
-
-      visit admin_path
-      expect(page).to have_content("The page you were looking for doesn't exist.")
-    end
   end
 end
