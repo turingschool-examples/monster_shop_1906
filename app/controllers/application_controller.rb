@@ -1,11 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :cart
-  helper_method :current_user
-  helper_method :current_merchant_employee?
-  helper_method :current_merchant_admin?
-  helper_method :current_admin?
+  helper_method :cart, :current_user, :current_merchant_employee?, :current_merchant_admin?, :current_admin?
 
   def cart
     @cart ||= Cart.new(session[:cart] ||= Hash.new(0))
