@@ -36,4 +36,12 @@ class Merchant < ApplicationRecord
     end
     pend_ord.uniq!
   end
+
+  def activate_items
+    items.each { |item| item.update(active?: true) }
+  end
+
+  def deactivate_items
+    items.each { |item| item.update(active?: false) }
+  end
 end
