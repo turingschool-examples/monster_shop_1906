@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root to: "welcome#index"
 
-
   resources :merchants do
     resources :items, only: [:index, :new, :create]
   end
@@ -23,7 +22,6 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
 
   resources :orders, only: [:new, :create, :show]
-
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
