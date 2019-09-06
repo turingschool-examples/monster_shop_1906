@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def current_admin?
     current_user && current_user.admin_user?
   end
+
+  def visitor_with_items?
+    current_user.nil? && cart.contents.present?
+  end
 end
