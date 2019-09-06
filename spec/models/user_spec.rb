@@ -32,7 +32,7 @@ describe User, type: :model do
     end
 
     it "can be created as a merchant user" do
-      merchant_user = User.create!(name: "Michael Scott",
+      merchant_admin = User.create!(name: "Michael Scott",
                     address: "1725 Slough Ave",
                     city: "Scranton",
                     state: "PA",
@@ -41,7 +41,7 @@ describe User, type: :model do
                     password: "WorldBestBoss",
                     role: 1)
 
-      expect(merchant_user.role).to eq("merchant_user")
+      expect(merchant_admin.role).to eq("merchant_admin")
       expect(merchant_user.merchant_user?).to be_truthy
     end
 
