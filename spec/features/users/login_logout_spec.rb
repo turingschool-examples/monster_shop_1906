@@ -27,6 +27,7 @@ RSpec.describe 'Login/Logout Functionality' do
 
       expect(current_path).to eq('/')
       expect(page).to have_link('Profile')
+      expect(page).to have_link('Logout')
       expect(page).to have_content("Logged in as #{@scott.name}")
     end
 
@@ -54,7 +55,7 @@ RSpec.describe 'Login/Logout Functionality' do
 
     it 'valid employee login redirects to admin dashboard' do
       visit login_path
-      
+
       fill_in :email, with: 'kateaswesome@gmail.com'
       fill_in :password, with: 'ours'
 
