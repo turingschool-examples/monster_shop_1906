@@ -12,10 +12,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_merchant_admin?
+
     current_user && current_user.merchant_admin?
   end
 
   def current_admin?
+    binding.pry
     current_user && current_user.admin_user?
-  end 
+  end
+
+  def current_user?
+    current_user
+  end
 end
