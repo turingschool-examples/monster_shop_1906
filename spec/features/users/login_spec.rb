@@ -128,6 +128,7 @@ RSpec.describe "User Login" do
 
       visit cart_path
 
+      
       expect(page).to have_content("Please register or login to continue your checkout process")
       expect(page).to have_link("Register")
       expect(page).to have_link("Login")
