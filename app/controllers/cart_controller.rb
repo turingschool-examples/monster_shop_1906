@@ -1,4 +1,5 @@
 class CartController < ApplicationController
+
   before_action :check_for_admin_user
 
   def check_for_admin_user
@@ -8,11 +9,15 @@ class CartController < ApplicationController
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
+
     flash[:success] = "#{item.name} was successfully added to your cart"
     redirect_to items_path
   end
 
   def show
+    if visitor_with_items?
+      flash.now[:error] = "Please #{view_context.link_to 'register', register_path} or #{view_context.link_to 'login', login_path} to continue your checkout process.".html_safe
+    end
     @items = cart.items
   end
 

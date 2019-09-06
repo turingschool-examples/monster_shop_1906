@@ -19,6 +19,16 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can see a cart indicator on all pages and click link" do
+      regular_user = User.create!(name: "George Jungle",
+                    address: "1 Jungle Way",
+                    city: "Jungleopolis",
+                    state: "FL",
+                    zipcode: "77652",
+                    email: "junglegeorge@email.com",
+                    password: "Tree123")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(regular_user)
+
       visit merchants_path
 
       within 'nav' do

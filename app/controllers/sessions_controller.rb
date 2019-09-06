@@ -11,7 +11,7 @@ class SessionsController<ApplicationController
       elsif user.merchant_admin? || user.merchant_employee?
         redirect_to "/merchant"
       else
-        redirect_to "/profile"
+        redirect_to profile_path
       end
     end
   end
