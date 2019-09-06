@@ -126,15 +126,16 @@ RSpec.describe "User Login" do
       cart = Cart.new({chain.id.to_s => 2})
       allow_any_instance_of(ApplicationController).to receive(:cart).and_return(cart)
 
-      visit cart_path
+      visit "/cart"
 
       expect(page).to have_content("Please register or login to continue your checkout process")
       expect(page).to have_link("Register")
       expect(page).to have_link("Login")
+      expect(page).to_not have_button("Checkout")
     end
 
     it 'visit is not prompted to sign in on cart page if they have no items' do
-      visit cart_path
+      visit "/cart"
 
       expect(page).to have_content("Cart is currently empty")
     end
