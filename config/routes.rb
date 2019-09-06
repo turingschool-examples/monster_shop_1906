@@ -44,4 +44,9 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'admin/dashboard#show', as: :admin_dashboard
 
   get '/dashboard', to: 'merchant/dashboard#show', as: :merchant_dashboard
+
+  get '/profile', to: 'users#show', as: :profile #profile_path
+
+  get '/profile/edit', to: 'users#edit'
+
 end
