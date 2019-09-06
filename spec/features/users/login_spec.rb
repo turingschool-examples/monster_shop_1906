@@ -103,6 +103,7 @@ RSpec.describe "User Login" do
 
   describe "When a regular user tries to access merchant or admin path" do
     it "should respond with 404 page" do
+
       visit "/login"
 
       fill_in :email, with: @regular_user.email
