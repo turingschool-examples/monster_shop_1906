@@ -11,17 +11,17 @@ Rails.application.routes.draw do
     resources :reviews, except: [:show, :index]
   end
 
-  resources :users, only: [:create]
-
-  resources :orders, only: [:new, :create, :show]
+  namespace :admin do
+    get "/", to: "dashboard#index"
+  end
 
   namespace :merchant do
     get "/", to: "dashboard#index"
   end
 
-  namespace :admin do
-    get "/", to: "dashboard#index"
-  end
+  resources :users, only: [:create]
+
+  resources :orders, only: [:new, :create, :show]
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

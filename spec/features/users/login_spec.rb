@@ -127,6 +127,7 @@ RSpec.describe "User Login" do
 
   describe "When a regular user tries to access merchant or admin path" do
     it "should respond with 404 page" do
+
       visit "/login"
 
       fill_in :email, with: @regular_user.email
@@ -135,9 +136,11 @@ RSpec.describe "User Login" do
       click_button "Submit"
 
       visit '/merchant'
+
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit admin_path
+      
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
