@@ -1,14 +1,3 @@
-#
-# As a visitor
-# I see a navigation bar
-# This navigation bar includes links for the following:
-# - a link to return to the welcome / home page of the application ("/") OK
-# - a link to browse all items for sale (items_path) OK
-# - a link to see all merchants ("/merchants") OK
-# - a link to my shopping cart ("/cart") OK
-# - a link to log in ("/login") OK
-# - a link to the user registration page ("/register") Ok
-
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
@@ -114,15 +103,18 @@ RSpec.describe 'Site Navigation' do
   end
 
   describe "As a Merchant Employee/Admin" do
+    before :each do
+      @merchant_user = User.create!(name: "Michael Scott",
+        address: "1725 Slough Ave",
+        city: "Scranton",
+        state: "PA",
+        zipcode: "18501",
+        email: "michael.s@email.com",
+        password: "WorldBestBoss",
+        role: 2)
+    end
+
     it "I see profile, logout, and merchant dashboard links on navigation bar" do
-      merchant_user = User.create!(name: "Michael Scott",
-                    address: "1725 Slough Ave",
-                    city: "Scranton",
-                    state: "PA",
-                    zipcode: "18501",
-                    email: "michael.s@email.com",
-                    password: "WorldBestBoss",
-                    role: 2)
 
       visit '/login'
 
@@ -130,8 +122,8 @@ RSpec.describe 'Site Navigation' do
         click_link('Login')
       end
 
-      fill_in :email, with: merchant_user.email
-      fill_in :password, with: merchant_user.password
+      fill_in :email, with: @merchant_user.email
+      fill_in :password, with: @merchant_user.password
 
       click_button "Submit"
 
@@ -148,7 +140,13 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/merchant')
-      expect(page).to have_content("Logged in as #{merchant_user.name}")
+      expect(page).to have_content("Logged in as #{@merchant_user.name}")
+    end
+
+    it "I get a 404 error when I try to access /admin paths" do
+      visit admin_path
+
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
   end
 end
