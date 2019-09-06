@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  
+
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
@@ -8,7 +8,12 @@ class CartController < ApplicationController
   end
 
   def show
-    @items = cart.items
+    if current_user.nil?
+      flash[:error] = "Please login or register to continue checkout."
+      redirect_to "/signin"
+    else
+      @items = cart.items
+    end
   end
 
   def empty
