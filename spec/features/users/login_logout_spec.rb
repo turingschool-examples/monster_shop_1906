@@ -1,11 +1,3 @@
-# As a visitor
-# When I visit the login path
-# I see a field to enter my email address and password
-# When I submit valid information
-# If I am a regular user, I am redirected to my profile page
-# If I am a merchant user, I am redirected to my merchant dashboard page
-# If I am an admin user, I am redirected to my admin dashboard page
-# And I see a flash message that I am logged in
 require 'rails_helper'
 
 RSpec.describe 'Login/Logout Functionality' do
@@ -25,10 +17,11 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
-      expect(current_path).to eq('/')
-      expect(page).to have_link('Profile')
-      expect(page).to have_link('Logout')
-      expect(page).to have_content("Logged in as #{@scott.name}")
+
+      expect(page).to_not have_content("This is a employee user profile page")
+      expect(page).to_not have_content("This is a merchant user profile page")
+      expect(page).to_not have_content("This is a admin user profile page")
+      expect(page).to have_content("This is a regular user profile page")
     end
 
     it 'valid employee login redirects to employee dashboard' do
@@ -39,7 +32,10 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
-      expect(page).to have_link('Merchant Dashboard')
+      expect(page).to have_content("This is a employee user profile page")
+      expect(page).to_not have_content("This is a merchant user profile page")
+      expect(page).to_not have_content("This is a admin user profile page")
+      expect(page).to_not have_content("This is a regular user profile page")
     end
 
     it 'valid merchant login redirects to merchant dashboard' do
@@ -50,7 +46,11 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
-      expect(page).to have_link('Merchant Dashboard')
+
+      expect(page).to_not have_content("This is a employee user profile page")
+      expect(page).to have_content("This is a merchant user profile page")
+      expect(page).to_not have_content("This is a admin user profile page")
+      expect(page).to_not have_content("This is a regular user profile page")
     end
 
     it 'valid employee login redirects to admin dashboard' do
@@ -61,8 +61,10 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
-      expect(page).to have_link('Admin Dashboard')
-      expect(page).to have_link('Users')
+      expect(page).to_not have_content("This is a employee user profile page")
+      expect(page).to_not have_content("This is a merchant user profile page")
+      expect(page).to have_content("This is a admin user profile page")
+      expect(page).to_not have_content("This is a regular user profile page")
     end
   end
 end
