@@ -10,7 +10,7 @@ class CartController < ApplicationController
   def show
     if current_user.nil? && cart.contents.present?
       flash[:error] = "Please register or login to continue your checkout process."
-      redirect_to "/signin"
+      redirect_to signin_path
     else
       @items = cart.items
     end
