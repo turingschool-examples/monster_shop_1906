@@ -27,13 +27,27 @@ class UsersController<ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
-
     if @user.save
       flash[:success] = "Your profile has been updated"
       redirect_to "/profile"
     else
       flash[:error] = @user.errors.full_messages.to_sentence
       redirect_to "/profile/edit"
+    end
+  end
+
+  def edit_password
+  end
+
+  def update_password
+    @user = current_user
+    @user.update(user_params)
+    if @user.save
+      flash[:success] = "Your password has been updated"
+      redirect_to "/profile"
+    else
+      flash[:error] = @user.errors.full_messages.to_sentence
+      redirect_to "/profile/edit_password"
     end
   end
 
