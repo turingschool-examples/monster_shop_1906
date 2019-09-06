@@ -1,11 +1,5 @@
 require 'rails_helper'
 
-# As a Visitor
-# When I try to access any path that begins with the following, then I see a 404 error:
-# - '/merchant'
-# - '/admin'
-# - '/profile'
-
 RSpec.describe "Visitor Restrictions" do
   it 'visitor cannot visit merchant dashboard' do
     visit "/merchant"
