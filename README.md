@@ -336,7 +336,7 @@ The item image is a link to that item's show page
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 18, Items Index Page Statistics
 
