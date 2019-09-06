@@ -38,15 +38,10 @@ Rails.application.routes.draw do
 
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
-
   get '/profile', to: 'users#show', as: :profile
+  get '/profile/edit', to: 'users#edit'
 
   get '/dashboard', to: 'admin/dashboard#show', as: :admin_dashboard
 
   get '/dashboard', to: 'merchant/dashboard#show', as: :merchant_dashboard
-
-  get '/profile', to: 'users#show', as: :profile #profile_path
-
-  get '/profile/edit', to: 'users#edit'
-
 end
