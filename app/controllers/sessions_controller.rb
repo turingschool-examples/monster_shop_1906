@@ -7,11 +7,11 @@ class SessionsController<ApplicationController
       user = current_user
       flash[:notice] = "You are already logged in"
       if user.admin_user?
-        redirect_to "/admin"
+        redirect_to admin_path
       elsif user.merchant_admin?
-        redirect_to "/merchant"
+        redirect_to merchant_user_path
       else
-        redirect_to "/profile"
+        redirect_to profile_path
       end
     end
   end
