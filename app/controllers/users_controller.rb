@@ -1,4 +1,5 @@
-class UsersController< BaseController
+class UsersController< ApplicationController
+  before_action :require_user, except: [:new, :create]
 
   def new
   end
@@ -40,5 +41,9 @@ class UsersController< BaseController
   private
   def user_params
     params.permit(:name, :address, :city, :state, :zipcode, :email, :password, :password_confirmation)
+  end
+
+  def require_user
+    render file: "/public/404" if current_user.nil?
   end
 end
