@@ -19,5 +19,8 @@ RSpec.describe "Regular Users" do
 
     visit admin_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_users_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
   end
 end
