@@ -89,7 +89,6 @@ RSpec.describe 'Site Navigation' do
 
       expect(current_path).to eq('/profile')
 
-
       within 'nav' do
         expect(page).to have_link("Logout")
         expect(page).to have_link("Profile")
@@ -102,27 +101,16 @@ RSpec.describe 'Site Navigation' do
     end
   end
 
-  describe "As a Merchant Employee/Admin" do
-    before :each do
-      @merchant_user = User.create!(name: "Michael Scott",
-        address: "1725 Slough Ave",
-        city: "Scranton",
-        state: "PA",
-        zipcode: "18501",
-        email: "michael.s@email.com",
-        password: "WorldBestBoss",
-        role: 2)
-      @merchant_employee = User.create!(name: "Dwight Schrute",
-        address: "175 Beet Rd",
-        city: "Scranton",
-        state: "PA",
-        zipcode: "18501",
-        email: "dwightkschrute@email.com",
-        password: "IdentityTheftIsNotAJoke",
-        role: 1)
-    end
-
-    it "I see profile, logout, and merchant dashboard links on navigation bar" do
+  describe "As an Admin User" do
+    it "I see appropriate links in the nav bar" do
+      admin_user = User.create!(name: "Leslie Knope",
+                    address: "14 Somewhere Ave",
+                    city: "Pawnee",
+                    state: "IN",
+                    zipcode: "18501",
+                    email: "recoffice@email.com",
+                    password: "Waffles",
+                    role: 3)
 
       visit '/login'
 
@@ -130,59 +118,102 @@ RSpec.describe 'Site Navigation' do
         click_link('Login')
       end
 
-      fill_in :email, with: @merchant_user.email
-      fill_in :password, with: @merchant_user.password
+      fill_in :email, with: admin_user.email
+      fill_in :password, with: admin_user.password
 
       click_button "Submit"
 
-      expect(current_path).to eq('/merchant')
-
+      visit items_path
 
       within 'nav' do
         expect(page).to have_link("Logout")
         expect(page).to have_link("Profile")
-        expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_link("All Users")
+        expect(page).to have_link("Admin Dashboard")
+
 
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
+        expect(page).to_not have_link("Cart: 0")
       end
-
-      expect(current_path).to eq('/merchant')
-      expect(page).to have_content("Logged in as #{@merchant_user.name}")
-
-      click_link "Logout"
-
-      visit '/login'
-
-      within 'nav' do
-        click_link('Login')
-      end
-
-      fill_in :email, with: @merchant_employee.email
-      fill_in :password, with: @merchant_employee.password
-
-      click_button "Submit"
-
-      expect(current_path).to eq('/merchant')
-
-
-      within 'nav' do
-        expect(page).to have_link("Logout")
-        expect(page).to have_link("Profile")
-        expect(page).to have_link("Merchant Dashboard")
-
-        expect(page).to_not have_link("Login")
-        expect(page).to_not have_link("Register")
-      end
-
-      expect(current_path).to eq('/merchant')
-      expect(page).to have_content("Logged in as #{@merchant_employee.name}")
-    end
-
-    it "I get a 404 error when I try to access /admin paths" do
-      visit admin_path
-
-      expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
   end
+
+  describe "As a Merchant Employee/Admin" do
+      before :each do
+        @merchant_user = User.create!(name: "Michael Scott",
+          address: "1725 Slough Ave",
+          city: "Scranton",
+          state: "PA",
+          zipcode: "18501",
+          email: "michael.s@email.com",
+          password: "WorldBestBoss",
+          role: 2)
+        @merchant_employee = User.create!(name: "Dwight Schrute",
+          address: "175 Beet Rd",
+          city: "Scranton",
+          state: "PA",
+          zipcode: "18501",
+          email: "dwightkschrute@email.com",
+          password: "IdentityTheftIsNotAJoke",
+          role: 1)
+      end
+
+      it "I see profile, logout, and merchant dashboard links on navigation bar" do
+        visit '/login'
+
+        within 'nav' do
+          click_link('Login')
+        end
+
+        fill_in :email, with: @merchant_user.email
+        fill_in :password, with: @merchant_user.password
+
+        click_button "Submit"
+
+        expect(current_path).to eq('/merchant')
+
+        within 'nav' do
+          expect(page).to have_link("Logout")
+          expect(page).to have_link("Profile")
+          expect(page).to have_link("Merchant Dashboard")
+          expect(page).to_not have_link("Login")
+          expect(page).to_not have_link("Register")
+        end
+
+        expect(current_path).to eq('/merchant')
+        expect(page).to have_content("Logged in as #{@merchant_user.name}")
+
+        click_link "Logout"
+
+        visit '/login'
+
+        within 'nav' do
+          click_link('Login')
+        end
+
+        fill_in :email, with: @merchant_employee.email
+        fill_in :password, with: @merchant_employee.password
+
+        click_button "Submit"
+
+        expect(current_path).to eq('/merchant')
+
+        within 'nav' do
+          expect(page).to have_link("Logout")
+          expect(page).to have_link("Profile")
+          expect(page).to have_link("Merchant Dashboard")
+          expect(page).to_not have_link("Login")
+          expect(page).to_not have_link("Register")
+        end
+
+        expect(current_path).to eq('/merchant')
+        expect(page).to have_content("Logged in as #{@merchant_employee.name}")
+      end
+
+      it "I get a 404 error when I try to access /admin paths" do
+        visit admin_path
+        expect(page).to have_content("The page you were looking for doesn't exist (404)")
+      end
+    end
 end
