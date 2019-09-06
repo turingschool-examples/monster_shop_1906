@@ -31,6 +31,7 @@ RSpec.describe 'Login/Logout Functionality' do
     end
 
     it 'valid employee login redirects to employee dashboard' do
+      visit login_path
 
       fill_in :email, with: 'billobill@gmail.com'
       fill_in :password, with: 'yours'
@@ -41,6 +42,7 @@ RSpec.describe 'Login/Logout Functionality' do
     end
 
     it 'valid merchant login redirects to merchant dashboard' do
+      visit login_path
 
       fill_in :email, with: 'StarPerfect@gmail.com'
       fill_in :password, with: 'Hello123'
@@ -51,7 +53,8 @@ RSpec.describe 'Login/Logout Functionality' do
     end
 
     it 'valid employee login redirects to admin dashboard' do
-
+      visit login_path
+      
       fill_in :email, with: 'kateaswesome@gmail.com'
       fill_in :password, with: 'ours'
 
