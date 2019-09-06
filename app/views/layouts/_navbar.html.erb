@@ -13,19 +13,17 @@
       </li>
     </ul>
 
-    <% unless current_user %>
+    <% if current_user %>
+      <%= link_to "Profile", "/profile", method: :get, class: "nav-link nav-item" %>
+      <%= link_to "Logout", "/logout", method: :delete, class: "nav-link nav-item"%>
+    <% else %>
       <%= link_to "Login", "/login", class: "nav-link nav-item"%>
       <%= link_to "Register", "/register", class: "nav-link nav-item" %>
     <% end %>
 
-    <% if current_user %>
-    <%= link_to "Profile", "/profile", method: :get, class: "nav-link nav-item" %>
-      <%= link_to "Logout", "/logout", method: :delete, class: "nav-link nav-item"%>
-      <% if current_merchant_employee? || current_merchant_admin? %>
-        <%= link_to "Merchant Dashboard", "/merchant" %>
-      <% end %>
+    <% if current_merchant_employee? || current_merchant_admin? %>
+      <%= link_to "Merchant Dashboard", "/merchant" %>
     <% end %>
-
 
     <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
   </div>
