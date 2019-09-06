@@ -3,5 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-  end 
+    user = User.find_by(email: params[:email])
+    session[:user_id] = user.id
+    flash[:success] = "Welcome, #{user.name}!"
+    redirect_to '/'
+  end
 end
