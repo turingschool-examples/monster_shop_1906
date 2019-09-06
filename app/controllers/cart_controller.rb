@@ -3,17 +3,16 @@ class CartController < ApplicationController
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
+
     flash[:success] = "#{item.name} was successfully added to your cart"
     redirect_to items_path
   end
 
   def show
     if visitor_with_items?
-      flash[:error] = "Please register or login to continue your checkout process."
-      redirect_to signin_path
-    else
-      @items = cart.items
+      flash[:error] = "Please #{view_context.link_to 'register', register_path} or #{view_context.link_to 'login', login_path} to continue your checkout process.".html_safe
     end
+    @items = cart.items
   end
 
   def empty
