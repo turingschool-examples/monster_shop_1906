@@ -14,12 +14,8 @@ class SessionsController < ApplicationController
     end
   end
 
-
-
-
-
-
   private
+
   def login_redirection
     user = User.find_by(email: params[:email])
     if user.default?
