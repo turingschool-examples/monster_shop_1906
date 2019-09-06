@@ -1,14 +1,3 @@
-#
-# As a visitor
-# I see a navigation bar
-# This navigation bar includes links for the following:
-# - a link to return to the welcome / home page of the application ("/") OK
-# - a link to browse all items for sale (items_path) OK
-# - a link to see all merchants ("/merchants") OK
-# - a link to my shopping cart ("/cart") OK
-# - a link to log in ("/login") OK
-# - a link to the user registration page ("/register") Ok
-
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
@@ -100,7 +89,6 @@ RSpec.describe 'Site Navigation' do
 
       expect(current_path).to eq('/profile')
 
-
       within 'nav' do
         expect(page).to have_link("Logout")
         expect(page).to have_link("Profile")
@@ -110,6 +98,44 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(page).to have_content("Logged in as #{regular_user.name}")
+    end
+  end
+
+  describe "As an Admin User" do
+    it "I see appropriate links in the nav bar" do
+      admin_user = User.create!(name: "Leslie Knope",
+                    address: "14 Somewhere Ave",
+                    city: "Pawnee",
+                    state: "IN",
+                    zipcode: "18501",
+                    email: "recoffice@email.com",
+                    password: "Waffles",
+                    role: 3)
+
+      visit '/login'
+
+      within 'nav' do
+        click_link('Login')
+      end
+
+      fill_in :email, with: admin_user.email
+      fill_in :password, with: admin_user.password
+
+      click_button "Submit"
+
+      visit items_path
+
+      within 'nav' do
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Profile")
+        expect(page).to have_link("All Users")
+        expect(page).to have_link("Admin Dashboard")
+
+
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+        expect(page).to_not have_link("Cart: 0")
+      end
     end
   end
 end
