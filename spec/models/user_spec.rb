@@ -28,10 +28,24 @@ describe User, type: :model do
                     password: "Tree123")
 
       expect(regular_user.role).to eq("regular_user")
-      expect(regular_user.default?).to be_truthy
+      expect(regular_user.regular_user?).to be_truthy
     end
 
-    it "can be created as a merchant user" do
+    it "can be created as a merchant employee" do
+      merchant_employee = User.create!(name: "Dwight Schrute",
+        address: "175 Beet Rd",
+        city: "Scranton",
+        state: "PA",
+        zipcode: "18501",
+        email: "dwightkschrute@email.com",
+        password: "IdentityTheftIsNotAJoke",
+        role: 1)
+
+      expect(merchant_employee.role).to eq("merchant_employee")
+      expect(merchant_employee.merchant_employee?).to be_truthy
+    end
+
+    it "can be created as a merchant admin" do
       merchant_admin = User.create!(name: "Michael Scott",
                     address: "1725 Slough Ave",
                     city: "Scranton",
@@ -39,10 +53,10 @@ describe User, type: :model do
                     zipcode: "18501",
                     email: "michael.s@email.com",
                     password: "WorldBestBoss",
-                    role: 1)
+                    role: 2)
 
       expect(merchant_admin.role).to eq("merchant_admin")
-      expect(merchant_user.merchant_user?).to be_truthy
+      expect(merchant_admin.merchant_admin?).to be_truthy
     end
 
     it "can be created as a admin user" do
