@@ -118,7 +118,7 @@ RSpec.describe "User Login" do
   end
 
   describe "Visitor has items in cart and views cart show page" do
-    it 'vistor prompted to either register or login to continue checkout process' do
+    it 'vistor prompted to either register or login to continue checkout process if cart has items' do
 
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       chain = bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
@@ -128,10 +128,15 @@ RSpec.describe "User Login" do
 
       visit cart_path
 
-      
       expect(page).to have_content("Please register or login to continue your checkout process")
       expect(page).to have_link("Register")
       expect(page).to have_link("Login")
+    end
+
+    it 'visit is not prompted to sign in on cart page if they have no items' do
+      visit cart_path
+
+      expect(page).to have_content("Cart is currently empty")
     end
   end
 end
