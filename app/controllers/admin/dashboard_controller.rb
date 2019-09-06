@@ -1,7 +1,7 @@
-class DashboardController < ApplicationController
+class Admin::DashboardController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+
   end
 
 end

@@ -41,7 +41,12 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show', as: :profile
   get '/profile/edit', to: 'users#edit'
 
-  get '/dashboard', to: 'admin/dashboard#show', as: :admin_dashboard
+  get '/employee', to: 'employee/dashboard#show', as: :employee_dashboard
 
-  get '/dashboard', to: 'merchant/dashboard#show', as: :merchant_dashboard
+  get '/admin', to: 'admin/dashboard#show', as: :admin_dashboard
+
+  get '/merchant', to: 'merchant/dashboard#show', as: :merchant_dashboard
+
+  get '/login', to: 'sessions#new', as: :login
+  post '/login', to: 'sessions#create'
 end
