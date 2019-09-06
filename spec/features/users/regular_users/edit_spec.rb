@@ -76,4 +76,20 @@ RSpec.describe "User Profile" do
     expect(current_path).to eq("/profile/edit")
     expect(page).to have_content("Email is invalid")
   end
+
+  it "user can edit password" do
+    expect(page).to have_link("")
+    within "#user-profile-actions" do
+      click_link("Edit Password")
+    end
+
+    expect(current_path).to eq("/profile/edit_password")
+
+    fill_in :password, with: "apple123"
+    fill_in :password_confirmation, with: "apple123"
+    click_on "Update"
+
+    expect(current_path).to eq("/profile")
+    expect(page).to have_content("Your password has been updated")
+  end
 end
