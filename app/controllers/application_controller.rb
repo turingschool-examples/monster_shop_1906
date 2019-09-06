@@ -11,17 +11,15 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def current_merchant_admin?
+  # def current_user?
+  #   current_user.present?
+  # end
 
+  def current_merchant_admin?
     current_user && current_user.merchant_admin?
   end
 
   def current_admin?
-    binding.pry
     current_user && current_user.admin_user?
-  end
-
-  def current_user?
-    current_user
   end
 end
