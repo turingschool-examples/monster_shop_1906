@@ -8,7 +8,7 @@ class SessionsController<ApplicationController
       flash[:notice] = "You are already logged in"
       if user.admin_user?
         redirect_to "/admin"
-      elsif user.merchant_admin?
+      elsif user.merchant_admin? || user.merchant_employee?
         redirect_to "/merchant"
       else
         redirect_to "/profile"
@@ -23,7 +23,7 @@ class SessionsController<ApplicationController
       session[:user_id] = user.id
       if user.admin_user?
         redirect_to "/admin"
-      elsif user.merchant_admin?
+      elsif user.merchant_admin? || user.merchant_employee?
         redirect_to "/merchant"
       else
         redirect_to "/profile"
