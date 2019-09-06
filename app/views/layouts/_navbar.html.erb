@@ -21,6 +21,10 @@
       <%= link_to "Register", "/register", class: "nav-link nav-item" %>
     <% end %>
 
+    <% if current_merchant_employee? || current_merchant_admin? %>
+      <%= link_to "Merchant Dashboard", "/merchant" %>
+    <% end %>
+
     <%= link_to "Cart: #{cart.total_items}", "/cart", class: "nav-link nav-item" %>
   </div>
 </nav>
