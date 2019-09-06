@@ -12,6 +12,7 @@ describe User, type: :model do
 
     it {should validate_confirmation_of(:password).on(:create)}
 
+    it {should validate_uniqueness_of(:email).case_insensitive}
     it {should allow_value('user@example.com').for(:email)}
     it {should_not allow_value("foo").for(:email)}
   end
