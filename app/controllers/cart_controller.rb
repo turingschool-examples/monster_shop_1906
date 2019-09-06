@@ -10,7 +10,7 @@ class CartController < ApplicationController
 
   def show
     if visitor_with_items?
-      flash[:error] = "Please #{view_context.link_to 'register', register_path} or #{view_context.link_to 'login', login_path} to continue your checkout process.".html_safe
+      flash.now[:error] = "Please #{view_context.link_to 'register', register_path} or #{view_context.link_to 'login', login_path} to continue your checkout process.".html_safe
     end
     @items = cart.items
   end
