@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "User Login" do
   before :each do
+    @bike_shop = Merchant.create!(name: "Brian's Bike Shop",
+                address: '123 Bike Rd.',
+                city: 'Richmond',
+                state: 'VA',
+                zip: 23137)
     @regular_user = User.create!(name: "George Jungle",
                   address: "1 Jungle Way",
                   city: "Jungleopolis",
@@ -9,7 +14,7 @@ RSpec.describe "User Login" do
                   zipcode: "77652",
                   email: "junglegeorge@email.com",
                   password: "Tree123")
-    @merchant_employee = User.create!(name: "Dwight Schrute",
+    @merchant_employee = @bike_shop.users.create!(name: "Dwight Schrute",
                   address: "175 Beet Rd",
                   city: "Scranton",
                   state: "PA",
@@ -17,7 +22,7 @@ RSpec.describe "User Login" do
                   email: "dwightkschrute@email.com",
                   password: "IdentityTheftIsNotAJoke",
                   role: 1)
-    @merchant_user = User.create!(name: "Michael Scott",
+    @merchant_user = @bike_shop.users.create!(name: "Michael Scott",
                   address: "1725 Slough Ave",
                   city: "Scranton",
                   state: "PA",
