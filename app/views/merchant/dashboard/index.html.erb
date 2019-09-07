@@ -16,13 +16,17 @@
       <th>Quantity of Items</th>
       <th>Order Total</th>
     </tr>
-  <% @pending_orders.each do |order|%>
-    <tr>
-    <section id = "order-<%=order.id%>">
-        <td><p>Order <%=link_to order.id, merchant_orders_show_path(order) %></p></td>
-        <td><p><%= order.created_at.strftime('%D')%></p></td>
-        <td><p><%= number_to_currency(order.grandtotal) %></p></td>
-      </section>
-    </tr>
-  <% end %>
-</table>
+    <% unless @merchant.no_orders? %>
+      <% @pending_orders.each do |order|%>
+        <tr>
+        <section id = "order-<%=order.id%>">
+            <td><p> <%=link_to "Order ##{order.id}", merchant_orders_show_path(order) %></p></td>
+            <td><p><%= order.created_at.strftime('%D')%></p></td>
+            <td><p><%= order.total_items%></p></td>
+            <td><p><%= number_to_currency(order.grandtotal) %></p></td>
+          </section>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</center>
