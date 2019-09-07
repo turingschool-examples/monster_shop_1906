@@ -30,6 +30,7 @@ RSpec.describe 'Users Order Show Page' do
       visit profile_path
 
       click_link 'My Orders'
+#s
 
       expect(current_path).to eq(user_orders_path)
     end
