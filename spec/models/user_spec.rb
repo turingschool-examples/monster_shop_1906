@@ -19,6 +19,8 @@ describe User, type: :model do
 
   describe "relationships" do
     it {should have_many :item_orders}
+    it { should belong_to(:merchant).optional }
+    #it {should have_many (:items).through(:merchant)}
   end
 
   describe "roles" do
@@ -82,6 +84,7 @@ describe User, type: :model do
     before(:each) do
       user_1 = create(:user, email: "bob@gmail.com")
     end
+    
     it "a different type of user has valid attributes" do
       regular_user = create(:user)
       merchant_employee = create(:user, role: 1)
