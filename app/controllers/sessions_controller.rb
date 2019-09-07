@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session.delete(:cart)
     session.delete(:user_id)
     current_user = nil
     flash[:notice] = "You have been logged out!"

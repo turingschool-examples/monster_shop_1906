@@ -83,6 +83,9 @@ RSpec.describe 'Login/Logout Functionality' do
 
   describe "A user can logout" do
     it "Logs user out" do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+
       user = User.create(name:"Santiago", address:"123 tree st", city:"lakewood", state:"CO", zip: "19283",password: "yes", email:"santamonica@hotmail.com", role:0)
 
       visit login_path
@@ -92,6 +95,9 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+
       expect(page).to have_content("Logout")
 
       click_on "Logout"
@@ -99,6 +105,9 @@ RSpec.describe 'Login/Logout Functionality' do
       expect(current_path).to eq(login_path)
       expect(page).to have_content("You have been logged out!")
       expect(page).to_not have_content("Logged in as")
+
+      visit '/cart'
+      expect(page).to have_content("Cart is currently empty")
 
     end
   end
