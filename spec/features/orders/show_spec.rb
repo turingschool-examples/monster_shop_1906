@@ -24,13 +24,17 @@ RSpec.describe "User Profile Order Page" do
     click_link "Cancel Order"
 
     expect(current_path).to eq(profile_path)
-
     expect(page).to have_content("Your order has been cancelled")
 
     visit "/orders/#{@order_1.id}"
 
     expect(page).to have_content("Unfulfilled")
-
     expect(page).to have_content("cancelled")
+
+    visit "/orders/#{@order_2.id}"
+
+    expect(page).not_to have_link("Cancel Order")
   end
+
+
 end
