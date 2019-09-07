@@ -73,4 +73,10 @@ describe User, type: :model do
       expect(admin_user.admin_user?).to be_truthy
     end
   end
+
+  describe "relationship" do
+
+    it { should belong_to(:merchant).optional }
+    #it {should have_many (:items).through(:merchant)}
+  end
 end
