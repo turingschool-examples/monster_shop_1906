@@ -66,12 +66,6 @@ RSpec.describe 'Login/Logout Functionality' do
     end
   end
 
-  # As a visitor
-  # When I visit the login page ("/login")
-  # And I submit invalid information
-  # Then I am redirected to the login page
-  # And I see a flash message that tells me that my credentials were incorrect
-  # I am NOT told whether it was my email or password that was incorrect
   describe 'When submitting invalid credentials' do
     it 'displays flash message telling users either credential is incorrect but not which one' do
 
@@ -84,6 +78,28 @@ RSpec.describe 'Login/Logout Functionality' do
 
       expect(current_path).to eq(login_path)
       expect(page).to have_content("Invalid Credentials, please try again.")
+    end
+  end
+
+  describe "A user can logout" do
+    it "Logs user out" do
+      user = User.create(name:"Santiago", address:"123 tree st", city:"lakewood", state:"CO", zip: "19283",password: "yes", email:"santamonica@hotmail.com", role:0)
+
+      visit login_path
+
+      fill_in :email, with: "santamonica@hotmail.com"
+      fill_in :password, with: 'yes'
+
+      click_button 'Login'
+
+      expect(page).to have_content("Logout")
+
+      click_on "Logout"
+
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("You have been logged out!")
+      expect(page).to_not have_content("Logged in as")
+
     end
   end
 end
