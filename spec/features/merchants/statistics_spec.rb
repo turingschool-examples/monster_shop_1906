@@ -9,6 +9,7 @@ require 'rails_helper'
 RSpec.describe 'merchant show page', type: :feature do
   describe 'As a user' do
     before :each do
+      user = create(:user)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -20,12 +21,12 @@ RSpec.describe 'merchant show page', type: :feature do
       @order_2 = Order.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
       @order_3 = Order.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
-      @order_2.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 2)
-      @order_2.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 2)
-      @order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_3.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 5)
+      user.item_orders.create!(order: @order_1, item: @tire, price: @tire.price, quantity: 2)
+      user.item_orders.create!(order: @order_1, item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      user.item_orders.create!(order: @order_2, item: @dog_bone, price: @dog_bone.price, quantity: 2)
+      user.item_orders.create!(order: @order_2, item: @pull_toy, price: @pull_toy.price, quantity: 2)
+      user.item_orders.create!(order: @order_2, item: @tire, price: @tire.price, quantity: 2)
+      user.item_orders.create!(order: @order_3, item: @dog_bone, price: @dog_bone.price, quantity: 5)
     end
 
     it 'I can see a merchants statistics' do
