@@ -472,7 +472,7 @@ The show page template for an order can be shared between users, merchants and a
 - Admins can fulfill items on order on behalf of a merchant
 
 ```
-[ ] done
+[x] done
 
 User Story 25, User Profile displays Orders link
 
