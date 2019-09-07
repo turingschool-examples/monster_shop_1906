@@ -6,13 +6,15 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item Name</th>
+          <th scope="col">Order ID</th>
+          <th scope="col">Item</th>
           <th scope="col">Sold By</th>
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
           <th scope="col">Subtotal</th>
           <th scope="col">Shipping Info</th>
+          <th scope="col">Order Initially Placed</th>
+          <th scope="col">Order Last Updated</th>
           <th scope="col">Order Status</th>
         </tr>
       </thead>
@@ -20,14 +22,21 @@
         <section id='item-order-<%= item_order.id %>'>
           <tbody>
             <tr>
-              <th scope="row"><%= i + 1 %></th>
+              <th scope="row"><%= link_to item_order.order.id, order_path(item_order.order.id) %></th>
               <td><%= item_order.item.name %></td>
               <td><%= item_order.item.merchant.name %></td>
               <td><%= item_order.price %></td>
               <td><%= item_order.quantity %></td>
               <td><%= item_order.subtotal %></td>
               <td><%= item_order.order.to_s %></td>
+              <td><%= item_order.created_at %></td>
+              <td><%= item_order.updated_at %></td>
               <td><%= item_order.status %></td>
+            </tr>
+
+            <tr>
+              <th scope="col" colspan=2>Grand Total</th>
+              <td colspan=8><%= number_to_currency(item_order.order.grandtotal) %></td>
             </tr>
           </tbody>
         </section>
