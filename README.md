@@ -424,7 +424,7 @@ This is what this app is all about: how a user can put things in a shopping cart
 Merchants and Admin users cannot order items. This will cause a conflict in the project if an admin upgrades a user to a merchant and that user had previous orders of their own. We're not going to worry about this conflict.
 
 ```
-[ ] done
+[x] done
 
 User Story 23, Visitors must register or log in to check out
 
