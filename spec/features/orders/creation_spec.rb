@@ -1,66 +1,32 @@
-# When I fill out all information on the new order page
-# And click on 'Create Order'
-# An order is created and saved in the database
-# And I am redirected to that order's show page with the following information:
-#
-# - Details of the order:
-
-# - the date when the order was created
 RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
-    before(:each) do
-      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    before :each do
+      @user = User.create!(name:"Santiago", address:"123 tree st", city:"Lakewood", state:"CO", zip: "19283", email:"santamonica@hotmail.com", password: "test", role:0)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
-      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 20, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
-      visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@tire.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@pencil.id}"
-      click_on "Add To Cart"
-
-      visit "/cart"
-      click_on "Checkout"
+      @order_1 = @user.orders.create!(name: @user.name, address: @user.address, city: @user.city, state: @user.state, zip: @user.zip, user_id: @user.id)
+      @item_order_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
     end
 
     it 'I can create a new order' do
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
 
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      new_order = @user.orders.last
 
-      click_button "Create Order"
-
-      new_order = Order.last
-
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      visit order_path(@order_1)
 
       within '.shipping-address' do
-        expect(page).to have_content(name)
-        expect(page).to have_content(address)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip)
-      end
-
-      within "#item-#{@paper.id}" do
-        expect(page).to have_link(@paper.name)
-        expect(page).to have_link("#{@paper.merchant.name}")
-        expect(page).to have_content("$#{@paper.price}")
-        expect(page).to have_content("2")
-        expect(page).to have_content("$40")
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@user.address)
+        expect(page).to have_content(@user.city)
+        expect(page).to have_content(@user.state)
+        expect(page).to have_content(@user.zip)
       end
 
       within "#item-#{@tire.id}" do
@@ -71,40 +37,13 @@ RSpec.describe("Order Creation") do
         expect(page).to have_content("$100")
       end
 
-      within "#item-#{@pencil.id}" do
-        expect(page).to have_link(@pencil.name)
-        expect(page).to have_link("#{@pencil.merchant.name}")
-        expect(page).to have_content("$#{@pencil.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$2")
-      end
-
       within "#grandtotal" do
-        expect(page).to have_content("Total: $142")
+        expect(page).to have_content("Total: $200")
       end
 
       within "#datecreated" do
         expect(page).to have_content(new_order.created_at)
       end
-    end
-
-    it 'i cant create order if info not filled out' do
-      name = ""
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
-
-      click_button "Create Order"
-
-      expect(page).to have_content("Please complete address form to create an order.")
-      expect(page).to have_button("Create Order")
     end
   end
 end
