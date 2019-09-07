@@ -39,6 +39,7 @@ class UsersController< ApplicationController
   end
 
   def edit_password
+    @user = current_user
   end
 
   def update_password
