@@ -33,35 +33,35 @@ RSpec.describe "Merchant Dashboard" do
 
   end
 
-  xit 'merchant admin sees link to view shop items' do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
+  # xit 'merchant admin sees link to view shop items' do
+  #   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
+  #
+  #   visit merchant_user
+  #
+  #   within "#dashboard-link" do
+  #     click_link("View Items")
+  #   end
+  #
+  #   expect(current_path).to eq("/merchant/items")
+  #
+  #   within "#shop-items" do
+  #     expect(page).to have_content.(@chain.name)
+  #   end
+  # end
 
-    visit merchant_user
-
-    within "#dashboard-link" do
-      click_link("View Items")
-    end
-
-    expect(current_path).to eq("/merchant/items")
-
-    within "#shop-items" do
-      expect(page).to have_content.(@chain.name)
-    end
-  end
-
-  xit 'merchant employee sees link to view shop items' do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
-
-    visit merchant_user
-
-    within "#dashboard-link" do
-      click_link("View Items")
-    end
-
-    expect(current_path).to eq("/merchant/items")
-
-    within "#shop-items" do
-      expect(page).to have_content.(@chain.name)
-    end
-  end
+  # it 'merchant employee sees link to view shop items' do
+  #   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
+  #
+  #   visit merchant_user
+  #
+  #   within "#dashboard-link" do
+  #     click_link("View Items")
+  #   end
+  #
+  #   expect(current_path).to eq("/merchant/items")
+  #
+  #   within "#shop-items" do
+  #     expect(page).to have_content.(@chain.name)
+  #   end
+  # end
 end
