@@ -23,6 +23,7 @@ RSpec.describe "Show Merchant Dashboard" do
                     zipcode: "18501",
                     email: "michael.s@email.com",
                     password: "WorldBestBoss",
+                    password_confirmation: "WorldBestBoss",
                     role: 2)
     end
 
@@ -34,16 +35,12 @@ RSpec.describe "Show Merchant Dashboard" do
 
       click_button "Submit"
 
-      expect(current_path).to eq("/merchant")
-      expect(page).to have_content("Welcome, #{@merchant_user.name}!")
-      # expect(page).to have_content(@bike_shop.name)
-      # expect(page).to have_content(@bike_shop.address)
-      # expect(page).to have_content("#{dog_shop.city}, #{dog_shop.state} #{dog_shop.zip}")
+      expect(current_path).to eq(merchant_user_path)
+      expect(page).to have_content(@bike_shop.name)
+      expect(page).to have_content(@bike_shop.address)
+      expect(page).to have_content("#{@bike_shop.city}, #{@bike_shop.state} #{@bike_shop.zip}")
 
     end
 
   end
 end
-
-# When I visit my merchant dashboard ("/merchant")
-# I see the name and full address of the merchant I work for
