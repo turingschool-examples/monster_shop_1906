@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :password, confirmation: true
 
   enum role: [:regular_user, :merchant_employee, :merchant_admin, :admin_user]
+
+  has_many :item_orders
 end
