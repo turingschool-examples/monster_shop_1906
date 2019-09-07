@@ -73,4 +73,21 @@ describe User, type: :model do
       expect(admin_user.admin_user?).to be_truthy
     end
   end
+
+  describe "creating users with factory bot" do
+    before(:each) do
+      user_1 = create(:user, email: "bob@gmail.com")
+    end
+    it "a different type of user has valid attributes" do
+      regular_user = create(:user)
+      merchant_employee = create(:user, role: 1)
+      merchant_admin = create(:user, role: 2)
+      admin_user = create(:user, role: 3)
+
+      expect(regular_user).to be_valid
+      expect(merchant_employee).to be_valid
+      expect(merchant_admin).to be_valid
+      expect(admin_user).to be_valid
+    end
+  end
 end
