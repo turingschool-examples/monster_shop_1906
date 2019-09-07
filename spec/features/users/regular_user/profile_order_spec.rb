@@ -39,15 +39,31 @@ RSpec.describe "User Profile Order Page" do
     end
 
     within "#item-order-#{@item_order_1.id}" do
-      expect(@item_order_1.status).to eq("pending")
       expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_1.merchant.name)
+      expect(page).to have_content(@item_1.price)
+      expect(page).to have_content(@item_order_1.quantity)
+      expect(page).to have_content(@item_order_1.subtotal)
       expect(page).to have_content(@order_1.name)
+      expect(page).to have_content(@order_1.address)
+      expect(page).to have_content(@order_1.city)
+      expect(page).to have_content(@order_1.state)
+      expect(page).to have_content(@order_1.zip)
+      expect(page).to have_content(@item_order_1.status)
     end
 
     within "#item-order-#{@item_order_2.id}" do
-      expect(@item_order_2.status).to eq("pending")
       expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_2.merchant.name)
+      expect(page).to have_content(@item_2.price)
+      expect(page).to have_content(@item_order_2.quantity)
+      expect(page).to have_content(@item_order_2.subtotal)
       expect(page).to have_content(@order_1.name)
+      expect(page).to have_content(@order_1.address)
+      expect(page).to have_content(@order_1.city)
+      expect(page).to have_content(@order_1.state)
+      expect(page).to have_content(@order_1.zip)
+      expect(page).to have_content(@item_order_2.status)
     end
   end
 end
