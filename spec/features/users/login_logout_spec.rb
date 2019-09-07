@@ -17,7 +17,6 @@ RSpec.describe 'Login/Logout Functionality' do
 
       click_button 'Login'
 
-
       expect(page).to_not have_content("This is a employee user profile page")
       expect(page).to_not have_content("This is a merchant user profile page")
       expect(page).to_not have_content("This is a admin user profile page")
@@ -31,7 +30,7 @@ RSpec.describe 'Login/Logout Functionality' do
       fill_in :password, with: 'yours'
 
       click_button 'Login'
-      
+
       expect(page).to have_content("This is a employee user profile page")
       expect(page).to_not have_content("This is a merchant user profile page")
       expect(page).to_not have_content("This is a admin user profile page")
@@ -45,7 +44,6 @@ RSpec.describe 'Login/Logout Functionality' do
       fill_in :password, with: 'Hello123'
 
       click_button 'Login'
-
 
       expect(page).to_not have_content("This is a employee user profile page")
       expect(page).to have_content("This is a merchant user profile page")
@@ -65,6 +63,27 @@ RSpec.describe 'Login/Logout Functionality' do
       expect(page).to_not have_content("This is a merchant user profile page")
       expect(page).to have_content("This is a admin user profile page")
       expect(page).to_not have_content("This is a regular user profile page")
+    end
+  end
+
+  # As a visitor
+  # When I visit the login page ("/login")
+  # And I submit invalid information
+  # Then I am redirected to the login page
+  # And I see a flash message that tells me that my credentials were incorrect
+  # I am NOT told whether it was my email or password that was incorrect
+  describe 'When submitting invalid credentials' do
+    it 'displays flash message telling users either credential is incorrect but not which one' do
+
+      visit login_path
+
+      fill_in :email, with: '12345@gmail.com'
+      fill_in :password, with: 'incorrect password'
+
+      click_button 'Login'
+
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Invalid Credentials, please try again.")
     end
   end
 end
