@@ -54,6 +54,11 @@ class UsersController< ApplicationController
     end
   end
 
+  def show_orders
+    session.delete(:cart)
+    flash[:order] = "Your order has been created!"
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zipcode, :email, :password, :password_confirmation)
