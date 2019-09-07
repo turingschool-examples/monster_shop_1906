@@ -27,9 +27,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get "/register", to: "users#new"
-
-
-  resources :users, only: [:create]
+  post "/register", to: "users#create"
 
   get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"
