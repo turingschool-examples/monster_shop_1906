@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
-    # get "/orders", to: "dashboard#index", as: :orders_show
-    # get "/orders", to: "dashboard#show", as: :orders_show
     resources :orders, only: [:show]
     resources :items, only: [:index, :destroy], as: :user
   end
@@ -24,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [:new, :create, :show]
+  patch "/orders/:id", to: "orders#cancel", as: :order_cancel
 
   namespace :admin do
     get "/", to: "dashboard#index"
