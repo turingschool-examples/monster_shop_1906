@@ -48,4 +48,9 @@ RSpec.describe 'item show page', type: :feature do
       expect(page).to_not have_content("All Reviews")
     end
   end
+  it "When I visit the items index page, I see an area with statistics
+  5 most popular items by quantity purchased, plus the quantity bought
+  the bottom 5 least popular items, plus the quantity bought" do
+  
+  end
 end

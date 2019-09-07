@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor" do
   describe "When I visit a merchant show page" do
+    before :each do
+      @user = User.create!(name:"Santiago", address:"123 tree st", city:"lakewood", state:"CO", zip: "19283", email:"santamonica@hotmail.com", password: "test", role:0)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
     it "I can delete a merchant" do
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
@@ -35,32 +39,8 @@ RSpec.describe "As a visitor" do
       pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       pulltoy = brian.items.create(name: "Pulltoy", description: "It'll never fall apart!", price: 14, image: "https://www.valupets.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/l/a/large_rubber_dog_pull_toy.jpg", inventory: 7)
 
-
-      visit "/items/#{paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{tire.id}"
-      click_on "Add To Cart"
-      visit "/items/#{pencil.id}"
-      click_on "Add To Cart"
-
-      visit "/cart"
-      click_on "Checkout"
-
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
-
-      click_button "Create Order"
+      order_1 = @user.orders.create!(name: @user.name, address: @user.address, city: @user.city, state: @user.state, zip: @user.zip, user_id: @user.id)
+      order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
 
       visit "/merchants/#{meg.id}"
       expect(page).to_not have_link("Delete Merchant")
