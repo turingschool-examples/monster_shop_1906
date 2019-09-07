@@ -6,6 +6,8 @@ describe ItemOrder, type: :model do
     it { should validate_presence_of :item_id }
     it { should validate_presence_of :price }
     it { should validate_presence_of :quantity }
+    it { should validate_presence_of :status }
+    it { should validate_inclusion_of(:status).in_array(%w[pending packaged shipped cancelled])}
   end
 
   describe "relationships" do
