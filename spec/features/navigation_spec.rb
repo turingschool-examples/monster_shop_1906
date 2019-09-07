@@ -151,7 +151,12 @@ RSpec.describe 'Site Navigation' do
 
   describe "As a Merchant Employee/Admin" do
       before :each do
-        @merchant_user = User.create!(name: "Michael Scott",
+        @bike_shop = Merchant.create!(name: "Brian's Bike Shop",
+                    address: '123 Bike Rd.',
+                    city: 'Richmond',
+                    state: 'VA',
+                    zip: 23137)
+        @merchant_user = @bike_shop.users.create!(name: "Michael Scott",
           address: "1725 Slough Ave",
           city: "Scranton",
           state: "PA",
@@ -159,7 +164,7 @@ RSpec.describe 'Site Navigation' do
           email: "michael.s@email.com",
           password: "WorldBestBoss",
           role: 2)
-        @merchant_employee = User.create!(name: "Dwight Schrute",
+        @merchant_employee = @bike_shop.users.create!(name: "Dwight Schrute",
           address: "175 Beet Rd",
           city: "Scranton",
           state: "PA",
