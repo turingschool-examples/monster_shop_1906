@@ -24,7 +24,21 @@ RSpec.describe "User Profile Order Page" do
   end
 
   it "see a flash message confirming my recent order and empty cart" do
-    visit "profile/orders"
+    visit item_path(@item_1)
+    click_on "Add To Cart"
+
+    visit "/cart"
+    click_on "Checkout"
+
+    fill_in :name, with: "Bert"
+    fill_in :address, with: "123 Sesame St"
+    fill_in :city, with: "New York"
+    fill_in :state, with: "NY"
+    fill_in :zip, with: 10022
+
+    click_on "Create Order"
+
+    expect(current_path).to eq("/profile/orders")
 
     expect(page).to have_content("Your order has been created!")
 
