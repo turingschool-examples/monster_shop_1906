@@ -17,18 +17,20 @@
         </tr>
       </thead>
       <% @item_orders.each_with_index do |item_order, i| %>
-        <tbody>
-          <tr>
-            <th scope="row"><%= i + 1 %></th>
-            <td><%= item_order.item.name %></td>
-            <td><%= item_order.item.merchant.name %></td>
-            <td><%= item_order.price %></td>
-            <td><%= item_order.quantity %></td>
-            <td><%= item_order.subtotal %></td>
-            <td><%= item_order.order.to_s %></td>
-            <td><%= item_order.status %></td>
-          </tr>
-        </tbody>
+        <section id='item-order-<%= item_order.id %>'>
+          <tbody>
+            <tr>
+              <th scope="row"><%= i + 1 %></th>
+              <td><%= item_order.item.name %></td>
+              <td><%= item_order.item.merchant.name %></td>
+              <td><%= item_order.price %></td>
+              <td><%= item_order.quantity %></td>
+              <td><%= item_order.subtotal %></td>
+              <td><%= item_order.order.to_s %></td>
+              <td><%= item_order.status %></td>
+            </tr>
+          </tbody>
+        </section>
       <% end %>
     </table>
 </div>
