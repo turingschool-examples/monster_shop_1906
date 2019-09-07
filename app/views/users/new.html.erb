@@ -1,44 +1,33 @@
-<h1> NEW USER PAGE </h1>
-<%= form_tag '/users', method: :post do %>
-  <div class="form-group">
-    <%= label_tag :name %>
-    <%= text_field_tag :name %>
-  </div>
+<h1> Welcome! Everything is fine. </h1>
+<center>
+  <h3>Please enter your details to sign up:</h3><br>
+</center>
 
-  <div class="form-group">
-    <%= label_tag :address %>
-    <%= text_field_tag :address %>
-  </div>
+<%= form_for(@user, url: register_path) do |f| %>
 
-  <div class="form-group">
-    <%= label_tag :city %>
-    <%= text_field_tag :city %>
-  </div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <div class="form-group">
-    <%= label_tag :state %>
-    <%= text_field_tag :state %>
-  </div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
 
-  <div class="form-group">
-    <%= label_tag :zipcode %>
-    <%= text_field_tag :zipcode %>
-  </div>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
 
-  <div class="form-group">
-    <%= label_tag :email %>
-    <%= text_field_tag :email %>
-  </div>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
 
-  <div class="form-group">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
+    <%= f.label :zipcode %>
+    <%= f.text_field :zipcode %>
 
-  <div class="form-group">
-    <%= label_tag :password_confirmation %>
-    <%= password_field_tag :password_confirmation %>
-  </div>
+    <%= f.label :email %>
+    <%= f.text_field :email, value: nil %>
 
-  <%= submit_tag "Submit" %>
+    <%= f.label :password %>
+    <%= f.password_field :password, value: nil  %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, value: nil  %>
+
+    <%= f.submit 'Submit' %>
 <% end %>

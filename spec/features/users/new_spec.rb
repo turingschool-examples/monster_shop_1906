@@ -13,14 +13,14 @@ RSpec.describe "Registering User" do
     user_password = "password123"
     user_confirm_password = "password123"
 
-    fill_in :name, with: user_name
-    fill_in :address, with: user_address
-    fill_in :city, with: user_city
-    fill_in :state, with: user_state
-    fill_in :zipcode, with: user_zipcode
-    fill_in :email, with: user_email
-    fill_in :password, with: user_password
-    fill_in :password_confirmation, with: user_confirm_password
+    fill_in "Name", with: user_name
+    fill_in "Address", with: user_address
+    fill_in "City", with: user_city
+    fill_in "State", with: user_state
+    fill_in "Zipcode", with: user_zipcode
+    fill_in "Email", with: user_email
+    fill_in "Password", with: user_password
+    fill_in "Password confirmation", with: user_confirm_password
 
     click_on "Submit"
 
@@ -60,61 +60,51 @@ RSpec.describe "Registering User" do
     user_password = "password123"
     user_confirm_password = "password456"
 
-    fill_in :name, with: user_name
-    fill_in :address, with: user_address
-    fill_in :city, with: user_city
-    fill_in :state, with: user_state
-    fill_in :zipcode, with: user_zipcode
-    fill_in :email, with: user_email
-    fill_in :password, with: user_password
-    fill_in :password_confirmation, with: user_confirm_password
+    fill_in "Name", with: user_name
+    fill_in "Address", with: user_address
+    fill_in "City", with: user_city
+    fill_in "State", with: user_state
+    fill_in "Zipcode", with: user_zipcode
+    fill_in "Email", with: user_email
+    fill_in "Password", with: user_password
+    fill_in "Password confirmation", with: user_confirm_password
 
     click_on "Submit"
 
     expect(page).to have_content("Password confirmation doesn't match")
   end
 
-  # it "doesn't allow duplicate email registrations and returns me to the registration page with a filled-out form, without saving my details and I see a flash message saying that email is already in use" do
-  #
-  #   visit "/register"
-  #
-  #   regular_user = User.create!(name: "George Jungle",
-  #                 address: "1 Jungle Way",
-  #                 city: "Jungleopolis",
-  #                 state: "FL",
-  #                 zipcode: "77652",
-  #                 email: "junglegeorge@email.com",
-  #                 password: "Tree123")
-  #
-  #   fill_in :name, with: "George Jungle"
-  #   fill_in :address, with: "1 Jungle Way"
-  #   fill_in :city, with: "Jungleopolis"
-  #   fill_in :state, with: "FL"
-  #   fill_in :zipcode, with: "77652"
-  #   fill_in :email, with: "junglegeorge@email.com"
-  #   fill_in :password, with: "Tree123"
-  #
-  #   click_on "Submit"
-  #
-  #   expect(current_path).to eq("/register")
-  #
-  #   expect(page).to have_content("That email is already in use. Please log in or choose a different email.")
-  #
-  #   expect(page).to have_content("George Jungle")
-  #   expect(page).to have_content("1 Jungle Way")
-  #   expect(page).to have_content("Jungleopolis")
-  #   expect(page).to have_content("FL")
-  #   expect(page).to have_content("77652")
-  #   expect(page).not_to have_content("junglegeorge@email.com")
-  #   expect(page).not_to have_content("Tree123")
+  it "doesn't allow duplicate email registrations and returns me to the registration page with a filled-out form, without saving my details and I see a flash message saying that email is already in use" do
 
+    regular_user = User.create!(name: "George Jungle",
+                  address: "1 Jungle Way",
+                  city: "Jungleopolis",
+                  state: "FL",
+                  zipcode: "77652",
+                  email: "junglegeorge@email.com",
+                  password: "Tree123")
 
-  # As a visitor
-  # When I visit the user registration page
-  # If I fill out the registration form
-  # But include an email address already in the system
-  # Then I am returned to the registration page
-  # My details are not saved and I am not logged in
-  # The form is filled in with all previous data except the email field and password fields
-  # I see a flash message telling me the email address is already in use
+    visit "/register"
+
+    fill_in "Name", with: "George Jungle"
+    fill_in "Address", with: "1 Jungle Way"
+    fill_in "City", with: "Jungleopolis"
+    fill_in "State", with: "FL"
+    fill_in "Zipcode", with: "77652"
+    fill_in "Email", with: "junglegeorge@email.com"
+    fill_in "Password", with: "Tree123"
+    fill_in "Password confirmation", with: "Tree123"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Email has already been taken")
+
+    expect(find_field('Name').value).to eq "George Jungle"
+    expect(find_field('Address').value).to eq "1 Jungle Way"
+    expect(find_field('City').value).to eq "Jungleopolis"
+    expect(find_field('State').value).to eq "FL"
+    expect(find_field('Zipcode').value).to eq "77652"
+    expect(find_field('Email').value).to eq nil
+    expect(find_field('Password').value).to eq nil
+  end
 end

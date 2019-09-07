@@ -22,12 +22,12 @@ RSpec.describe "User Profile" do
 
     expect(current_path).to eq("/profile/edit")
 
-    fill_in :name, with: "Adam Smith"
-    fill_in :address, with: "1234 Happy St"
-    fill_in :city, with: "Denver"
-    fill_in :state, with: "CO"
-    fill_in :zipcode, with: "80204"
-    fill_in :email, with: "chicken@email.com"
+    fill_in "Name", with: "Adam Smith"
+    fill_in "Address", with: "1234 Happy St"
+    fill_in "City", with: "Denver"
+    fill_in "State", with: "CO"
+    fill_in "Zipcode", with: "80204"
+    fill_in "Email", with: "chicken@email.com"
 
     click_button "Update Profile"
 
@@ -46,12 +46,12 @@ RSpec.describe "User Profile" do
       click_link("Edit Profile")
     end
 
-    fill_in :name, with: "Adam Smith"
-    fill_in :address, with: "1234 Happy St"
-    fill_in :city, with: ""
-    fill_in :state, with: "CO"
-    fill_in :zipcode, with: ""
-    fill_in :email, with: "chicken@email.com"
+    fill_in "Name", with: "Adam Smith"
+    fill_in "Address", with: "1234 Happy St"
+    fill_in "City", with: ""
+    fill_in "State", with: "CO"
+    fill_in "Zipcode", with: ""
+    fill_in "Email", with: "chicken@email.com"
 
     click_button "Update Profile"
 
@@ -64,12 +64,12 @@ RSpec.describe "User Profile" do
       click_link("Edit Profile")
     end
 
-    fill_in :name, with: "Adam Smith"
-    fill_in :address, with: "1234 Happy St"
-    fill_in :city, with: "Denver"
-    fill_in :state, with: "CO"
-    fill_in :zipcode, with: "80205"
-    fill_in :email, with: "waffle"
+    fill_in "Name", with: "Adam Smith"
+    fill_in "Address", with: "1234 Happy St"
+    fill_in "City", with: "Denver"
+    fill_in "State", with: "CO"
+    fill_in "Zipcode", with: "80205"
+    fill_in "Email", with: "waffle"
 
     click_button "Update Profile"
 
@@ -79,14 +79,15 @@ RSpec.describe "User Profile" do
 
   it "user can edit password" do
     expect(page).to have_link("")
+
     within "#user-profile-actions" do
       click_link("Edit Password")
     end
 
     expect(current_path).to eq("/profile/edit_password")
 
-    fill_in :password, with: "apple123"
-    fill_in :password_confirmation, with: "apple123"
+    fill_in "Password", with: "apple123"
+    fill_in "Password confirmation", with: "apple123"
     click_on "Update"
 
     expect(current_path).to eq("/profile")
