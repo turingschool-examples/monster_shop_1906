@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   root to: "welcome#index"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
+    get "/orders/:id", to: "dashboard#show", as: :orders_show
   end
 
   resources :merchants do
@@ -22,10 +27,6 @@ Rails.application.routes.draw do
     get "/", to: "dashboard#index"
     resources :users, only: [:index, :show]
   end
-
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
