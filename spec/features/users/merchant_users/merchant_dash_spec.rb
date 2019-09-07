@@ -64,12 +64,12 @@ RSpec.describe "Show Merchant Dashboard" do
 
       expect(current_path).to eq(merchant_user_path)
 
-      within "#order-#{order_1.id}" do
-        expect(page).to have_content("Order 1")
-        # expect(page).to have_link(merchant_order_show_path(order))
+      within "#order-#{item_order_1.id}" do
+        expect(page).to have_content("Order #{item_order_1.id}")
+        # expect(page).to have_link(merchant_orders_show_path(item_order_1.id))
         expect(page).to have_content(order_1.created_at.strftime('%D'))
-        expect(page).to have_content(order_1.items_count)
-        expect(page).to have_content("$150")
+        expect(page).to have_content(order_1.total_items)
+        # expect(page).to have_content("$150")
       end
     end
   end
