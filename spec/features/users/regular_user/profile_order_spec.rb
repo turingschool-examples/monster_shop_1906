@@ -21,33 +21,33 @@ RSpec.describe "User Profile Order Page" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
     merchant_1 = create(:merchant)
-    item_1 = merchant_1.items.create!(attributes_for(:item))
-    item_2 = merchant_1.items.create!(attributes_for(:item))
-
-    visit item_path(item_1)
-    click_on "Add To Cart"
-    visit item_path(item_2)
-    click_on "Add To Cart"
-
-    visit cart_path
-    click_on "Checkout"
+    @item_1 = merchant_1.items.create!(attributes_for(:item))
+    @item_2 = merchant_1.items.create!(attributes_for(:item))
 
     @order_1 = create(:order)
-    click_on "Create Order"
+    @item_order_1 = @user.item_orders.create!(order: @order_1, item: @item_1, quantity: 1, price: @item_1.price)
+    @item_order_2 = @user.item_orders.create!(order: @order_1, item: @item_2, quantity: 1, price: @item_2.price)
   end
 
   it "see a list of my orders and a flash message confirming my recent order" do
     visit "profile/orders"
 
+    expect(page).to have_content("Your order has been created!")
+
     within 'nav' do
       expect(page).to have_content("Cart: 0")
     end
 
-    expect(@order_1.status).to eq("pending")
-    expect(page).to have_content("Your order has been created!")
-    expect(page).to have_content(item_1.name)
-    expect(page).to have_content(item_2.name)
-    expect(page).to have_content(order_1.name)
+    within "#item-order-#{@item_order_1.id}" do
+      expect(@item_order_1.status).to eq("pending")
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@order_1.name)
+    end
 
+    within "#item-order-#{@item_order_2.id}" do
+      expect(@item_order_2.status).to eq("pending")
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@order_1.name)
+    end
   end
 end
