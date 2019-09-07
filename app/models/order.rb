@@ -8,6 +8,10 @@ class Order <ApplicationRecord
     item_orders.sum('price * quantity')
   end
 
+  def total_items
+    item_orders.sum(:quantity)
+  end 
+
   def to_s
     "#{self.name} \n
     #{self.address} \n
