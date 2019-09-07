@@ -15,4 +15,5 @@ class Order <ApplicationRecord
     #{self.zip}
     "
   end
+
 end

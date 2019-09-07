@@ -25,4 +25,8 @@ class Merchant < ApplicationRecord
   def distinct_cities
     item_orders.distinct.joins(:order).pluck(:city)
   end
+
+  def pending_orders
+    item_orders.where(status: "pending").distinct
+  end
 end

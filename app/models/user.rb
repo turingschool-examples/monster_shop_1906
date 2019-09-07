@@ -9,8 +9,6 @@ class User < ApplicationRecord
 
   has_many :item_orders
   belongs_to :merchant, optional: true
-  # validates_presence_of :merchant, unless: :regular_user?
-  # validates_presence_of :merchant, unless: :admin_user?
 
   enum role: [:regular_user, :merchant_employee, :merchant_admin, :admin_user]
 
