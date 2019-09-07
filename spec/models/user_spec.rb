@@ -17,6 +17,10 @@ describe User, type: :model do
     it {should_not allow_value("foo").for(:email)}
   end
 
+  describe "relationships" do
+    it {should have_many :item_orders}
+  end
+
   describe "roles" do
     it "can be created as a default user" do
       regular_user = User.create!(name: "George Jungle",
