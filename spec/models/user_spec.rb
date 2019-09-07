@@ -89,5 +89,10 @@ describe User, type: :model do
       expect(merchant_admin).to be_valid
       expect(admin_user).to be_valid
     end
+
+    it "a new user must have a unique email" do
+      user_2 = build(:user, email: "bob@gmail.com")
+      expect(user_2).to_not be_valid
+    end
   end
 end
