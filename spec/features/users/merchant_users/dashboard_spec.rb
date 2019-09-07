@@ -30,13 +30,14 @@ RSpec.describe "Merchant Dashboard" do
                   email: "dwight@email.com",
                   password: "MichaelIsTheBest",
                   role: 1)
-
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
   end
 
-  xit 'merchant admin sees link to view shop items' do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
+  it 'merchant admin sees link to view shop items' do
+    # binding.pry
 
-    visit merchant_user
+    visit '/dashboard'
+    save_and_open_page
 
     within "#dashboard-link" do
       click_link("View Items")
@@ -49,10 +50,10 @@ RSpec.describe "Merchant Dashboard" do
     end
   end
 
-  xit 'merchant employee sees link to view shop items' do
+  it 'merchant employee sees link to view shop items' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
 
-    visit merchant_user
+    visit merchant_user_path
 
     within "#dashboard-link" do
       click_link("View Items")
