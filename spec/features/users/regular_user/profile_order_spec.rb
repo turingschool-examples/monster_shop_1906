@@ -19,12 +19,35 @@ RSpec.describe "User Profile Order Page" do
   before :each do
     @user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+    merchant_1 = create(:merchant)
+    item_1 = merchant_1.items.create!(attributes_for(:item))
+    item_2 = merchant_1.items.create!(attributes_for(:item))
+
+    visit item_path(item_1)
+    click_on "Add To Cart"
+    visit item_path(item_2)
+    click_on "Add To Cart"
+
+    visit cart_path
+    click_on "Checkout"
+
+    @order_1 = create(:order)
+    click_on "Create Order"
   end
 
   it "see a list of my orders and a flash message confirming my recent order" do
+    visit "profile/orders"
 
     within 'nav' do
       expect(page).to have_content("Cart: 0")
     end
+
+    expect(@order_1.status).to eq("pending")
+    expect(page).to have_content("Your order has been created!")
+    expect(page).to have_content(item_1.name)
+    expect(page).to have_content(item_2.name)
+    expect(page).to have_content(order_1.name)
+
   end
 end
