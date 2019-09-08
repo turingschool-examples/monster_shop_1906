@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :merchants, only: [:show]
   end
 
+  patch "/merchants/:id/update_status", to: "merchants#update_status"
+
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
