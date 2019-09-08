@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root to: "welcome#index"
 
+  namespace :merchant do
+    get "/", to: "dashboard#index", as: :user
+  end
+
   resources :merchants do
     resources :items, only: [:index, :new, :create]
   end
@@ -13,9 +17,6 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create, :show]
 
-  namespace :merchant do
-    get "/", to: "dashboard#index", as: :user
-  end
 
   namespace :admin do
     get "/", to: "dashboard#index"
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   patch "/profile", to: "users#update"
   get "/profile/edit_password", to: "users#edit_password"
   patch "/profile/update_password", to: "users#update_password"
+  get "/profile/orders", to: "users#show_orders"
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"

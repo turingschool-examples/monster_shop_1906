@@ -17,6 +17,12 @@ describe User, type: :model do
     it {should_not allow_value("foo").for(:email)}
   end
 
+  describe "relationships" do
+    it {should have_many :item_orders}
+    it { should belong_to(:merchant).optional }
+    #it {should have_many (:items).through(:merchant)}
+  end
+
   describe "roles" do
     it "can be created as a default user" do
       regular_user = User.create!(name: "George Jungle",
@@ -71,6 +77,29 @@ describe User, type: :model do
 
       expect(admin_user.role).to eq("admin_user")
       expect(admin_user.admin_user?).to be_truthy
+    end
+  end
+
+  describe "creating users with factory bot" do
+    before(:each) do
+      user_1 = create(:user, email: "bob@gmail.com")
+    end
+    
+    it "a different type of user has valid attributes" do
+      regular_user = create(:user)
+      merchant_employee = create(:user, role: 1)
+      merchant_admin = create(:user, role: 2)
+      admin_user = create(:user, role: 3)
+
+      expect(regular_user).to be_valid
+      expect(merchant_employee).to be_valid
+      expect(merchant_admin).to be_valid
+      expect(admin_user).to be_valid
+    end
+
+    it "a new user must have a unique email" do
+      user_2 = build(:user, email: "bob@gmail.com")
+      expect(user_2).to_not be_valid
     end
   end
 end
