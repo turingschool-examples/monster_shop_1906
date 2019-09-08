@@ -6,13 +6,15 @@
         <h2><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></h2>
         <p>Located in: <%= merchant.city %>, <%= merchant.state %></p>
         <% if merchant.enabled? %>
-          <%= form_for merchant do |f| %>
-            <%= f.hidden_field :enabled?, value: false %>
+          <p>Current status: enabled</p>
+          <%= form_for(merchant, url: "/merchants/#{merchant.id}/update_status", method: :patch) do |f| %>
+            <%= f.hidden_field "[enabled?]", value: false %>
             <%= f.submit "Disable" %>
           <% end %>
         <% else %>
-          <%= form_for merchant do |f| %>
-            <%= f.hidden_field :enabled?, value: true %>
+          <p>Current status: disabled</p>
+          <%= form_for(merchant, url: "/merchants/#{merchant.id}/update_status", method: :patch) do |f| %>
+            <%= f.hidden_field "[enabled?]", value: true %>
             <%= f.submit "Enable" %>
           <% end %>
         <% end %>
