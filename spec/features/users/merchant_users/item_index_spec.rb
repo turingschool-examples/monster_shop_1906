@@ -39,7 +39,7 @@ RSpec.describe "Merchant Dashboard" do
     end
   end
 
-  it 'merchant admin sees link to view shop items' do
+  it 'merchant employee sees link to view shop items' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
 
     visit merchant_user_path
