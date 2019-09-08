@@ -46,20 +46,18 @@ RSpec.describe "Merchant Order Show Page" do
   it 'can show all the merchants orders' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
 
-    visit merchant_user_order_path(@order_1)
-
+    visit merchant_order_path(@order_1)
 
     within "#item_orders-#{@item_order_1.id}" do
       expect(page).to have_content(@item_order_1.item.name)
-      expect(page).to have_link(item_path(@item_order_1.item))
+      expect(page).to have_link("Item 1")
       expect(page).to have_css("img[src*='#{@item_order_1.item.image}']")
       expect(page).to have_content(@item_order_1.item.price)
-      expect(page).not_to have_content(@item_order_4.item.price)
     end
 
     within "#item_orders-#{@item_order_2.id}" do
       expect(page).to have_content(@item_order_2.item.name)
-      expect(page).to have_link(item_path(@item_order_2.item))
+      expect(page).to have_link("Item 2")
       expect(page).to have_css("img[src*='#{@item_order_2.item.image}']")
       expect(page).to have_content(@item_order_2.item.price)
     end
@@ -68,5 +66,6 @@ RSpec.describe "Merchant Order Show Page" do
     expect(page).not_to have_content(@item_order_3.item.name)
 
     expect(page).not_to have_css("#item_orders-#{@item_order_4.id}")
+    save_and_open_page
   end
 end
