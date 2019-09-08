@@ -484,7 +484,7 @@ When I click this link my URI path is "/profile/orders"
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 26, User Profile displays Orders
 
