@@ -36,7 +36,8 @@ merchant_admin = User.create!(name: "Michael Scott",
               zipcode: "18501",
               email: "michael.s@email.com",
               password: "WorldBestBoss",
-              role: 2)
+              role: 2,
+              merchant: bike_shop)
 merchant_employee = User.create!(name: "Dwight Schrute",
               address: "175 Beet Rd",
               city: "Scranton",
@@ -44,7 +45,8 @@ merchant_employee = User.create!(name: "Dwight Schrute",
               zipcode: "18501",
               email: "dwightkschrute@email.com",
               password: "IdentityTheftIsNotAJoke",
-              role: 1)
+              role: 1,
+              merchant: bike_shop)
 admin_user = User.create!(name: "Leslie Knope",
               address: "14 Somewhere Ave",
               city: "Pawnee",
