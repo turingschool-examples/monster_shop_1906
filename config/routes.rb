@@ -17,10 +17,10 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create, :show]
 
-
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :users, only: [:index, :show]
+    resources :merchants, only: [:show]
   end
 
   get "/login", to: "sessions#new"
