@@ -1,3 +1,24 @@
+<section id = "shipping-address">
+  <h1 align = "center">Shipping Information</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+    </tr>
+    <tr>
+      <td><p><%= @order.name %> </p></td>
+      <td><p><%= @order.address %> </p></td>
+      <td><p><%= @order.city %> </p></td>
+      <td><p><%= @order.state %> </p></td>
+      <td><p><%= @order.zip %> </p></td>
+    </tr>
+  </table>
+</section>
+
+
 <h1 align = "center">Order Information</h1>
 <center>
   <table>
@@ -6,7 +27,6 @@
       <th>Image</th>
       <th>Price</th>
       <th>Quantity</th>
-      <th>Subtotal</th>
     </tr>
   <% @item_orders.each do |item_order|%>
     <tr>
