@@ -16,9 +16,7 @@ RSpec.describe 'Users Order Show Page' do
       @item_order_2 = @order_2.item_orders.create(item: @paper, price: @paper.price, quantity: 20)
       @item_order_3 = @order_3.item_orders.create(item: @pencil, price: @pencil.price, quantity: 5)
     end
-    it 'can click My Orders profile page link to see all their orders' do
 
-    end
     it "User Profile displays Orders, When I visit my Profile Orders page
     I see every order I've made, which includes the following information:
     the ID of the order, which is a link to the order show page
@@ -66,15 +64,15 @@ RSpec.describe 'Users Order Show Page' do
     visit '/profile/orders'
 
     click_link "Order ID ##{@order_2.id}"
-save_and_open_page
+
     expect(current_path).to eq("/orders/#{@order_2.id}")
     expect(page).to have_content("Order ID ##{@order_2.id} Details")
     expect(page).to have_content("Order Placed On: #{@order_2.created_at}")
     expect(page).to have_content("Last Updated On: #{@order_2.updated_at}")
     expect(page).to have_content("Current Status: #{@order_2.status}")
 
-    within "#ordered-item-#{@item_order_2.id}" do
-      expect(page).to have_content(@item_order_2.name)
+    within "#item-#{@order.item_orders.first.id}" do
+      expect(page).to have_content(@order.item_orders.first.name)
       expect(page).to have_content(@item_order_2.description)
       expect(page).to have_content(@item_order_2.image)
       expect(page).to have_content(@item_order_2.quantity)
