@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
+    resources :items, only: [:index], as: :user
   end
 
   resources :merchants do
