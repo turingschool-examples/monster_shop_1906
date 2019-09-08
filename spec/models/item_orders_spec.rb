@@ -29,4 +29,24 @@ describe ItemOrder, type: :model do
     end
   end
 
+  describe 'class methods' do
+    before(:each) do
+      user = create(:user)
+      merchant_1 = create(:merchant)
+      item_1 = merchant_1.items.create!(attributes_for(:item))
+      item_2 = merchant_1.items.create!(attributes_for(:item))
+
+      @order_1 = create(:order)
+      item_order_1 = user.item_orders.create!(order: @order_1, item: item_1, quantity: 1, price: 10)
+      item_order_2 = user.item_orders.create!(order: @order_1, item: item_2, quantity: 3, price: 30)
+    end
+    
+    it 'total_quantity_per_order' do
+      expect(ItemOrder.total_quantity_per_order(@order_1.id)).to eq(4)
+    end
+
+    it 'grandtotal_per_order' do
+      expect(ItemOrder.grandtotal_per_order(@order_1.id)).to eq(100)
+    end
+  end
 end

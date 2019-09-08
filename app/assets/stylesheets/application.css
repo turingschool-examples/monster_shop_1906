@@ -153,6 +153,14 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
-  background-color: #F0F8FF;
+.img_thumbnail {
+  width: 20%;
+}
+
+.table > thead > tr > th {
+  vertical-align: middle;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
 }
