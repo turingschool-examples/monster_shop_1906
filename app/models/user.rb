@@ -14,4 +14,7 @@ class User < ApplicationRecord
 
   enum role: [:regular_user, :merchant_employee, :merchant_admin, :admin_user]
 
+  def item_orders_by_merchant(order_id)
+    self.merchant.item_orders.where(order: order_id)
+  end
 end
