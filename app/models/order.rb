@@ -7,4 +7,12 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def to_s
+    "#{self.name}
+    #{self.address}
+    #{self.city}, #{self.state}
+    #{self.zip}
+    "
+  end
 end

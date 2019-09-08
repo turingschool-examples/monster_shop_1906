@@ -17,10 +17,10 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create, :show]
 
-
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :users, only: [:index, :show]
+    resources :merchants, only: [:show]
   end
 
   get "/login", to: "sessions#new"
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   patch "/profile", to: "users#update"
   get "/profile/edit_password", to: "users#edit_password"
   patch "/profile/update_password", to: "users#update_password"
+  get "/profile/orders", to: "users#show_orders"
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"

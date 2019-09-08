@@ -22,8 +22,11 @@ ActiveRecord::Schema.define(version: 20190907174755) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "status", default: "pending"
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
+    t.index ["user_id"], name: "index_item_orders_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -45,6 +48,7 @@ ActiveRecord::Schema.define(version: 20190907174755) do
     t.string "city"
     t.string "state"
     t.integer "zip"
+    t.boolean "enabled?", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -84,6 +88,7 @@ ActiveRecord::Schema.define(version: 20190907174755) do
 
   add_foreign_key "item_orders", "items"
   add_foreign_key "item_orders", "orders"
+  add_foreign_key "item_orders", "users"
   add_foreign_key "items", "merchants"
   add_foreign_key "reviews", "items"
   add_foreign_key "users", "merchants"
