@@ -14,9 +14,9 @@ class Order <ApplicationRecord
   end
 
   def to_s
-    "#{self.name} \n
-    #{self.address} \n
-    #{self.city}, #{self.state} \n
+    "#{self.name}
+    #{self.address}
+    #{self.city}, #{self.state}
     #{self.zip}
     "
   end

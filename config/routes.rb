@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
     get "/orders/:id", to: "dashboard#show", as: :orders_show
+    resources :items, only: [:index], as: :user
   end
 
   resources :merchants do
@@ -22,11 +23,13 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create, :show]
 
-
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :users, only: [:index, :show]
+    resources :merchants, only: [:show]
   end
+
+  patch "/merchants/:id/update_status", to: "merchants#update_status"
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"

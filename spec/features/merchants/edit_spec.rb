@@ -20,7 +20,7 @@ RSpec.describe "As a Visitor" do
     it 'I can edit merchant info by filling in the form and clicking submit' do
       visit merchant_path(@bike_shop)
       click_on "Update Merchant"
-
+      
       fill_in 'Name', with: "Brian's Super Cool Bike Shop"
       fill_in 'Address', with: "1234 New Bike Rd."
       fill_in 'City', with: "Denver"
