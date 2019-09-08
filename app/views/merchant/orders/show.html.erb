@@ -17,8 +17,8 @@
     </tr>
   </table>
 </section>
-
-
+<br>
+<br>
 <h1 align = "center">Order Information</h1>
 <center>
   <table>
@@ -29,13 +29,13 @@
       <th>Quantity</th>
     </tr>
   <% @item_orders.each do |item_order|%>
-    <tr>
-    <section id = "item_orders-<%=item_order.id%>">
-        <td><p><%=link_to item_order.item.name, item_path(item_order.item)%></p></td>
-        <td><p><img src= <%= item_order.item.image %>><td><p>
-        <td><p><%= number_to_currency(item_order.price)%></p></td>
-        <td><p><%= item_order.quantity%></p></td>
-      </section>
-    </tr>
+  <section id = "item_orders-<%item_order.id%>">
+      <tr>
+        <td><%=link_to item_order.item.name, item_path(item_order.item)%></td>
+        <td><img src= <%= item_order.item.image %> style="width:150px;height:100px;"></img></td>
+        <td><%= number_to_currency(item_order.price)%></td>
+        <td><%= item_order.quantity%></td>
+      </tr>
+    </section>
   <% end %>
 </table>
