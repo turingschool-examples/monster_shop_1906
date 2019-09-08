@@ -20,7 +20,6 @@ describe User, type: :model do
   describe "relationships" do
     it {should have_many :item_orders}
     it {should belong_to(:merchant).optional }
-    it {should have_many (:items).through(:merchant)}
   end
 
   describe "roles" do
