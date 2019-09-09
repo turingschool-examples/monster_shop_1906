@@ -15,11 +15,7 @@ RSpec.describe 'User Navigation' do
     end
   end
 end
-# As a registered user
-# When I visit my Profile page
-# And I have orders placed in the system
-# Then I see a link on my profile page called "My Orders"
-# When I click this link my URI path is "/profile/orders"
+
 RSpec.describe 'Users Order Show Page' do
   describe 'when a logged in user has placed orders' do
     it 'can click My Orders profile page link to see all their orders' do

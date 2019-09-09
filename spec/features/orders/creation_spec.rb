@@ -19,7 +19,7 @@ RSpec.describe("Order Creation") do
 
       new_order = @user.orders.last
 
-      visit order_path(@order_1)
+      visit "/orders/#{new_order.id}"
 
       within '.shipping-address' do
         expect(page).to have_content(@user.name)

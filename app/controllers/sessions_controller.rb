@@ -21,18 +21,4 @@ class SessionsController < ApplicationController
     flash[:notice] = "You have been logged out!"
     redirect_to login_path
   end
-
-  private
-
-  def login_redirection
-    if current_admin?
-      redirect_to admin_dashboard_path
-    elsif current_employee?
-      redirect_to employee_dashboard_path
-    elsif current_merchant?
-      redirect_to merchant_dashboard_path
-    else current_user
-      redirect_to profile_path
-    end
-  end
 end

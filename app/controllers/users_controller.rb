@@ -22,11 +22,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    # pry
   end
 
   def update
-    pry
    @user = current_user
    if @user.update(updated_profile_params)
        flash[:notice] = 'Your profile has been updated!'
@@ -44,19 +42,6 @@ class UsersController < ApplicationController
   end
 
   def updated_profile_params
-    # pry
-  params.require(:user).permit(:name, :address, :city, :state, :email, :zip)
-end
-
-  def login_redirection
-    if current_admin?
-      redirect_to admin_dashboard_path
-    elsif current_employee?
-      redirect_to employee_dashboard_path
-    elsif current_merchant?
-      redirect_to merchant_dashboard_path
-    else current_user
-      redirect_to profile_path
-    end
+    params.require(:user).permit(:name, :address, :city, :state, :email, :zip)
   end
-end
+
