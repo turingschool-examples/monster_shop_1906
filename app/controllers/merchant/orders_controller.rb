@@ -13,7 +13,7 @@ class Merchant::OrdersController < Merchant::BaseController
     item_order.update_status
     item_order.item.decrease_inventory(item_order)
 
-    flash[:success] = "Item order #{item_order.id} has been fulfilled"
+    flash[:success] = "Item order ##{item_order.id} has been fulfilled"
     redirect_to merchant_order_path(item_order.order)
   end
 end
