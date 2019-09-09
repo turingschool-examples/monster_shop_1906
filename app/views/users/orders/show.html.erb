@@ -1,25 +1,38 @@
 <h1 align = "center">Order ID #<%= @order.id %> Details</h1>
 <center>
+  <div id="table-container">
   <table>
     <tr>
       <th>Item</th>
-      <th>Sold By</th>
+      <th>Description</th>
       <th>Price</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
     </tr>
-  <% @order.item_orders.each do |item_order|%>
+  <% @order.items.each do |item|%>
     <tr>
-    <section id="item-<%=item_order.item_id%>">
-        <td><p><center><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></center></p></td>
-        <td><p><center><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></center></p></td>
-        <td><p><center><%= number_to_currency(item_order.price)%></center></p></td>
-        <td><p><center><%= item_order.quantity%></center></p></td>
-        <td><p><center><%= number_to_currency(item_order.subtotal)%></center></p></td>
+    <section id="item-table">
+        <td><p><center><div id='order-display-image'><%= image_tag item.image %></div></center></p></td>
+        <td><p><center><%=link_to item.name, "/items/#{item.id}"%></center></p></td>
+        <td><p><center><%= item.description %></center></p></td>
+        <td><p><center><%= number_to_currency(item.price)%></center></p></td>
+        <% end %>
       </section>
     </tr>
-  <% end %>
 </table>
+<table>
+  <tr>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+  </tr>
+<% @order.item_orders.each do |item|%>
+  <tr>
+  <section id="item-orders">
+      <td><p><center><%= item.quantity%></center></p></td>
+      <td><p><center><%= number_to_currency(item.subtotal)%></center></p></td>
+      <% end %>
+    </section>
+  </tr>
+</table>
+</div>
 
 <section id="grandtotal">
   <p><b>Order Total: <%=number_to_currency(@order.grandtotal)%></b></p>
