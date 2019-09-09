@@ -73,13 +73,12 @@ save_and_open_page
       expect(page).to have_content("Last Updated On: #{@order_2.updated_at}")
       expect(page).to have_content("Current Status: #{@order_2.status}")
 
-      expect(page).to have_content('Lined Paper')
-      expect(page).to have_content('Great for writing on!')
-      # expect(page).to have_content()
-      expect(page).to have_content(20)
-      expect(page).to have_content(20)
-      expect(page).to have_content(400)
-
+      expect(page).to have_content(@order_2.item_orders.item.name)
+      expect(page).to have_content(@order_2.item_orders.item.description)
+      expect(page).to have_content(@order_2.item_orders.item.image)
+      expect(page).to have_content(@order_2.item_orders.quantity)
+      expect(page).to have_content(@order_2.item_orders.price)
+      expect(page).to have_content(@order_2.item_orders.subtotal)
 
       expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
       expect(page).to have_content("Order Total: $#{@order_2.grandtotal}")
