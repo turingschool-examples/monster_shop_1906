@@ -19,7 +19,7 @@ RSpec.describe "Merchant Order Show Page" do
       @item_order_3 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_3, quantity: 10, price: @item_3.price, user: @regular_user_1, status: "pending")
 
     @order_2 = create(:order)
-      @item_order_4 = @regular_user_1.item_orders.create(order: @order_2, item: @item_2, quantity: 18, price: @item_2.price, user: @regular_user_1, status: "pending")
+      @item_order_4 = @regular_user_1.item_orders.create(order: @order_2, item: @item_2, quantity: 100, price: @item_2.price, user: @regular_user_1, status: "pending")
 
     @order_3 = create(:order)
       @item_order_5 = @regular_user_1.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1, status: "pending")
@@ -111,4 +111,15 @@ RSpec.describe "Merchant Order Show Page" do
       expect(page).to have_content("8")
     end
   end
+
+  it 'Merchant user cannot fullfill order if item quantity less than stock' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
+
+    visit merchant_order_path(@order_2)
+
+    within "#item-orders-#{@item_order_2.id}" do
+      expect(page).to_not have_link("Fulfill Item")
+      expect(page).to have_content("Cannot fulfill. Only #{@item_order_1.item.inventory} remaining")
+    end
+  end 
 end
