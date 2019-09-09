@@ -1,4 +1,4 @@
-#DEAD TEST to be deleted
+# DEAD TEST to be deleted
 
 # require 'rails_helper'
 #
@@ -67,4 +67,3 @@
   #     expect(page).to have_content.(@chain.name)
   #   end
   # end
-end
