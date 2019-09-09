@@ -29,6 +29,7 @@
       <th>Image</th>
       <th>Price</th>
       <th>Quantity</th>
+      <th>Status</th>
     </tr>
 
   <% @item_orders.each do |item_order|%>
@@ -38,6 +39,11 @@
         <td><img src= <%= item_order.item.image %> style="width:150px;height:100px;"></img></td>
         <td><%= number_to_currency(item_order.price)%></td>
         <td><%= item_order.quantity%></td>
+        <% if item_order.fulfilled? %>
+            <td><%= link_to "Fulfill Item", url: "/merchant/#{@order.id}/#{item_order.id}/fulfill", method: :patch %></td>
+          <% else %>
+            <td><%= "Fulfilled" %></td>
+        <% end %>
       </tr>
     </section>
   <% end %>
