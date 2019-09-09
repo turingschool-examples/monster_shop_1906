@@ -47,7 +47,7 @@
               <td><%= "Fulfilled" %></td>
             <% end %>
           <% else %>
-            <td> Cannot fulfill. Only <%= item_order.item.inventory %> remaining </td>
+            <td> Cannot fulfill. Only <%= item_order.item.cannot_fulfill_message %> remaining </td>
         <% end %>
         <td><%= item_order.item.inventory%></td>
       </tr>
