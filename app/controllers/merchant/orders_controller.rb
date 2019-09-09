@@ -9,9 +9,8 @@ class Merchant::OrdersController < Merchant::BaseController
   end
 
   def fulfill
-    item_order = ItemOrder.where(order: params[:order_id]).find(params[:item_order_id])
-    item_order.update(status: "packaged")
-
+    item_order = ItemOrder.find_item_orders(params[:order_id], params[:item_order_id])
+    item_order.update_status
     item_order.item.decrease_inventory(item_order)
 
     flash[:success] = "Item order #{item_order.id} has been fulfilled"
