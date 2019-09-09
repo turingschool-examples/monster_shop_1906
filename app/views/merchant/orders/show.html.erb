@@ -41,7 +41,7 @@
         <td><%= number_to_currency(item_order.price)%></td>
         <td><%= item_order.quantity%></td>
         <% if item_order.instock? %>
-          <% if item_order.pending? %>
+          <% unless item_order.fulfilled? %>
               <td><%= link_to "Fulfill Item", "/merchant/#{@order.id}/#{item_order.id}/fulfill", method: :patch %></td>
             <% else %>
               <td><%= "Fulfilled" %></td>
