@@ -40,10 +40,14 @@
         <td><img src= <%= item_order.item.image %> style="width:150px;height:100px;"></img></td>
         <td><%= number_to_currency(item_order.price)%></td>
         <td><%= item_order.quantity%></td>
-        <% if item_order.fulfilled? %>
-            <td><%= link_to "Fulfill Item", "/merchant/#{@order.id}/#{item_order.id}/fulfill", method: :patch %></td>
+        <% if item_order.instock? %>
+          <% if item_order.pending? %>
+              <td><%= link_to "Fulfill Item", "/merchant/#{@order.id}/#{item_order.id}/fulfill", method: :patch %></td>
+            <% else %>
+              <td><%= "Fulfilled" %></td>
+            <% end %>
           <% else %>
-            <td><%= "Fulfilled" %></td>
+            <td> Cannot fulfill. Only <%= item_order.item.inventory %> remaining </td>
         <% end %>
         <td><%= item_order.item.inventory%></td>
       </tr>
