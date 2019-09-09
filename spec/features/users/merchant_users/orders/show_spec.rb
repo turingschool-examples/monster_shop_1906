@@ -8,6 +8,7 @@ RSpec.describe "Merchant Order Show Page" do
     @merchant_shop_1 = create(:merchant, name: "Merchant Shop 1")
       @item_1 = @merchant_shop_1.items.create!(attributes_for(:item, name: "Item 1", inventory: 10))
       @item_2 = @merchant_shop_1.items.create!(attributes_for(:item, name: "Item 2", inventory: 15))
+      @item_5 = @merchant_shop_1.items.create!(attributes_for(:item, name: "Item 5", inventory: 0))
 
     @merchant_shop_2 = create(:merchant, name: "Merchant Shop 2")
       @item_3 = @merchant_shop_2.items.create!(attributes_for(:item, name: "Item 3", inventory: 20))
@@ -23,6 +24,9 @@ RSpec.describe "Merchant Order Show Page" do
 
     @order_3 = create(:order)
       @item_order_5 = @regular_user_1.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1, status: "pending")
+
+    @order_4 = create(:order)
+      @item_order_6 = @regular_user_1.item_orders.create(order: @order_4, item: @item_5, quantity: 15, price: @item_5.price, user: @regular_user_1, status: "pending")
 
     @merchant_admin_1 = create(:user, role: 1, merchant: @merchant_shop_1)
     @merchant_employee_1 = create(:user, role: 2, merchant: @merchant_shop_1)
@@ -74,18 +78,6 @@ RSpec.describe "Merchant Order Show Page" do
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
   end
 
-#   As a merchant employee or admin
-# When I visit an order show page from my dashboard
-# For each item of mine in the order
-# If the user's desired quantity is equal to or less than my current inventory quantity for that item
-# And I have not already "fulfilled" that item:
-# - Then I see a button or link to "fulfill" that item
-# - When I click on that link or button I am returned to the order show page
-# - I see the item is now fulfilled
-# - I also see a flash message indicating that I have fulfilled that item
-# - the item's inventory quantity is permanently reduced by the user's desired quantity
-#
-# If I have already fulfilled this item, I see text indicating such.
   it 'Merchant user can fullfill order if items in stock' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
 
@@ -120,6 +112,13 @@ RSpec.describe "Merchant Order Show Page" do
     within "#item-orders-#{@item_order_4.id}" do
       expect(page).to_not have_link("Fulfill Item")
       expect(page).to have_content("Cannot fulfill. Only #{@item_order_4.item.inventory} remaining")
+    end
+
+    visit merchant_order_path(@order_4)
+
+    within "#item-orders-#{@item_order_6.id}" do
+      expect(page).to_not have_link("Fulfill Item")
+      expect(page).to have_content("Cannot fulfill. There are no #{@item_order_6.item.name} items remaining")
     end
   end
 end
