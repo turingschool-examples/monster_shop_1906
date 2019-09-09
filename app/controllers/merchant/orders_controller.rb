@@ -9,7 +9,7 @@ class Merchant::OrdersController < Merchant::BaseController
   end
 
   def fulfill
-    item_order = ItemOrder.find_item_orders(params[:order_id], params[:item_order_id])
+    item_order = ItemOrder.find(params[:item_order_id])
     item_order.update_status
     item_order.item.decrease_inventory(item_order)
 
