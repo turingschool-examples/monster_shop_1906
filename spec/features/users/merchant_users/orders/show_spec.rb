@@ -78,7 +78,7 @@ RSpec.describe "Merchant Order Show Page" do
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
   end
 
-  it 'Merchant user can fullfill order if items in stock' do
+  it 'Merchant user can fulfill order if items in stock' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
 
     visit merchant_order_path(@order_1)
@@ -104,7 +104,7 @@ RSpec.describe "Merchant Order Show Page" do
     end
   end
 
-  it 'Merchant user cannot fullfill order if item quantity less than stock' do
+  it 'Merchant user cannot fulfill order if item quantity less than stock' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
 
     visit merchant_order_path(@order_2)
