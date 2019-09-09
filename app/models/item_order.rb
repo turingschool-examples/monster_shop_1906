@@ -4,6 +4,7 @@ class ItemOrder <ApplicationRecord
   belongs_to :item
   belongs_to :order
   belongs_to :user
+  has_many :merchants, through: :item
 
   def subtotal
     price * quantity
@@ -15,5 +16,13 @@ class ItemOrder <ApplicationRecord
 
   def self.grandtotal_per_order(order_id)
     find_by(order_id: order_id).order.grandtotal
+  end
+
+  def instock?
+    self.item.inventory >= self.quantity
+  end
+
+  def update_status
+    self.update(fulfilled?: true)
   end
 end
