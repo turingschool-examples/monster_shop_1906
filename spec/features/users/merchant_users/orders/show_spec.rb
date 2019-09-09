@@ -102,10 +102,13 @@ RSpec.describe "Merchant Order Show Page" do
     end
 
     within "#item-orders-#{@item_order_2.id}" do
-      expect(page).to have_content("Pending")
+      expect(page).to have_content("Fulfill Item")
     end
 
     expect(page).to have_content("Item order #{@item_order_1.id} has been fulfilled")
-    expect(@item_order_1.item.quantity).to eq(8)
+
+    within "#item-orders-#{@item_order_1.id}" do
+      expect(page).to have_content("8")
+    end
   end
 end
