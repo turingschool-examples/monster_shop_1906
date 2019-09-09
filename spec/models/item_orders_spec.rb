@@ -46,7 +46,7 @@ describe ItemOrder, type: :model do
 
       @order_2 = create(:order)
         @item_order_3 = user.item_orders.create!(order: @order_2, item: item_3, quantity: 1, price: item_3.price, status: "pending")
-        @item_order_4 = user.item_orders.create!(order: @order_2, item: item_2, quantity: 3, price: item_2.price, status: "packaged")
+        @item_order_4 = user.item_orders.create!(order: @order_2, item: item_2, quantity: 10000, price: item_2.price, status: "packaged")
     end
 
     it 'total_quantity_per_order' do
@@ -63,8 +63,8 @@ describe ItemOrder, type: :model do
     end
 
     it 'can return true if item is in stock' do
-      expect(@item_order_1.pending?).to eq(true)
-      expect(@item_order_2.pending?).to eq(false)
+      expect(@item_order_1.instock?).to eq(true)
+      expect(@item_order_4.instock?).to eq(false)
     end
 
     it 'can update status to packaged' do

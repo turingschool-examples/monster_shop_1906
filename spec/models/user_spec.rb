@@ -117,7 +117,7 @@ describe User, type: :model do
       order_2 = create(:order)
         item_order_4 = regular_user_1.item_orders.create(order: order_2, item: item_2, quantity: 18, price: item_2.price, user: regular_user_1)
 
-      merchant_admin = create(:user, role: 1, merchant: merchant_shop_1)
+      merchant_admin = create(:user, role: 2, merchant: merchant_shop_1)
 
       expected = [item_order_1, item_order_2]
 
