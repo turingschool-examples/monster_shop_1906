@@ -28,8 +28,8 @@ RSpec.describe "Merchant Order Show Page" do
     @order_4 = create(:order)
       @item_order_6 = @regular_user_1.item_orders.create(order: @order_4, item: @item_5, quantity: 15, price: @item_5.price, user: @regular_user_1, status: "pending")
 
-    @merchant_admin_1 = create(:user, role: 1, merchant: @merchant_shop_1)
-    @merchant_employee_1 = create(:user, role: 2, merchant: @merchant_shop_1)
+    @merchant_admin_1 = create(:user, role: 2, merchant: @merchant_shop_1)
+    @merchant_employee_1 = create(:user, role: 1, merchant: @merchant_shop_1)
   end
 
   it 'can only show details about the order pertaining to that merchant' do
