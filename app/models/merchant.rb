@@ -28,12 +28,6 @@ class Merchant < ApplicationRecord
   end
 
   def pending_orders
-    pend_ord = []
-    item_orders.each do |item_order|
-      if item_order.status == "pending"
-        pend_ord << item_order.order
-      end
-    end
-    pend_ord.uniq!
+    orders.where(status: "pending").distinct
   end
 end

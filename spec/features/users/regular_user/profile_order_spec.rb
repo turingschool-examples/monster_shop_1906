@@ -51,7 +51,7 @@ RSpec.describe "User Profile Order Page" do
       expect(page).to have_content(@order_1.zip)
       expect(page).to have_content(@item_order_1.created_at)
       expect(page).to have_content(@item_order_1.updated_at)
-      expect(page).to have_content(@item_order_1.status)
+      expect(page).to have_content(@item_order_1.order.status)
 
       click_link(@order_1.id)
     end
@@ -71,7 +71,7 @@ RSpec.describe "User Profile Order Page" do
       expect(page).to have_content("#{@order_1.name} #{@order_1.address} #{@order_1.city}, #{@order_1.state} #{@order_1.zip}")
       expect(page).to have_content(@item_order_2.created_at)
       expect(page).to have_content(@item_order_2.updated_at)
-      expect(page).to have_content(@item_order_2.status)
+      expect(page).to have_content(@item_order_2.order.status)
     end
 
     within "#order-stats-#{@order_1.id}" do
@@ -79,4 +79,23 @@ RSpec.describe "User Profile Order Page" do
       expect(page).to have_content("$#{@order_1.grandtotal}")
     end
   end
+
+  # it "when I visit an order's show page, I see a button/link to cancel the order only if the order is still pending. When I click the cancel button for an order, each row in the order items table is given a status of 'unfulfilled', the order itself is given a status of 'cancelled', any item quantities in the order that were previously fulfilled have their quantities returned to their merchant's inventory for that item, I am returned to my profile page, I see a flash message telling me the order is now cancelled, and I see that this order now has an updated status of 'cancelled'" do
+  #   visit profile_orders_path
+  #
+  #   expect(page).to have_link "Cancel Order"
+  #
+  #
+  #   within "#item-order-#{@item_order_1.id}" do
+  #     click_link "Cancel Order"
+  #     expect(page).to have_content("Unfulfilled")
+  #     expect(page).to have_content("Cancelled")
+  #     expect(@item_order_1.quantity).to eq(0)
+  #     #merchant quantities returned to merchant's inventory
+  #   end
+  #
+  #   expect(current_path).to eq(profile_path)
+  #   expect(page).to have_content("Order ##{@order_1.id} has been cancelled.")
+  #
+  # end
 end

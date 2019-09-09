@@ -6,8 +6,7 @@ describe ItemOrder, type: :model do
     it { should validate_presence_of :item_id }
     it { should validate_presence_of :price }
     it { should validate_presence_of :quantity }
-    it { should validate_presence_of :status }
-    it { should validate_inclusion_of(:status).in_array(%w[pending packaged shipped cancelled])}
+    it { should validate_inclusion_of(:fulfilled?).in_array([true, false])}
   end
 
   describe "relationships" do
@@ -40,7 +39,7 @@ describe ItemOrder, type: :model do
       item_order_1 = user.item_orders.create!(order: @order_1, item: item_1, quantity: 1, price: 10)
       item_order_2 = user.item_orders.create!(order: @order_1, item: item_2, quantity: 3, price: 30)
     end
-    
+
     it 'total_quantity_per_order' do
       expect(ItemOrder.total_quantity_per_order(@order_1.id)).to eq(4)
     end
