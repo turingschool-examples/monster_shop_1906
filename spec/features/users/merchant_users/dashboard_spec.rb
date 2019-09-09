@@ -66,4 +66,3 @@
   #     expect(page).to have_content.(@chain.name)
   #   end
   # end
-end
