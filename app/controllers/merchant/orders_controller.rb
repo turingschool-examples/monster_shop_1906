@@ -7,4 +7,14 @@ class Merchant::OrdersController < Merchant::BaseController
       render file: "/public/404"
     end
   end
+
+  def fulfill
+    item_order = ItemOrder.where(order: params[:order_id]).find(params[:item_order_id])
+    item_order.update(status: "packaged")
+
+    item_order.item.decrease_inventory(item_order)
+
+    flash[:success] = "Item order #{item_order.id} has been fulfilled"
+    redirect_to merchant_order_path(item_order.order)
+  end
 end
