@@ -30,6 +30,7 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Status</th>
+      <th>Quantity in Stock</th>
     </tr>
 
   <% @item_orders.each do |item_order|%>
@@ -44,6 +45,7 @@
           <% else %>
             <td><%= "Fulfilled" %></td>
         <% end %>
+        <td><%= item_order.item.inventory%></td>
       </tr>
     </section>
   <% end %>
