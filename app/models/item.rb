@@ -29,4 +29,12 @@ class Item <ApplicationRecord
   def decrease_inventory(item_order)
     self.update(inventory: self.inventory - item_order.quantity)
   end
+
+  def cannot_fulfill_message
+    if self.inventory > 0
+      "Cannot fulfill. Only #{self.inventory} remaining."
+    else
+      "Cannot fulfill. There are no #{self.name} remaining."
+    end
+  end
 end
