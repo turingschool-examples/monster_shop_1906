@@ -17,17 +17,6 @@ RSpec.describe 'Cart show' do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
       end
-
-    # it 'Theres a link to checkout' do
-    #
-    #   visit "/cart"
-    #
-    #   expect(page).to have_link("Checkout")
-    #
-    #   click_on "Checkout"
-    #
-    #   # expect(current_path).to eq("/orders/new")
-    # end
   end
 
   describe 'When I havent added items to my cart' do
@@ -37,6 +26,7 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout")
     end
   end
+
   describe "Visitors must register or log in to check out" do
     it "As a visitor when I have items in my cart, and I visit my cart
     I see information telling me I must register or log in to finish the checkout
@@ -62,17 +52,6 @@ RSpec.describe 'Cart show' do
       expect(page).to have_content("You must Login or Register to checkout")
     end
   end
-  # As a registered user
-  # When I add items to my cart
-  # And I visit my cart
-  # I see a button or link indicating that I can check out
-  # And I click the button or link to check out
-  # An order is created in the system, which has a status of "pending"
-  # That order is associated with my user
-  # I am taken to my orders page ("/profile/orders")
-  # I see a flash message telling me my order was created
-  # I see my new order listed on my profile orders page
-  # My cart is now empty
 
   describe "as a registerd user" do
     it "When I add items to my cart and I visit my cart I see a button or link indicating that I can check out
@@ -93,7 +72,6 @@ RSpec.describe 'Cart show' do
     click_on "Add To Cart"
     visit "/items/#{@pencil.id}"
     click_on "Add To Cart"
-#binding.pry
     visit "/cart"
     click_on "Checkout"
 

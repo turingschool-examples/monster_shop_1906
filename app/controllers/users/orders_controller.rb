@@ -8,7 +8,6 @@ class Users::OrdersController < ApplicationController
   def create
     user = current_user
     order = user.orders.create(order_params)
-    # binding.pry
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -23,6 +22,10 @@ class Users::OrdersController < ApplicationController
     end
   end
 
+  def show
+    @user = current_user
+    @order = Order.find(params[:id])
+  end
 
   def order_params
     {name: current_user.name, address: current_user.address, city: current_user.city, state: current_user.state, zip: current_user.zip}

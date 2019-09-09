@@ -33,15 +33,16 @@ Rails.application.routes.draw do
   patch "/cart/:item_id/:increment_decrement", to: "cart#increment_decrement"
 
   get "/orders/new", to: "orders#new"
-  post "/profile/orders", to: "users/orders#create", as: :order_create
-  get "/orders/:id", to: "orders#show", as: :order
+  get "/orders/:id", to: "orders#show"
 
   get '/register', to: 'users#new', as: :registration
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show', as: :profile
   get '/profile/edit', to: 'users#edit'
-
   get '/profile/orders', to: 'users/orders#index', as: :user_orders
+  post "/profile/orders", to: "users/orders#create", as: :order_create
+  get '/profile/orders/:id', to: 'users/orders#show', as: :user_order
+
 
   get '/employee', to: 'employee/dashboard#show', as: :employee_dashboard
 

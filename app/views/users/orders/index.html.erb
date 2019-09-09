@@ -1,7 +1,10 @@
+<center>
+<h1>Order History</h1>
 <% @orders.each do |order| %>
-  <%= link_to order.id, order_path(order) %>
-  <%= order.created_at %>
-  <p>Total Order Item Count: <%= order.item_orders.count %></p>
-  <p>Grand Total: <%= order.grandtotal %></p>
-  <p>Status: <%= order.status %></p>
+  <br /><b><%= link_to "Order ID ##{order.id}", user_order_path(order) %></b>
+  <br />Placed On: <%= order.created_at %>
+  <br />Number of Items Ordered: <%= order.item_orders.count %>
+  <br />Grand Total: <%= number_to_currency(order.grandtotal) %>
+  <br />Status: <%= order.status %>
 <% end %>
+</center>
