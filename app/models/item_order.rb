@@ -1,6 +1,6 @@
 class ItemOrder <ApplicationRecord
-  validates_presence_of :item_id, :order_id, :price, :quantity, :status
-  validates :status, inclusion: {:in => ['pending', 'packaged', 'shipped', 'cancelled']}
+  validates_presence_of :item_id, :order_id, :price, :quantity
+  validates :fulfilled?, inclusion: {:in => [true, false]}
   belongs_to :item
   belongs_to :order
   belongs_to :user

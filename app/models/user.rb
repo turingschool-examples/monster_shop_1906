@@ -8,9 +8,8 @@ class User < ApplicationRecord
   validates :password, confirmation: true
 
   has_many :item_orders
+  has_many :orders, through: :item_orders
   belongs_to :merchant, optional: true
-  # validates_presence_of :merchant, unless: :regular_user?
-  # validates_presence_of :merchant, unless: :admin_user?
 
   enum role: [:regular_user, :merchant_employee, :merchant_admin, :admin_user]
 

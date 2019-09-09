@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   root to: "welcome#index"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
+    get "/orders/:id", to: "dashboard#show", as: :orders_show
     resources :items, only: [:index], as: :user
 
     resources :orders, only: [:show]
@@ -31,10 +36,6 @@ Rails.application.routes.draw do
   patch "/merchant/:order_id/:item_order_id/fulfill", to: "merchant/orders#fulfill"
 
   patch "/merchants/:id/update_status", to: "merchants#update_status"
-
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
