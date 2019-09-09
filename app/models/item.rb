@@ -34,7 +34,7 @@ class Item <ApplicationRecord
     if self.inventory > 0
       "Cannot fulfill. Only #{self.inventory} remaining."
     else
-      "Cannot fulfill. There are no #{self.name} remaining."
+      "Cannot fulfill. There are no #{self.name} items remaining."
     end
   end
 end
