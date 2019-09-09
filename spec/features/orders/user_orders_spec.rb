@@ -50,38 +50,58 @@ RSpec.describe 'Users Order Show Page' do
       expect(page).to have_content(@order_3.grandtotal)
     end
 
-#     As a registered user
-# When I visit my Profile Orders page
-# And I click on a link for order's show page
-# My URL route is now something like "/profile/orders/15"
-# I see all information about the order, including the following information:
-# - the ID of the order
-# - the date the order was made
-# - the date the order was last updated
-# - the current status of the order
-# - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
-# - the total quantity of items in the whole order
-# - the grand total of all items for that order
     it 'can click on order from Order History page and view orders details' do
       visit '/profile/orders'
 
       click_link "Order ID ##{@order_2.id}"
-save_and_open_page
+
       expect(current_path).to eq("/profile/orders/#{@order_2.id}")
       expect(page).to have_content("Order ID ##{@order_2.id} Details")
       expect(page).to have_content("Order Placed On: #{@order_2.created_at}")
       expect(page).to have_content("Last Updated On: #{@order_2.updated_at}")
       expect(page).to have_content("Current Status: #{@order_2.status}")
 
-      expect(page).to have_content(@order_2.item_orders.item.name)
-      expect(page).to have_content(@order_2.item_orders.item.description)
-      expect(page).to have_content(@order_2.item_orders.item.image)
-      expect(page).to have_content(@order_2.item_orders.quantity)
-      expect(page).to have_content(@order_2.item_orders.price)
-      expect(page).to have_content(@order_2.item_orders.subtotal)
+      expect(page).to have_content(@order_2.items.first.name)
+      expect(page).to have_content(@order_2.items.first.description)
+      expect(page).to have_content(@order_2.item_orders.first.quantity)
+      expect(page).to have_content(@order_2.items.first.price)
+      expect(page).to have_content(@order_2.item_orders.first.subtotal)
 
       expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
       expect(page).to have_content("Order Total: $#{@order_2.grandtotal}")
+    end
+
+#As a registered user
+# When I visit an order's show page
+# I see a button or link to cancel the order only if the order is still pending
+# When I click the cancel button for an order, the following happens:
+# - Each row in the "order items" table is given a status of "unfulfilled"
+# - The order itself is given a status of "cancelled"
+# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
+# - I am returned to my profile page
+# - I see a flash message telling me the order is now cancelled
+# - And I see that this order now has an updated status of "cancelled"
+    it 'user can cancel order if order is pending' do
+      visit "/profile/orders/#{@order_1.id}"
+
+      expect(page).to have_content('Current Status: pending')
+save_and_open_page
+      click_button 'Cancel Order'
+
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Success! Our Big Hangry Monster ate your order therefore it's been cancelled!")
+
+      click_link 'My Orders'
+
+      within "#order-#{@order_1.id}" do
+        expect(page).to have_content('Status: cancelled')
+      end
+
+      click_link "Order ID ##{@order_1.id}"
+
+      within "#item-#{@order_1.item_orders.first.id}" do
+        expect(page).to have_content('unfulfilled')
+      end
     end
   end
 end
