@@ -38,8 +38,9 @@ Rails.application.routes.draw do
 
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
-  get '/profile', to: 'users#show', as: :profile
   get '/profile/edit', to: 'users#edit'
+  patch '/profile', to: 'users#update', as: :user_update
+  get '/profile', to: 'users#show', as: :profile
   # get '/profile/orders', to: 'users/orders#show', as: :user_orders
 
   get '/profile/orders', to: 'users/orders#index', as: :user_orders
