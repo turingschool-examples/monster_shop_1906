@@ -17,8 +17,10 @@
     </tr>
   </table>
 </section>
+
 <br>
 <br>
+
 <h1 align = "center">Order Information</h1>
 <center>
   <table>
@@ -28,8 +30,9 @@
       <th>Price</th>
       <th>Quantity</th>
     </tr>
+
   <% @item_orders.each do |item_order|%>
-  <section id = "item_orders-<%item_order.id%>">
+  <section id= "item-orders-<%=item_order.id%>">
       <tr>
         <td><%=link_to item_order.item.name, item_path(item_order.item)%></td>
         <td><img src= <%= item_order.item.image %> style="width:150px;height:100px;"></img></td>
