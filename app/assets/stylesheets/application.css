@@ -167,17 +167,7 @@ td, th {
 tr:nth-child(even) {
   background-color: #F0F8FF;
 }
-#table-container {
-  display: flex;
-}
 
-#item-table {
-  float: left;
-}
-#item-orders {
-  float: right;
-}
-
-#order-display-image{
+#order-display-image {
   width:50px;
 }
