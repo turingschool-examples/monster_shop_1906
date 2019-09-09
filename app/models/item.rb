@@ -28,6 +28,5 @@ class Item <ApplicationRecord
 
   def decrease_inventory(item_order)
     self.update(inventory: self.inventory - item_order.quantity)
-    self.save
   end
 end
