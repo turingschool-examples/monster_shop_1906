@@ -18,15 +18,11 @@ class ItemOrder <ApplicationRecord
     find_by(order_id: order_id).order.grandtotal
   end
 
-  def pending?
-    self.status == "pending"
-  end
-
   def instock?
     self.item.inventory >= self.quantity
   end
 
   def update_status
-    self.update(status: "packaged")
+    self.update(fulfilled?: true)
   end
 end
