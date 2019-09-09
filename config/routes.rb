@@ -9,10 +9,10 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
-    get "/orders", to: "dashboard#index", as: :orders_show
-    resources :items, only: [:index], as: :user
-
+   # get "/orders", to: "dashboard#index", as: :orders_show
+    get "/orders/:id", to: "dashboard#show", as: :orders_show
     resources :orders, only: [:show]
+    resources :items, only: [:index, :destroy], as: :user
   end
 
   resources :merchants do
