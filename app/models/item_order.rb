@@ -17,4 +17,8 @@ class ItemOrder <ApplicationRecord
   def self.grandtotal_per_order(order_id)
     find_by(order_id: order_id).order.grandtotal
   end
+
+  def fulfilled?
+    self.status == "pending"
+  end
 end
