@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   namespace :merchant do
     get "/", to: "dashboard#index", as: :user
     resources :items, only: [:index], as: :user
-    resources :orders, only: [:show]
+    
+    resources :orders, only: [:show] do
+      patch "fulfill", :on => :item_order
+    end
   end
+
 
   resources :merchants do
     resources :items, only: [:index, :new, :create]
