@@ -31,9 +31,9 @@ describe Item, type: :model do
       @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
 
-      @order_1 = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      @order_2 = Order.create(name: 'Mack', address: '123 Happy St', city: 'Denver', state: 'CO', zip: 80205)
-        @item_order_1 = @user.item_orders.create!(order: @order_2, item: @watch, quantity: 2, price: @watch.price, user: @user, status: "pending")
+      @order_1 = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "pending")
+      @order_2 = Order.create(name: 'Mack', address: '123 Happy St', city: 'Denver', state: 'CO', zip: 80205, status: "pending")
+        @item_order_1 = @user.item_orders.create!(order: @order_2, item: @watch, quantity: 2, price: @watch.price, user: @user, fulfilled?: false)
     end
 
     it "calculate average review" do

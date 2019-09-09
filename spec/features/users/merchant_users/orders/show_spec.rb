@@ -14,22 +14,33 @@ RSpec.describe "Merchant Order Show Page" do
       @item_3 = @merchant_shop_2.items.create!(attributes_for(:item, name: "Item 3", inventory: 20))
       @item_4 = @merchant_shop_2.items.create!(attributes_for(:item, name: "Item 4", inventory: 10))
 
-    @order_1 = create(:order)
-      @item_order_1 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_1, quantity: 2, price: @item_1.price, user: @regular_user_1, status: "pending")
-      @item_order_2 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_2, quantity: 8, price: @item_2.price, user: @regular_user_1, status: "pending")
-      @item_order_3 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_3, quantity: 10, price: @item_3.price, user: @regular_user_1, status: "pending")
+    @order_1 = create(:order, status: "pending")
+      @item_order_1 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_1, quantity: 2, price: @item_1.price, user: @regular_user_1, fulfilled?: false)
+      @item_order_2 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_2, quantity: 8, price: @item_2.price, user: @regular_user_1, fulfilled?: false)
+      @item_order_3 = @regular_user_1.item_orders.create!(order: @order_1, item: @item_3, quantity: 10, price: @item_3.price, user: @regular_user_1, fulfilled?: false)
 
-    @order_2 = create(:order)
-      @item_order_4 = @regular_user_1.item_orders.create(order: @order_2, item: @item_2, quantity: 100, price: @item_2.price, user: @regular_user_1, status: "pending")
+    @order_2 = create(:order, status: "pending")
+      @item_order_4 = @regular_user_1.item_orders.create(order: @order_2, item: @item_2, quantity: 100, price: @item_2.price, user: @regular_user_1, fulfilled?: false)
 
-    @order_3 = create(:order)
-      @item_order_5 = @regular_user_1.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1, status: "pending")
+    @order_3 = create(:order, status: "pending")
+      @item_order_5 = @regular_user_1.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1, fulfilled?: false)
 
-    @order_4 = create(:order)
-      @item_order_6 = @regular_user_1.item_orders.create(order: @order_4, item: @item_5, quantity: 15, price: @item_5.price, user: @regular_user_1, status: "pending")
+    @order_4 = create(:order, status: "pending")
+      @item_order_6 = @regular_user_1.item_orders.create(order: @order_4, item: @item_5, quantity: 15, price: @item_5.price, user: @regular_user_1, fulfilled?: false)
 
     @merchant_admin_1 = create(:user, role: 2, merchant: @merchant_shop_1)
     @merchant_employee_1 = create(:user, role: 1, merchant: @merchant_shop_1)
+  end
+
+  it 'merchant user can click on an order link from the dashboard' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
+
+    visit merchant_user_path
+
+
+    click_link("Order ##{@order_1.id}")
+
+    expect(current_path).to eq(merchant_order_path(@order_1))
   end
 
   it 'can only show details about the order pertaining to that merchant' do
@@ -97,7 +108,7 @@ RSpec.describe "Merchant Order Show Page" do
       expect(page).to have_content("Fulfill Item")
     end
 
-    expect(page).to have_content("Item order #{@item_order_1.id} has been fulfilled")
+    expect(page).to have_content("Item order ##{@item_order_1.id} has been fulfilled")
 
     within "#item-orders-#{@item_order_1.id}" do
       expect(page).to have_content("8")

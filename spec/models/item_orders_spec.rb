@@ -39,13 +39,13 @@ describe ItemOrder, type: :model do
       item_3 = merchant_2.items.create!(attributes_for(:item, inventory: 20))
       item_4 = merchant_2.items.create!(attributes_for(:item, inventory: 0))
 
-      @order_1 = create(:order)
-        @item_order_1 = user.item_orders.create!(order: @order_1, item: item_1, quantity: 1, price: item_1.price, status: "pending")
-        @item_order_2 = user.item_orders.create!(order: @order_1, item: item_2, quantity: 3, price: item_2.price, status: "packaged")
+      @order_1 = create(:order, status: "pending")
+        @item_order_1 = user.item_orders.create!(order: @order_1, item: item_1, quantity: 1, price: item_1.price, fulfilled?: false)
+        @item_order_2 = user.item_orders.create!(order: @order_1, item: item_2, quantity: 3, price: item_2.price, fulfilled?: false)
 
-      @order_2 = create(:order)
-        @item_order_3 = user.item_orders.create!(order: @order_2, item: item_3, quantity: 1, price: item_3.price, status: "pending")
-        @item_order_4 = user.item_orders.create!(order: @order_2, item: item_2, quantity: 10000, price: item_2.price, status: "packaged")
+      @order_2 = create(:order, status: "pending")
+        @item_order_3 = user.item_orders.create!(order: @order_2, item: item_3, quantity: 1, price: item_3.price, fulfilled?: false)
+        @item_order_4 = user.item_orders.create!(order: @order_2, item: item_2, quantity: 10000, price: item_2.price, fulfilled?: false)
     end
 
     it 'total_quantity_per_order' do
@@ -56,11 +56,6 @@ describe ItemOrder, type: :model do
       expect(ItemOrder.grandtotal_per_order(@order_1.id)).to eq(100)
     end
 
-    it 'can return true if status is pending' do
-      expect(@item_order_1.pending?).to eq(true)
-      expect(@item_order_2.pending?).to eq(false)
-    end
-
     it 'can return true if item is in stock' do
       expect(@item_order_1.instock?).to eq(true)
       expect(@item_order_4.instock?).to eq(false)
@@ -69,7 +64,7 @@ describe ItemOrder, type: :model do
     it 'can update status to packaged' do
       @item_order_1.update_status
 
-      expect(@item_order_1.status).to eq("packaged")
+      expect(@item_order_1.fulfilled?).to eq(true)
     end
   end
 end
