@@ -21,11 +21,14 @@ RSpec.describe "Merchant Order Show Page" do
     @order_2 = create(:order)
       @item_order_4 = @regular_user_1.item_orders.create(order: @order_2, item: @item_2, quantity: 18, price: @item_2.price, user: @regular_user_1)
 
+    @order_3 = create(:order)
+      @item_order_5 = @regular_user_1.item_orders.create(order: @order_3, item: @item_4, quantity: 18, price: @item_4.price, user: @regular_user_1)
+
     @merchant_admin_1 = create(:user, role: 1, merchant: @merchant_shop_1)
     @merchant_employee_1 = create(:user, role: 2, merchant: @merchant_shop_1)
   end
 
-  it 'can show all the merchants orders' do
+  it 'can only show details about the order pertaining to that merchant' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
 
     visit merchant_order_path(@order_1)
@@ -38,23 +41,37 @@ RSpec.describe "Merchant Order Show Page" do
       expect(page).to have_content(@order_1.zip)
     end
 
-    within "#item_orders-#{@item_order_1.id}" do
+    within "#item-orders-#{@item_order_1.id}" do
       expect(page).to have_content(@item_order_1.item.name)
       expect(page).to have_link("Item 1")
       expect(page).to have_css("img[src*='#{@item_order_1.item.image}']")
       expect(page).to have_content(@item_order_1.item.price)
     end
 
-    within "#item_orders-#{@item_order_2.id}" do
+    within "#item-orders-#{@item_order_2.id}" do
       expect(page).to have_content(@item_order_2.item.name)
       expect(page).to have_link("Item 2")
       expect(page).to have_css("img[src*='#{@item_order_2.item.image}']")
       expect(page).to have_content(@item_order_2.item.price)
     end
+  end
+
+  it 'cannot show details pertaining to other merchant' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
+
+    visit merchant_order_path(@order_1)
 
     expect(page).not_to have_css("#item_orders-#{@item_order_3.id}")
     expect(page).not_to have_content(@item_order_3.item.name)
 
     expect(page).not_to have_css("#item_orders-#{@item_order_4.id}")
+  end
+
+  it 'merchant user cannot see the shipping information if not their order' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin_1)
+
+    visit merchant_order_path(@order_3)
+
+    expect(page).to have_content("The page you were looking for doesn't exist (404)")
   end
 end
