@@ -15,6 +15,8 @@ RSpec.describe 'Users Order Show Page' do
       @item_order_1 = @order_1.item_orders.create(item: @tire, price: @tire.price, quantity: 2)
       @item_order_2 = @order_2.item_orders.create(item: @paper, price: @paper.price, quantity: 20)
       @item_order_3 = @order_3.item_orders.create(item: @pencil, price: @pencil.price, quantity: 5)
+      @item_order_4 = @order_2.item_orders.create(item: @pencil, price: @pencil.price, quantity: 1)
+
     end
 
     it "User Profile displays Orders, When I visit my Profile Orders page
@@ -25,27 +27,27 @@ RSpec.describe 'Users Order Show Page' do
     the current status of the order
     the total quantity of items in the order
     the grand total of all items for that order" do
-    visit '/profile/orders'
+      visit '/profile/orders'
 
-    expect(page).to have_link("Order ID ##{@order_1.id}")
-    expect(page).to have_link("Order ID ##{@order_2.id}")
-    expect(page).to have_link("Order ID ##{@order_3.id}")
+      expect(page).to have_link("Order ID ##{@order_1.id}")
+      expect(page).to have_link("Order ID ##{@order_2.id}")
+      expect(page).to have_link("Order ID ##{@order_3.id}")
 
-    expect(page).to have_content(@order_1.created_at)
-    expect(page).to have_content(@order_2.created_at)
-    expect(page).to have_content(@order_3.created_at)
+      expect(page).to have_content(@order_1.created_at)
+      expect(page).to have_content(@order_2.created_at)
+      expect(page).to have_content(@order_3.created_at)
 
-    expect(page).to have_content(@order_1.status)
-    expect(page).to have_content(@order_2.status)
-    expect(page).to have_content(@order_3.status)
+      expect(page).to have_content(@order_1.status)
+      expect(page).to have_content(@order_2.status)
+      expect(page).to have_content(@order_3.status)
 
-    expect(page).to have_content("Number of Items Ordered: #{@order_1.item_orders.count}")
-    expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
-    expect(page).to have_content("Number of Items Ordered: #{@order_3.item_orders.count}")
+      expect(page).to have_content("Number of Items Ordered: #{@order_1.item_orders.count}")
+      expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
+      expect(page).to have_content("Number of Items Ordered: #{@order_3.item_orders.count}")
 
-    expect(page).to have_content(@order_1.grandtotal)
-    expect(page).to have_content(@order_2.grandtotal)
-    expect(page).to have_content(@order_3.grandtotal)
+      expect(page).to have_content(@order_1.grandtotal)
+      expect(page).to have_content(@order_2.grandtotal)
+      expect(page).to have_content(@order_3.grandtotal)
     end
 
 #     As a registered user
@@ -60,29 +62,27 @@ RSpec.describe 'Users Order Show Page' do
 # - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
 # - the total quantity of items in the whole order
 # - the grand total of all items for that order
-  it 'can click on order from Order History page and view orders details' do
-    visit '/profile/orders'
+    it 'can click on order from Order History page and view orders details' do
+      visit '/profile/orders'
 
-    click_link "Order ID ##{@order_2.id}"
+      click_link "Order ID ##{@order_2.id}"
+save_and_open_page
+      expect(current_path).to eq("/profile/orders/#{@order_2.id}")
+      expect(page).to have_content("Order ID ##{@order_2.id} Details")
+      expect(page).to have_content("Order Placed On: #{@order_2.created_at}")
+      expect(page).to have_content("Last Updated On: #{@order_2.updated_at}")
+      expect(page).to have_content("Current Status: #{@order_2.status}")
 
-    expect(current_path).to eq("/orders/#{@order_2.id}")
-    expect(page).to have_content("Order ID ##{@order_2.id} Details")
-    expect(page).to have_content("Order Placed On: #{@order_2.created_at}")
-    expect(page).to have_content("Last Updated On: #{@order_2.updated_at}")
-    expect(page).to have_content("Current Status: #{@order_2.status}")
+      expect(page).to have_content('Lined Paper')
+      expect(page).to have_content('Great for writing on!')
+      # expect(page).to have_content()
+      expect(page).to have_content(20)
+      expect(page).to have_content(20)
+      expect(page).to have_content(400)
 
-    within "#item-#{@order.item_orders.first.id}" do
-      expect(page).to have_content(@order.item_orders.first.name)
-      expect(page).to have_content(@item_order_2.description)
-      expect(page).to have_content(@item_order_2.image)
-      expect(page).to have_content(@item_order_2.quantity)
-      expect(page).to have_content(@item_order_2.price)
-      expect(page).to have_content(@item_order_2.subtotal)
-  end
 
-    expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
-    expect(page).to have_content("Order Total: $#{@order_2.grandtotal}")
-  end
-
+      expect(page).to have_content("Number of Items Ordered: #{@order_2.item_orders.count}")
+      expect(page).to have_content("Order Total: $#{@order_2.grandtotal}")
+    end
   end
 end
