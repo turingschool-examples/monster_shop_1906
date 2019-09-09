@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :item_orders, through: :items
+  has_many :orders, through: :item_orders
   has_many :users
 
   validates_presence_of :name,
@@ -24,5 +25,15 @@ class Merchant < ApplicationRecord
 
   def distinct_cities
     item_orders.distinct.joins(:order).pluck(:city)
+  end
+
+  def pending_orders
+    pend_ord = []
+    item_orders.each do |item_order|
+      if item_order.status == "pending"
+        pend_ord << item_order.order
+      end
+    end
+    pend_ord.uniq!
   end
 end
