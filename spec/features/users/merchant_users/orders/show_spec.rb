@@ -117,9 +117,9 @@ RSpec.describe "Merchant Order Show Page" do
 
     visit merchant_order_path(@order_2)
 
-    within "#item-orders-#{@item_order_2.id}" do
+    within "#item-orders-#{@item_order_4.id}" do
       expect(page).to_not have_link("Fulfill Item")
-      expect(page).to have_content("Cannot fulfill. Only #{@item_order_1.item.inventory} remaining")
+      expect(page).to have_content("Cannot fulfill. Only #{@item_order_4.item.inventory} remaining")
     end
-  end 
+  end
 end
