@@ -71,16 +71,6 @@ RSpec.describe 'Users Order Show Page' do
       expect(page).to have_content("Order Total: $#{@order_2.grandtotal}")
     end
 
-#As a registered user
-# When I visit an order's show page
-# I see a button or link to cancel the order only if the order is still pending
-# When I click the cancel button for an order, the following happens:
-# - Each row in the "order items" table is given a status of "unfulfilled"
-# - The order itself is given a status of "cancelled"
-# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
-# - I am returned to my profile page
-# - I see a flash message telling me the order is now cancelled
-# - And I see that this order now has an updated status of "cancelled"
     it 'user can cancel order if order is pending' do
       visit "/profile/orders/#{@order_1.id}"
 
@@ -93,15 +83,11 @@ RSpec.describe 'Users Order Show Page' do
 
       click_link 'My Orders'
 
-      within "#order-#{@order_1.id}" do
-        expect(page).to have_content('Status: cancelled')
-      end
+      expect(page).to have_content('Status: cancelled')
 
       click_link "Order ID ##{@order_1.id}"
 
-      within "#item-#{@order_1.item_orders.first.id}" do
-        expect(page).to have_content('unfulfilled')
-      end
+      expect(page).to have_content('unfulfilled')
     end
   end
 end
