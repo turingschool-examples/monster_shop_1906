@@ -29,7 +29,13 @@ class Users::OrdersController < ApplicationController
 
   def cancel
     @order = Order.find(params[:id])
-    binding.pry
+    @order.update(status: 'cancelled')
+    @order.item_orders.each do |item|
+      item.status = 'unfulfilled'
+    end
+    @order.item_orders.update(status: 'unfulfilled')
+    flash[:message] = "Success! Our Big Hangry Monster ate your order therefore it's been cancelled!"
+    redirect_to profile_path
   end
 
   def order_params
