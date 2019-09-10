@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/profile/orders', to: 'users/orders#index', as: :user_orders
   post "/profile/orders", to: "users/orders#create", as: :order_create
   get '/profile/orders/:id', to: 'users/orders#show', as: :user_order
+  patch '/profile/orders/:id', to: 'users/orders#cancel'
 
 
   get '/employee', to: 'employee/dashboard#show', as: :employee_dashboard
