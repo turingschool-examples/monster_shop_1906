@@ -51,6 +51,7 @@ RSpec.describe 'Users Order Show Page' do
     end
 
     it 'can click on order from Order History page and view orders details' do
+
       visit '/profile/orders'
 
       click_link "Order ID ##{@order_2.id}"

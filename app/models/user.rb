@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   validates_presence_of :name,
                         :address,
                         :city,
@@ -6,10 +7,9 @@ class User < ApplicationRecord
                         :zip,
                         :email
 
+  # validates_presence_of :password, require: true
   validates :email, uniqueness: true, presence: true
-  validates_presence_of :password, require: true
 
-  has_secure_password
   has_many :orders
 
   enum role: %w(default employee merchant admin)
