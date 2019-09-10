@@ -85,7 +85,7 @@ RSpec.describe 'Users Order Show Page' do
       visit "/profile/orders/#{@order_1.id}"
 
       expect(page).to have_content('Current Status: pending')
-save_and_open_page
+
       click_button 'Cancel Order'
 
       expect(current_path).to eq(profile_path)
