@@ -36,7 +36,7 @@
 </section>
 
 <section id="cancel-order"><p>
-  <%= button_to 'Cancel Order' %>
+  <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch %>
 </p></section>
 
 <section class = "shipping-address">
