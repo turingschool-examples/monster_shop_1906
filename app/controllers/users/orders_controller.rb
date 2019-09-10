@@ -27,6 +27,11 @@ class Users::OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def cancel
+    @order = Order.find(params[:id])
+    binding.pry
+  end
+
   def order_params
     {name: current_user.name, address: current_user.address, city: current_user.city, state: current_user.state, zip: current_user.zip}
   end
