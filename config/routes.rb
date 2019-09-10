@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update', as: :user_update
   get '/profile', to: 'users#show', as: :profile
+  get '/profile/edit_password', to: 'users#edit_password', as: :profile_edit_password
+  patch '/profile/edit_password', to: 'users#update_pass'
 
   get '/profile/orders', to: 'users/orders#index', as: :user_orders
   post "/profile/orders", to: "users/orders#create", as: :order_create
