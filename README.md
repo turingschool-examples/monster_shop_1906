@@ -336,7 +336,7 @@ The item image is a link to that item's show page
 ```
 
 ```
-[ ] done
+[ kelly? ] done
 
 User Story 18, Items Index Page Statistics
 
@@ -369,7 +369,7 @@ And I see a link to edit my profile data
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 20, User Can Edit their Profile Data
 
@@ -387,7 +387,7 @@ And I see my updated information
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 21, User Can Edit their Password
 
@@ -403,7 +403,7 @@ And I see a flash message telling me that my password is updated
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 22, User Editing Profile Data must have unique Email address
 
@@ -437,7 +437,7 @@ The words "log in" is a link to the login page
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 24, Registered users can check out
 
@@ -500,7 +500,7 @@ I see every order I've made, which includes the following information:
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 27, User views an Order Show Page
 
@@ -519,7 +519,7 @@ I see all information about the order, including the following information:
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 28, User cancels an order
 
@@ -545,7 +545,7 @@ The order status changes from "pending" to "packaged"
 ```
 
 ```
-[ ] done
+[ Santiago ] done
 
 User Story 30, Admin can see all orders
 

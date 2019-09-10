@@ -24,16 +24,33 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def edit_password
+    @user = current_user
+  end
+
+
   def update
    @user = current_user
    if @user.update(updated_profile_params)
        flash[:notice] = 'Your profile has been updated!'
        redirect_to '/profile'
    else
-     flash[:error]= @user.errors.full_messages
-     redirect_to '/profile/edit'
+       flash[:error]= @user.errors.full_messages
+       redirect_to '/profile/edit'
    end
  end
+
+ def update_pass
+   @user = current_user
+   if @user.update(updated_pass_params)
+       flash[:notice] = 'Your password is updated!'
+       redirect_to '/profile'
+   else
+       flash[:error]= @user.errors.full_messages
+       redirect_to '/profile/edit_password'
+   end
+ end
+
 
   private
 
@@ -44,4 +61,12 @@ class UsersController < ApplicationController
   def updated_profile_params
     params.require(:user).permit(:name, :address, :city, :state, :email, :zip)
   end
-end 
+<<<<<<< HEAD
+end
+=======
+
+  def updated_pass_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+end
+>>>>>>> 2810099020121757ef81d4aa7319e60616a44ed1

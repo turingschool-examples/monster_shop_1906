@@ -12,8 +12,8 @@
     </tr>
   <% @order.item_orders.each do |item_order|%>
     <tr>
-    <section id = "item-<%=item_order.item_id%>">
-        <td><center><p><%= item_order.status%></p></center></td>
+    <section id="item-<%=item_order.item_id %>">
+        <td><center><p><%= item_order.status %></p></center></td>
         <td><center><section id="order-display-image"><p><%= image_tag item_order.item.image %></p></section></center></td>
         <td><center><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></center></td>
         <td><center><p><%= item_order.item.description %></p></center></td>
@@ -26,13 +26,20 @@
 </table>
 
 <section id="grandtotal">
-  <p><b>Order Total: <%=number_to_currency(@order.grandtotal)%></b></p>
+  <p>Number of Items Ordered: <%= @order.item_orders.count %></p>
+  <br<b>Order Total: <%=number_to_currency(@order.grandtotal)%></b>
 </section>
 <section id="status">
   Current Status: <i><%= @order.status%></i>
   <br />Last Updated On: <%= @order.updated_at%>
   <br />Order Placed On: <%= @order.created_at%>
 </section>
+
+<% if @order.status == 'pending' %>
+<section id="cancel-order"><p>
+  <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch %>
+</p></section>
+<% end %>
 
 <section class = "shipping-address">
   <h1 align = "center">Shipping Info</h1>
