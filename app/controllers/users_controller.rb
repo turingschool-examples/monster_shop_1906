@@ -44,4 +44,4 @@ class UsersController < ApplicationController
   def updated_profile_params
     params.require(:user).permit(:name, :address, :city, :state, :email, :zip)
   end
-
+end 
