@@ -62,7 +62,7 @@ RSpec.describe 'Users Order Show Page' do
 # - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
 # - the total quantity of items in the whole order
 # - the grand total of all items for that order
-    it 'can click on order from Order History page and view orders details' do
+    xit 'can click on order from Order History page and view orders details' do
       visit '/profile/orders'
 
       click_link "Order ID ##{@order_2.id}"
