@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get '/employee', to: 'employee/dashboard#show', as: :employee_dashboard
 
   get '/admin', to: 'admin/dashboard#show', as: :admin_dashboard
+  get '/admin/users/:id', to: 'admin/dashboard#user_show', as: :admin_user_show
 
   get '/merchant', to: 'merchant/dashboard#show', as: :merchant_dashboard
 

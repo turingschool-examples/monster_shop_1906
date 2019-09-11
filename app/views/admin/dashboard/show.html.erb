@@ -1,1 +1,9 @@
 <h1>This is a admin user profile page</h1>
+<% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+  <%= order.id %>
+  <%= order.created_at %>
+  <%= link_to order.name, admin_user_show_path(order.user_id) %>
+  <%= order.status %>
+</section>
+<% end %>
