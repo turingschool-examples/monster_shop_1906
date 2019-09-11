@@ -14,4 +14,10 @@ class Admin::DashboardController < ApplicationController
     redirect_to "/admin"
   end
 
+  def method_name
+    # merchant = Merchant.find
+    # merchant.update(enabled: false)
+    # redirect_to ""
+  end
+
 end
