@@ -5,5 +5,9 @@
   <%= order.created_at %>
   <%= link_to order.name, admin_user_show_path(order.user_id) %>
   <%= order.status %>
+  <% if order.packaged? %>
+    <%= link_to "Ship Order", admin_ship_order_path(order), method: :patch %>
+  <% end %>
+
 </section>
 <% end %>
