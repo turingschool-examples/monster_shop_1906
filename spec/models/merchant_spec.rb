@@ -48,7 +48,11 @@ describe Merchant, type: :model do
       order_2.item_orders.create!(item: chain, price: chain.price, quantity: 2)
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
-      expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
+      has_denver = @meg.distinct_cities.include?("Denver")
+      has_hershey = @meg.distinct_cities.include?("Hershey")
+      expect(has_denver).to be_truthy
+      expect(has_hershey).to be_truthy
+      expect(@meg.distinct_cities.count).to eq(2)
     end
 
   end
