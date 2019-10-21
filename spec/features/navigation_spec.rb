@@ -33,5 +33,36 @@ RSpec.describe 'Site Navigation' do
       end
 
     end
+
+    it 'has a link to the homepage ' do
+      visit '/merchants'
+      within '.topnav' do
+        click_link "Home"
+      end
+
+      expect(current_path).to eq("/")
+      expect(page).to have_css('.topnav')
+      expect(page).to have_content("Welcome to Monster Shop")
+    end
+
+    it "has a link to register" do
+      visit '/merchants'
+      within '.topnav' do
+        click_link "Register"
+      end
+
+      expect(current_path).to eq("/register")
+      expect(page).to have_css('.topnav')
+    end
+
+    it "has a link to login" do
+      visit '/merchants'
+      within '.topnav' do
+        click_link "Login"
+      end
+
+      expect(current_path).to eq("/login")
+      expect(page).to have_css('.topnav')
+    end
   end
 end
