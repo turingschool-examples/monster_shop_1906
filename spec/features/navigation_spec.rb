@@ -17,7 +17,13 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/merchants')
-    end
+
+      within 'nav' do
+        click_link 'Home'
+      end
+
+      expect(current_path).to eq('/')
+     end
 
     it "I can see a cart indicator on all pages" do
       visit '/merchants'
@@ -32,6 +38,38 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_content("Cart: 0")
       end
 
+    end
+
+    it 'I can see a link to log in on all pages' do
+      visit '/merchants'
+
+      within 'nav' do
+        click_link "Login"
+      end
+
+      expect(current_path).to eq('/login')
+
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_content('Login')
+      end
+    end
+
+    it 'I can see a link to register on all pages' do
+      visit '/merchants'
+
+      within 'nav' do
+        click_link 'Register'
+      end
+
+      expect(current_path).to eq('/users/new')
+
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_content('Register')
+      end
     end
   end
 end
