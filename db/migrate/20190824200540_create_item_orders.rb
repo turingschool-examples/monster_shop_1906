@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateItemOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :item_orders do |t|
@@ -6,7 +8,7 @@ class CreateItemOrders < ActiveRecord::Migration[5.1]
       t.float :price
       t.integer :quantity
 
-      t.timestamps 
+      t.timestamps
     end
   end
 end
