@@ -18,12 +18,12 @@
       <% if current_user %>
         <p>Logged in as <%= current_user.name %></p>
         <%= link_to 'Profile', '/profile' %>
-        <%= link_to 'Log out', '/logout' %>
-        
+        <%= link_to 'Log Out', '/logout', method: :delete %>
+
         <% if current_merchant? %>
-          <%= link_to 'Dashboard', '/merchant/dashboard' %>
+          <%= link_to 'Dashboard', "/merchant/#{current_user.id}" %>
         <% elsif current_admin? %>
-          <%= link_to 'Dashboard', '/admin/dashboard' %>
+          <%= link_to 'Dashboard', "/admin/#{current_user.id}" %>
           <%= link_to 'All Users', '/admin/users' %>
         <% end %>
       <% else %>
