@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'merchant new page', type: :feature do
@@ -7,9 +9,9 @@ RSpec.describe 'merchant new page', type: :feature do
 
       name = "Sal's Calz(ones)"
       address = '123 Kindalikeapizza Dr.'
-      city = "Denver"
-      state = "CO"
-      zip = 80204
+      city = 'Denver'
+      state = 'CO'
+      zip = 80_204
 
       fill_in :name, with: name
       fill_in :address, with: address
@@ -17,7 +19,7 @@ RSpec.describe 'merchant new page', type: :feature do
       fill_in :state, with: state
       fill_in :zip, with: zip
 
-      click_button "Create Merchant"
+      click_button 'Create Merchant'
 
       new_merchant = Merchant.last
 
@@ -34,9 +36,9 @@ RSpec.describe 'merchant new page', type: :feature do
 
       name = "Sal's Calz(ones)"
       address = ''
-      city = "Denver"
-      state = ""
-      zip = 80204
+      city = 'Denver'
+      state = ''
+      zip = 80_204
 
       fill_in :name, with: name
       fill_in :address, with: address
@@ -44,11 +46,10 @@ RSpec.describe 'merchant new page', type: :feature do
       fill_in :state, with: state
       fill_in :zip, with: zip
 
-      click_button "Create Merchant"
+      click_button 'Create Merchant'
 
       expect(page).to have_content("Address can't be blank and State can't be blank")
-      expect(page).to have_button("Create Merchant")
+      expect(page).to have_button('Create Merchant')
     end
-
   end
 end

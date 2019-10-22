@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cart
   attr_reader :contents
 
@@ -6,7 +8,7 @@ class Cart
   end
 
   def add_item(item)
-    @contents[item] = 0 if !@contents[item]
+    @contents[item] = 0 unless @contents[item]
     @contents[item] += 1
   end
 
@@ -16,7 +18,7 @@ class Cart
 
   def items
     item_quantity = {}
-    @contents.each do |item_id,quantity|
+    @contents.each do |item_id, quantity|
       item_quantity[Item.find(item_id)] = quantity
     end
     item_quantity
@@ -27,7 +29,7 @@ class Cart
   end
 
   def total
-    @contents.sum do |item_id,quantity|
+    @contents.sum do |item_id, quantity|
       Item.find(item_id).price * quantity
     end
   end
@@ -39,7 +41,7 @@ class Cart
   def subtract_quantity(item_id)
     @contents[item_id] -= 1
   end
-  
+
   def limit_reached?(item_id)
     @contents[item_id] == Item.find(item_id).inventory
   end
