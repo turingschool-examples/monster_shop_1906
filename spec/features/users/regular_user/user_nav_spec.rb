@@ -10,8 +10,7 @@ describe "on the nav bar" do
                           state: 'Colorado',
                           zip: 80111,
                           email: 'user@user.com',
-                          password: 'password',
-                          role: 0)
+                          password: 'password')
 
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -30,14 +29,3 @@ describe "on the nav bar" do
     end
   end
 end
-
-# As a registered regular user
-# I see the same links as a visitor
-# Plus the following links
-# - a link to my profile page ("/profile")
-# - a link to log out ("/logout")
-#
-# Minus the following links
-# - I do not see a link to log in or register
-#
-# I also see text that says "Logged in as Ian Douglas" (or whatever my name is)
