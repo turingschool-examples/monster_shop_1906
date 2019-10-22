@@ -14,9 +14,6 @@ class UsersController < ApplicationController
     redirect_to '/profile'
   end
 
-
-
-
   private
 
   def user_params
