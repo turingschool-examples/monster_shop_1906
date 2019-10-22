@@ -42,9 +42,11 @@
     </nav>
 
 
-    <% flash.each do |name, msg| %>
-      <div class= "<%=name%>-flash">
-        <p><%= msg %></p>
+    <% flash.each do |type, messages| %>
+      <div class= "<%=type%>-flash">
+        <% messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
       </div>
     <% end %>
     <%= yield %>
