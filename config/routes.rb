@@ -41,4 +41,5 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   get '/users/new', to: 'users#new'
+  get '/profile', to: 'users#show'
 end
