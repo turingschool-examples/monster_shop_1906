@@ -46,7 +46,7 @@ RSpec.describe 'merchant new page', type: :feature do
 
       click_button "Create Merchant"
 
-      expect(page).to have_content("Address can't be blank and State can't be blank")
+      expect(page).to have_content("Address can't be blank\nState can't be blank")
       expect(page).to have_button("Create Merchant")
     end
 
