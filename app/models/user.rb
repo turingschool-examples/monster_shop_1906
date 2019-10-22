@@ -3,4 +3,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :password, presence: true, confirmation: { case_sensitive: true }
   has_secure_password
+
+  enum role: [:default]
 end
