@@ -8,36 +8,26 @@ RSpec.describe 'Site Navigation' do
 
       within 'nav' do
         click_link 'All Items'
-      end
-
-      expect(current_path).to eq('/items')
-
-      within 'nav' do
+        expect(current_path).to eq('/items')
         click_link 'All Merchants'
-      end
-
-      expect(current_path).to eq('/merchants')
-
-      within 'nav' do
+        expect(current_path).to eq('/merchants')
         click_link 'Home'
+        expect(current_path).to eq('/')
       end
-
-      expect(current_path).to eq('/')
-     end
+    end
 
     it "I can see a cart indicator on all pages" do
       visit '/merchants'
 
       within 'nav' do
         expect(page).to have_content("Cart: 0")
-      end
-
-      visit '/items'
-
-      within 'nav' do
+        click_link 'Cart: 0'
+        expect(current_path).to eq('/cart')
+        visit '/items'
         expect(page).to have_content("Cart: 0")
+        click_link 'Cart: 0'
+        expect(current_path).to eq('/cart')
       end
-
     end
 
     it 'I can see a link to log in on all pages' do
@@ -45,14 +35,10 @@ RSpec.describe 'Site Navigation' do
 
       within 'nav' do
         click_link "Login"
-      end
-
-      expect(current_path).to eq('/login')
-
-      visit '/items'
-
-      within 'nav' do
-        expect(page).to have_content('Login')
+        expect(current_path).to eq('/login')
+        visit '/items'
+        click_link "Login"
+        expect(current_path).to eq('/login')
       end
     end
 
@@ -61,14 +47,10 @@ RSpec.describe 'Site Navigation' do
 
       within 'nav' do
         click_link 'Register'
-      end
-
-      expect(current_path).to eq('/register')
-
-      visit '/items'
-
-      within 'nav' do
-        expect(page).to have_content('Register')
+        expect(current_path).to eq('/register')
+        visit '/items'
+        click_link 'Register'
+        expect(current_path).to eq('/register')
       end
     end
   end
@@ -82,14 +64,19 @@ RSpec.describe 'Site Navigation' do
       visit '/'
 
       within 'nav' do
-        expect(page).to have_content('All Merchants')
-        expect(page).to have_content('All Items')
-        expect(page).to have_content('Cart: 0')
+        expect(page).to have_link('All Merchants')
+        expect(page).to have_link('All Items')
+        expect(page).to have_link('Cart: 0')
         expect(page).to have_content('Logged in as Patti')
-        expect(page).to have_content('Log out')
-        expect(page).to have_content('Profile')
+        expect(page).to have_link('Log out')
+        expect(page).to have_link('Profile')
         expect(page).to_not have_content('Login')
         expect(page).to_not have_content('Register')
+
+        click_link 'Profile'
+        expect(current_path).to eq('/profile')
+        click_link 'Log out'
+        expect(current_path).to eq('/logout')
       end
     end
   end
@@ -114,10 +101,36 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link('Register')
 
         click_link 'Dashboard'
+        expect(current_path).to eq('/merchant')
       end
-      expect(current_path).to eq('/merchant')
     end
   end
 
-  # Admin Test
+  describe 'As an Admin' do
+    it "I see the regular navbar with addition of the 'Admin Dashboard' and 'All Users' links" do
+      admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit '/'
+
+      within 'nav' do
+        expect(page).to have_link('All Merchants')
+        expect(page).to have_link('All Items')
+        expect(page).to have_content('Logged in as Monica')
+        expect(page).to have_link('Log out')
+        expect(page).to have_link('Profile')
+        expect(page).to have_link('Dashboard')
+        expect(page).to have_link('All Users')
+        expect(page).to_not have_link('Cart: 0')
+        expect(page).to_not have_link('Login')
+        expect(page).to_not have_link('Register')
+
+        click_link 'Dashboard'
+        expect(current_path).to eq('/admin')
+
+        click_link 'All Users'
+        expect(current_path).to eq('/admin/users')
+      end
+    end
+  end
 end
