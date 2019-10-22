@@ -7,13 +7,13 @@ RSpec.describe 'Site Navigation' do
       visit '/merchants'
 
       within 'nav' do
-        click_link 'All Items'
+        click_link 'Items'
       end
 
       expect(current_path).to eq('/items')
 
       within 'nav' do
-        click_link 'All Merchants'
+        click_link 'Merchants'
       end
 
       expect(current_path).to eq('/merchants')
@@ -23,13 +23,13 @@ RSpec.describe 'Site Navigation' do
       visit '/merchants'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_content("Cart (0)")
       end
 
       visit '/items'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_content("Cart (0)")
       end
 
     end
