@@ -75,7 +75,7 @@ RSpec.describe 'Site Navigation' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
 
-    it 'I see the navbar with links with profile and log out, not login or register' do
+    it 'I see the navbar with links with profile and Log Out, not login or register' do
 
       visit '/'
 
@@ -84,15 +84,15 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link('All Items')
         expect(page).to have_link('Cart: 0')
         expect(page).to have_content('Logged in as Patti')
-        expect(page).to have_link('Log out')
+        expect(page).to have_link('Log Out')
         expect(page).to have_link('Profile')
         expect(page).to_not have_content('Login')
         expect(page).to_not have_content('Register')
 
         click_link 'Profile'
         expect(current_path).to eq('/profile')
-        click_link 'Log out'
-        expect(current_path).to eq('/logout')
+        click_link 'Log Out'
+        expect(current_path).to eq('/')
       end
     end
 
@@ -124,7 +124,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link('All Items')
         expect(page).to have_link('Cart: 0')
         expect(page).to have_content('Logged in as Ross')
-        expect(page).to have_link('Log out')
+        expect(page).to have_link('Log Out')
         expect(page).to have_link('Profile')
         expect(page).to have_link('Dashboard')
         expect(page).to_not have_link('Login')
@@ -158,7 +158,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link('All Merchants')
         expect(page).to have_link('All Items')
         expect(page).to have_content('Logged in as Monica')
-        expect(page).to have_link('Log out')
+        expect(page).to have_link('Log Out')
         expect(page).to have_link('Profile')
         expect(page).to have_link('Dashboard')
         expect(page).to have_link('All Users')
