@@ -97,6 +97,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_content('All Items')
         expect(page).to have_content('Cart: 0')
         expect(page).to have_content('Log out')
+        expect(page).to have_content('Profile')
         expect(page).to_not have_content('Login')
         expect(page).to_not have_content('Register')
       end
