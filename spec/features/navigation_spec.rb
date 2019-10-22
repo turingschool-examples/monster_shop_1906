@@ -55,10 +55,10 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can't visit pages I'm not authorized for" do
-      visit '/merchant/dashboard'
+      visit '/merchant/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
-      visit '/admin/dashboard'
+      visit '/admin/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit '/admin/users'
@@ -97,10 +97,10 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can't visit pages I'm not authorized for" do
-      visit '/merchant/dashboard'
+      visit '/merchant/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
-      visit '/admin/dashboard'
+      visit '/admin/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit '/admin/users'
@@ -110,8 +110,8 @@ RSpec.describe 'Site Navigation' do
 
   describe 'As a merchant' do
     before :each do
-      merchant = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+      @merchant = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
     end
 
     it 'I see navbar with links to all pages, profile, logout, dashboard, not login or register' do
@@ -131,12 +131,12 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link('Register')
 
         click_link 'Dashboard'
-        expect(current_path).to eq('/merchant/dashboard')
+        expect(current_path).to eq("/merchant/#{@merchant.id}")
       end
     end
 
     it "I can't visit pages I'm not authorized for" do
-      visit '/admin/dashboard'
+      visit '/admin/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit '/admin/users'
@@ -146,8 +146,8 @@ RSpec.describe 'Site Navigation' do
 
   describe 'As an Admin' do
     before :each do
-      admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      @admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
     it "I see the regular navbar with addition of the 'Admin Dashboard' and 'All Users' links" do
@@ -167,7 +167,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link('Register')
 
         click_link 'Dashboard'
-        expect(current_path).to eq('/admin/dashboard')
+        expect(current_path).to eq("/admin/#{@admin.id}")
 
         click_link 'All Users'
         expect(current_path).to eq('/admin/users')
@@ -175,7 +175,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can't visit pages I'm not authorized for" do
-      visit '/merchant/dashboard'
+      visit '/merchant/1'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit '/cart'

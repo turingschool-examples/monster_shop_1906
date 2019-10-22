@@ -14,7 +14,7 @@ describe 'Login' do
       fill_in :email, with: user.email
       fill_in :password, with: user.password
       click_button 'Log In'
-      # binding.pry
+      
       expect(current_path).to eq('/profile')
       expect(page).to have_content('Welcome, Patti!')
       expect(page).to have_content('Address: 953 Sunshine Ave')
@@ -37,7 +37,7 @@ describe 'Login' do
       fill_in :password, with: merchant_user.password
       click_button 'Log In'
 
-      expect(current_path).to eq("/merchant/users/#{merchant_user.id}")
+      expect(current_path).to eq("/merchant/#{merchant_user.id}")
       expect(page).to have_content('Welcome, Leslie!')
       expect(page).to have_content('Address: 252 Pawnee Avenue')
       expect(page).to have_content('City: Pawnee')
@@ -59,7 +59,7 @@ describe 'Login' do
       fill_in :password, with: admin_user.password
       click_button 'Log In'
 
-      expect(current_path).to eq("/admin/users/#{admin_user.id}")
+      expect(current_path).to eq("/admin/#{admin_user.id}")
       expect(page).to have_content('Welcome, Sabrina!')
       expect(page).to have_content('Address: 66 Witches Way')
       expect(page).to have_content('City: Greendale')

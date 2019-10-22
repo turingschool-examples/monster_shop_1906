@@ -10,12 +10,12 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         flash[:success] = "Welcome, #{user.name}!"
 
-        redirect_to "/admin/users/#{user.id}"
-      elsif user.role == "merchant_employee" || user.role = "merchant_admin"
+        redirect_to "/admin/#{user.id}"
+      elsif user.role == "merchant_employee" || user.role == "merchant_admin"
         session[:user_id] = user.id
         flash[:success] = "Welcome, #{user.name}!"
 
-        redirect_to "/merchant/users/#{user.id}"
+        redirect_to "/merchant/#{user.id}"
       elsif user.role == "default"
         session[:user_id] = user.id
         flash[:success] = "Welcome, #{user.name}!"
