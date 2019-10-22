@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/', to: 'items#index'
 
   get '/merchants', to: 'merchants#index'
   get '/merchants/new', to: 'merchants#new'
@@ -38,8 +39,7 @@ Rails.application.routes.draw do
   get '/orders/:id', to: 'orders#show'
 
   get '/register', to: 'users#new'
-
   get '/login', to: 'users#login'
-
-  get '/', to: 'items#index'
+  get '/profile', to: 'users#show'
+  get '/logout', to: 'users#logout'
 end
