@@ -63,7 +63,7 @@ RSpec.describe 'Site Navigation' do
         click_link 'Register'
       end
 
-      expect(current_path).to eq('/users/new')
+      expect(current_path).to eq('/register')
 
       visit '/items'
 
@@ -83,14 +83,6 @@ RSpec.describe 'Site Navigation' do
       fill_in :e_mail, with: user.e_mail
       fill_in :password, with: user.password
       click_button 'Log In'
-
-      expect(current_path).to eq('/profile')
-      expect(page).to have_content('Welcome, Patti!')
-      expect(page).to have_content('Address: 953 Sunshine Ave')
-      expect(page).to have_content('City: Honolulu')
-      expect(page).to have_content('State: Hawaii')
-      expect(page).to have_content('Zip Code: 96701')
-      expect(page).to have_content('E-mail: pattimonkey34@gmail.com')
 
       within 'nav' do
         expect(page).to have_content('All Merchants')
