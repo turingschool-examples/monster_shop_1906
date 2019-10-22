@@ -27,4 +27,10 @@ class SessionsController < ApplicationController
       redirect_to '/login'
     end
   end
+
+  def logout
+    session.delete(:user_id)
+    flash[:success] = "You have been logged out"
+    redirect_to '/'
+  end
 end
