@@ -52,5 +52,18 @@ describe User, type: :model do
       expect(merchant_admin.role).to eq('merchant_admin')
       expect(merchant_admin.merchant_admin?).to be_truthy
     end
+    it "can create an admin role" do
+      admin = User.create( name: 'Brian Q',
+                          address: '123 Fake St',
+                          city: 'Denver',
+                          state: 'Colorado',
+                          zip: 80111,
+                          email: 'admin@admin.com',
+                          password: 'password',
+                          role: 3)
+
+      expect(admin.role).to eq('admin')
+      expect(admin.admin?).to be_truthy
+    end
   end
 end
