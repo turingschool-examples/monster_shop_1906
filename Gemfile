@@ -20,6 +20,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'bcrypt'
   gem 'pry'
   gem 'simplecov'
   gem 'shoulda-matchers'
