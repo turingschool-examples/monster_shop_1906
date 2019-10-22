@@ -21,11 +21,36 @@ describe User, type: :model do
                           state: 'Colorado',
                           zip: 80111,
                           email: 'user@user.com',
-                          password: 'password',
-                          role: 0)
+                          password: 'password')
 
       expect(user.role).to eq('default')
       expect(user.default?).to be_truthy
+    end
+    it "can create a merchant employee role" do
+      merchant_employee = User.create( name: 'Sally Q',
+                          address: '123 Fake St',
+                          city: 'Denver',
+                          state: 'Colorado',
+                          zip: 80111,
+                          email: 'merchant_employee@merchant_employee.com',
+                          password: 'password',
+                          role: 1)
+
+      expect(merchant_employee.role).to eq('merchant_employee')
+      expect(merchant_employee.merchant_employee?).to be_truthy
+    end
+    it "can create a merchant admin role" do
+      merchant_admin = User.create( name: 'David L',
+                          address: '123 Fake St',
+                          city: 'Denver',
+                          state: 'Colorado',
+                          zip: 80111,
+                          email: 'merchant_admin@merchant_admin.com',
+                          password: 'password',
+                          role: 2)
+
+      expect(merchant_admin.role).to eq('merchant_admin')
+      expect(merchant_admin.merchant_admin?).to be_truthy
     end
   end
 end
