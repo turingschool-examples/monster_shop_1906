@@ -74,13 +74,13 @@ RSpec.describe 'Site Navigation' do
   end
   describe 'As a user' do
     it 'I see the navbar with links with profile and log out, not login or register' do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', e_mail: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       visit '/'
 
       click_link 'Login'
 
-      fill_in :e_mail, with: user.e_mail
+      fill_in :email, with: user.email
       fill_in :password, with: user.password
       click_button 'Log In'
 
@@ -98,13 +98,13 @@ RSpec.describe 'Site Navigation' do
   end
   describe 'As a merchant' do
     it 'I see navbar with links to all pages, profile, logout, dashboard, not login or register' do
-      user = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', e_mail: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
+      user = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
 
       visit '/'
 
       click_link 'Login'
 
-      fill_in :e_mail, with: user.e_mail
+      fill_in :email, with: user.email
       fill_in :password, with: user.password
       click_button 'Log In'
 

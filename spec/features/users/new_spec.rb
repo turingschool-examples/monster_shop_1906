@@ -14,7 +14,7 @@ describe 'Register' do
     fill_in :city, with: 'New York'
     fill_in :state, with: 'New York'
     fill_in :zip, with: '10012'
-    fill_in :e_mail, with: 'markymonkey23@gmail.com'
+    fill_in :email, with: 'markymonkey23@gmail.com'
     fill_in :password, with: 'bananarama'
     fill_in :password_confirmation, with: 'bananarama'
 
