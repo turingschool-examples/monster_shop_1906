@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
-  describe 'As a Visitor' do
+  describe 'As a Visitor.' do
     it "I see a nav bar with links to all pages" do
       visit '/merchants'
 
@@ -53,13 +53,29 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq('/register')
       end
     end
+
+    it "I can't visit pages I'm not authorized for" do
+      visit '/merchant/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin/users'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/profile'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 
-  describe 'As a user' do
-    it 'I see the navbar with links with profile and log out, not login or register' do
+  describe 'As a User.' do
+    before :each do
       user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    it 'I see the navbar with links with profile and log out, not login or register' do
 
       visit '/'
 
@@ -79,13 +95,27 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq('/logout')
       end
     end
+
+    it "I can't visit pages I'm not authorized for" do
+      visit '/merchant/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin/users'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 
   describe 'As a merchant' do
-    it 'I see navbar with links to all pages, profile, logout, dashboard, not login or register' do
+    before :each do
       merchant = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+    end
+
+    it 'I see navbar with links to all pages, profile, logout, dashboard, not login or register' do
+
 
       visit '/'
 
@@ -101,15 +131,26 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link('Register')
 
         click_link 'Dashboard'
-        expect(current_path).to eq('/merchant')
+        expect(current_path).to eq('/merchant/dashboard')
       end
+    end
+
+    it "I can't visit pages I'm not authorized for" do
+      visit '/admin/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin/users'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
 
   describe 'As an Admin' do
-    it "I see the regular navbar with addition of the 'Admin Dashboard' and 'All Users' links" do
+    before :each do
       admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
+
+    it "I see the regular navbar with addition of the 'Admin Dashboard' and 'All Users' links" do
 
       visit '/'
 
@@ -126,11 +167,19 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link('Register')
 
         click_link 'Dashboard'
-        expect(current_path).to eq('/admin')
+        expect(current_path).to eq('/admin/dashboard')
 
         click_link 'All Users'
         expect(current_path).to eq('/admin/users')
       end
+    end
+
+    it "I can't visit pages I'm not authorized for" do
+      visit '/merchant/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/cart'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
 end
