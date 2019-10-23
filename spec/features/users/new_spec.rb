@@ -47,32 +47,43 @@ describe 'Register' do
 
     click_button 'Complete Registration'
 
-    expect(current_path).to eq('/register')
+    expect(current_path).to eq('/users')
     expect(page).to have_content("Address can't be blank and State can't be blank")
   end
 
   it "cannot register a new user without a unique email" do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+    user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
 
-      visit '/'
+    visit '/'
 
-      click_link 'Register'
+    click_link 'Register'
 
-      expect(current_path).to eq('/register')
+    expect(current_path).to eq('/register')
 
-      fill_in :name, with: 'Marcel'
-      fill_in :address, with: '953 Sunshine Ave'
-      fill_in :city, with: 'New York'
-      fill_in :state, with: 'Hawaii'
-      fill_in :zip, with: '10012'
-      fill_in :email, with: 'pattimonkey34@gmail.com'
-      fill_in :password, with: 'bananarama'
-      fill_in :password_confirmation, with: 'bananarama'
+    fill_in :name, with: 'Marcel'
+    fill_in :address, with: '953 Sunshine Ave'
+    fill_in :city, with: 'New York'
+    fill_in :state, with: 'Hawaii'
+    fill_in :zip, with: '10012'
+    fill_in :email, with: 'pattimonkey34@gmail.com'
+    fill_in :password, with: 'bananarama'
+    fill_in :password_confirmation, with: 'bananarama'
 
-      click_button 'Complete Registration'
+    click_button 'Complete Registration'
 
-      expect(current_path).to eq('/register')
-      expect(page).to have_content('Email has already been taken')
+    expect(current_path).to eq('/users')
+    expect(page).to have_content('Email has already been taken')
+
+    expect(find_field('Name').value).to eq('Marcel')
+    expect(find_field('Address').value).to eq('953 Sunshine Ave')
+    expect(find_field('City').value).to eq('New York')
+    expect(find_field('State').value).to eq('Hawaii')
+    expect(find_field('Zip').value).to eq('10012')
+    expect(find_field('Email').value).to eq('pattimonkey34@gmail.com')
+    expect(find_field('Password').value).to eq(nil)
+
+
+
   end
 
   it "cannot register a new user without matching password confirmation" do
@@ -93,7 +104,7 @@ describe 'Register' do
 
     click_button 'Complete Registration'
 
-    expect(current_path).to eq('/register')
+    expect(current_path).to eq('/users')
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
 end
