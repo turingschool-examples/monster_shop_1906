@@ -30,6 +30,6 @@ class SessionsController < ApplicationController
   def redirect(user)
     redirect_to '/profile' if user.default?
     redirect_to '/merchant' if user.merchant_employee? || user.merchant_admin?
-    redirect_to '/admin/dashboard' if user.admin?
+    redirect_to '/admin' if user.admin?
   end
 end

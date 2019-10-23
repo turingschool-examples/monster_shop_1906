@@ -125,7 +125,7 @@ RSpec.describe 'User login page' do
 
       click_button 'Login'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("#{@admin.name}, you have successfully logged in.")
     end
 
@@ -139,7 +139,7 @@ RSpec.describe 'User login page' do
 
       visit '/login'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
 
       expect(page).to have_content('Sorry, you are already logged in.')
     end
