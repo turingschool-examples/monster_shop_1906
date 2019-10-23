@@ -9,7 +9,7 @@
 
 describe "As a visitor" do
 
-  it "cant login with nad credentials" do
+  it "cant login with bad credentials" do
     user = User.create( name: 'Bob J',
                         address: '123 Fake St',
                         city: 'Denver',
