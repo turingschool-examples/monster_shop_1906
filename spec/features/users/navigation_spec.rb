@@ -9,7 +9,7 @@ RSpec.describe 'As a User' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      visit '/'
+      visit welcome_path
 
       within 'nav' do
         expect(page).to have_content('Logged in as:')
@@ -29,6 +29,31 @@ RSpec.describe 'As a User' do
       end
 
       expect(current_path).to eq('/logout')
+    end
+  end
+
+  describe 'as a non-registered user' do
+    it "doesn't have access to merchant dashboard, admin dashboard, or profile" do
+      visit admin_path
+
+      expect(current_path).to eq(admin_path)
+      expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+      visit merchant_dashboard_path
+
+      expect(current_path).to eq(merchant_dashboard_path)
+      expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+      visit profile_path
+
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+      within 'nav' do
+        expect(page).to_not have_link('Merchant Dashboard')
+        expect(page).to_not have_link('Admin Dashboard')
+        expect(page).to_not have_content('Logged in as:')
+      end
     end
   end
 end

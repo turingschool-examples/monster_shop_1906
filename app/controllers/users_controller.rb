@@ -5,7 +5,9 @@ class UsersController < ApplicationController
 
   def login; end
 
-  def show; end
+  def show
+    render file: '/public/404' unless current_user
+  end
 
   def logout; end
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get '/', to: 'items#index'
+  get '/', to: 'items#index', as: 'welcome'
 
   resources :items, except: %i[new create] do
     resources :reviews, only: %i[new create]
@@ -30,6 +32,6 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#index', as: 'dashboard'
   end
 end
