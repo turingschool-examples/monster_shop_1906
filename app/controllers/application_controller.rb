@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
   def site_admin?
     current_user&.site_admin?
   end
+
+  def render_404
+    render file: '/public/404'
+  end
 end

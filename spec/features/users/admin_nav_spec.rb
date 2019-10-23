@@ -8,7 +8,7 @@ RSpec.describe 'As an admin' do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit '/'
+    visit welcome_path
 
     within 'nav' do
       click_link 'Admin Dashboard'
@@ -25,5 +25,21 @@ RSpec.describe 'As an admin' do
     within 'nav' do
       expect(page).to_not have_link('Cart')
     end
+  end
+
+  it 'does not have access to cart or merchant' do
+    admin = User.create(username: 'funbucket14', password: 'secure', role: 3)
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit merchant_dashboard_path
+
+    expect(current_path).to eq(merchant_dashboard_path)
+    expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+    visit cart_path
+
+    expect(current_path).to eq(cart_path)
+    expect(page).to have_content('The page you were looking for doesn\'t exist.')
   end
 end
