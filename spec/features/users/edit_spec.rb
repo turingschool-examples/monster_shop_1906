@@ -26,7 +26,7 @@ describe "As a regular User" do
       fill_in 'Zip', with: "74423"
       fill_in 'Email', with: "patmonkey@gmail.com"
 
-      click_button 'Complete Changes'
+      click_button 'Submit Changes'
 
       expect(current_path).to eq("/profile/#{@user.id}")
       expect(page).to have_content('Hello, Pat! You have successfully updated your profile.')
@@ -41,10 +41,54 @@ describe "As a regular User" do
 
       fill_in 'Name', with: "Patty"
       fill_in 'Address', with: "homeless"
-      click_button 'Complete Changes'
-      
+      click_button 'Submit Changes'
+
       expect(page).to have_content('Hello, Patty! You have successfully updated your profile.')
       expect(page).to have_content('Address: homeless')
+
+    end
+  end
+
+
+  describe "When I visit my profile page and click link to edit password" do
+    before :each do
+      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
+    it "Prompts me to edit my password with a form" do
+      visit "/profile/#{@user.id}"
+      click_link 'Edit Password'
+
+      expect(current_path).to eq("/profile/#{@user.id}/edit/password")
+
+      expect(find_field('New Password').value).to eq nil
+      expect(find_field('Confirm New Password').value).to eq nil
+      fill_in 'New Password', with: "apple"
+      fill_in 'Confirm New Password', with: "apple"
+      click_button 'Submit Changes'
+
+      expect(current_path).to eq("/profile/#{@user.id}")
+
+      expect(page).to have_content("Hello, #{@user.name}! You have successfully updated your password.")
+      click_link 'Log Out'
+      click_link 'Login'
+
+      fill_in :email, with: @user.email
+      fill_in :password, with: 'apple'
+      click_button 'Log In'
+      expect(current_path).to eq("/profile/#{@user.id}")
+      expect(page).to have_content('Welcome, Patti! You are logged in.')
+    end
+
+    it "Won't let me use a password that doesn't match" do
+      visit "/profile/#{@user.id}"
+      click_link 'Edit Password'
+
+      fill_in 'New Password', with: "apple"
+      fill_in 'Confirm New Password', with: "notanapple"
+      click_button 'Submit Changes'
+      expect(current_path).to eq("/profile/#{@user.id}/edit/password")
+      expect(page).to have_content('Both new passwords must match')
 
     end
   end
