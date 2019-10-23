@@ -79,7 +79,7 @@ describe 'Register' do
     expect(find_field('City').value).to eq('New York')
     expect(find_field('State').value).to eq('Hawaii')
     expect(find_field('Zip').value).to eq('10012')
-    expect(find_field('Email').value).to eq('pattimonkey34@gmail.com')
+    expect(find_field('Email').value).to eq(nil)
     expect(find_field('Password').value).to eq(nil)
 
 
