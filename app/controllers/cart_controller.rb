@@ -9,7 +9,7 @@ class CartController < ApplicationController
   end
 
   def show
-    @items = cart.items
+    site_admin? ? render_404 : @items = cart.items
   end
 
   def empty
