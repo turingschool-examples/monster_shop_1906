@@ -1,1 +1,12 @@
-<h1>Welcome User, you have logged in!</h1>
+<h1>Profile for <%= @user.name %></h1>
+
+<section class = "user-profile">
+  <p>Name: <%= @user.name  %></p>
+  <p>Address: <%= @user.address  %></p>
+  <p>City: <%= @user.city  %></p>
+  <p>State: <%= @user.state  %></p>
+  <p>Zip: <%= @user.zip  %></p>
+  <p>Email: <%= @user.email  %></p>
+</section>
+
+<%= link_to 'Edit Profile', "/users/#{@user.id}/edit" %>
