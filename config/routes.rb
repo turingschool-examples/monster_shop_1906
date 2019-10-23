@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
   get '/profile', to: 'users#show'
+  get '/profile/edit', to: 'users#edit'
+  patch '/profile/update', to: 'users#update'
 
   get '/merchants', to: 'merchants#index'
   get '/merchants/new', to: 'merchants#new'
