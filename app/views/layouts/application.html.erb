@@ -26,9 +26,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/merchants">Merchants</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
-          </li>
+          <% unless current_user && current_user.admin? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
+            </li>
+          <% end %>
           <% if current_user %>
             <li class="nav-item">
               <a class="nav-link" href="/profile">Profile</a>
@@ -37,6 +39,14 @@
           <% if current_user && (current_user.merchant_employee? || current_user.merchant_admin?) %>
             <li class="nav-item">
               <a class="nav-link" href="/merchant">Dashboard</a>
+            </li>
+          <% end %>
+          <% if current_user && current_user.admin? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">Users</a>
             </li>
           <% end %>
         </ul>
