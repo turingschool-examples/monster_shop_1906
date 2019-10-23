@@ -29,15 +29,20 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:user_id])
+    request.env['PATH_INFO'] == "/profile/#{@user.id}/edit/password" ? @password_change = true : @password_change = false
   end
 
   def update
     @user = User.find(params[:user_id])
     @user.update(user_params)
-
+binding.pry
     if @user.save
-      flash[:sucess] = "Hello, #{@user.name}! You have successfully updated your profile."
+      flash[:sucess] = "Hello, #{@user.name}! You have successfully updated your profile." if request.env['REQUEST_METHOD'] == "PUT"
+      flash[:sucess] = "Hello, #{@user.name}! You have successfully updated your password." if request.env['REQUEST_METHOD'] == "PATCH"
       redirect_to "/profile/#{@user.id}"
+    elsif user_params[:password] && (user_params[:password] != user_params[:password_confirmation])
+      flash[:error] = 'Both new passwords must match'
+      render :edit
     else
       flash[:error] = "You weren't able to make those changes"
       render :edit
