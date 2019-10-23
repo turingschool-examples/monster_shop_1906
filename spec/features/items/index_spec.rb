@@ -24,7 +24,7 @@ RSpec.describe "Items Index Page" do
                           city: 'Denver',
                           state: 'Colorado',
                           zip: 80111,
-                          email: 'user@user.com',
+                          email: 'merchant@merchant.com',
                           password: 'password',
                           role: 2)
 
@@ -33,7 +33,7 @@ RSpec.describe "Items Index Page" do
                           city: 'Denver',
                           state: 'Colorado',
                           zip: 80111,
-                          email: 'user@user.com',
+                          email: 'admin@admin.com',
                           password: 'password',
                           role: 3)
     end
@@ -84,7 +84,7 @@ RSpec.describe "Items Index Page" do
       # end
     end
 
-    it 'can show undisabled items to all users and images are now links' do
+    it 'can show active items to all users and images are now links' do
 
       visit '/login'
 
@@ -104,12 +104,43 @@ RSpec.describe "Items Index Page" do
 
       expect(current_path).to eq("/items/#{@tire.id}")
     end
-# User Story 17, Items Index Page
-#
-# As a regular user on the system
-# I can visit the items catalog ("/items")
-# I see all items in the system except disabled items
-#
-# The item image is a link to that item's show page
+
+    it "as a merchant I can see all items" do
+      visit '/login'
+
+      fill_in :email, with: @merchant.email
+      fill_in :password, with: @merchant.password
+
+      click_button 'Login'
+
+      visit '/items'
+
+      expect(page).to have_content(@tire.name)
+      expect(page).to have_content(@pull_toy.name)
+      expect(page).to have_content(@dog_bone.name)
+
+      find(".image-link-#{@tire.id}").click
+
+      expect(current_path).to eq("/items/#{@tire.id}")
+    end
+
+    it "as an admin I can see all items" do
+      visit '/login'
+
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+
+      click_button 'Login'
+
+      visit '/items'
+
+      expect(page).to have_content(@tire.name)
+      expect(page).to have_content(@pull_toy.name)
+      expect(page).to have_content(@dog_bone.name)
+
+      find(".image-link-#{@tire.id}").click
+
+      expect(current_path).to eq("/items/#{@tire.id}")
+    end
   end
 end
