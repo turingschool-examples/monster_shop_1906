@@ -6,21 +6,14 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if !user.nil? && user.authenticate(params[:password])
-      if user.role == "admin"
-        session[:user_id] = user.id
-        flash[:success] = "Welcome, #{user.name}!"
-
-        redirect_to "/admin/#{user.id}"
-      elsif user.role == "merchant_employee" || user.role == "merchant_admin"
-        session[:user_id] = user.id
-        flash[:success] = "Welcome, #{user.name}!"
-
-        redirect_to "/merchant/#{user.id}"
-      elsif user.role == "default"
-        session[:user_id] = user.id
-        flash[:success] = "Welcome, #{user.name}!"
-
+      session[:user_id] = user.id
+      flash[:success] = "Welcome, #{user.name}!"
+      if user.role == "default"
         redirect_to "/profile"
+      elsif user.role == "merchant_employee" || user.role == "merchant_admin"
+        redirect_to "/merchant/#{user.id}"
+      elsif user.role == "admin"
+        redirect_to "/admin/#{user.id}"
       end
     else
       flash[:error] = 'Credentials were incorrect.'
