@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
 
-  enum role: %w(default)
+  enum role: %w(default merchant_employee merchant_admin site_admin)
 end
