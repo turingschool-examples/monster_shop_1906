@@ -23,6 +23,25 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("Congratulations #{User.last.name}, you have registered and are now logged in!")
   end
 
+  it 'keeps a user logged in after registering' do
+    visit "/register"
+
+    fill_in :name, with: "Cowboy Joe"
+    fill_in :address, with: "123 Ranch Dr"
+    fill_in :city, with: "Austin"
+    fill_in :state, with: "Texas"
+    fill_in :zip, with: "78520"
+    fill_in :email, with: "CowboyJoe@gmail.com"
+    fill_in :password, with: "YeeHaw123"
+    fill_in :password_confirmation, with: "YeeHaw123"
+
+    click_button "Create User"
+
+    visit '/profile'
+
+    expect(page).to have_content('Hello, Cowboy Joe')
+  end
+
   it "shows flash message when missing fields" do
     visit "/register"
 

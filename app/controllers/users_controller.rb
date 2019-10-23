@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = ["Congratulations #{@user.name}, you have registered and are now logged in!"]
+      session[:user_id] = @user.id
       redirect_to '/profile'
     else
       flash.now[:failure] = @user.errors.full_messages.uniq
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @user = User.find(session[:user_id])
   end
 
   private
