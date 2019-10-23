@@ -29,12 +29,19 @@
           <li class="nav-item">
             <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
           </li>
+          <% if current_user && current_user.default? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          <% end %>
         </ul>
         <ul class="navbar-nav ml-auto">
           <% if current_user %>
+            <span class="navbar-text" id="nav-text">Logged in as <%= current_user.name %></span>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
+
           <% else %>
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
