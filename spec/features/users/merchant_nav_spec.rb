@@ -8,12 +8,31 @@ RSpec.describe 'As a Merchant' do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit '/'
+    visit welcome_path
 
     within 'nav' do
       click_link 'Merchant Dashboard'
     end
 
     expect(current_path).to eq('/merchant')
+  end
+
+  it 'employee or admin I do not have access to site admin dashboard' do
+    merchant_employee = User.create(username: 'funbucket13', password: 'secure', role: 1)
+    merchant_admin = User.create(username: 'funbucket13', password: 'secure', role: 2)
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+
+    visit admin_path
+
+    expect(current_path).to eq(admin_path)
+    expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_admin)
+
+    visit admin_path
+
+    expect(current_path).to eq(admin_path)
+    expect(page).to have_content('The page you were looking for doesn\'t exist.')
   end
 end

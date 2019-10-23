@@ -30,6 +30,22 @@ RSpec.describe 'As a User' do
 
       expect(current_path).to eq('/logout')
     end
+
+    it 'restricts access to merchant and admin dashboards' do
+      user = User.create(username: 'funbucket12', password: 'secure')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit admin_path
+
+      expect(current_path).to eq(admin_path)
+      expect(page).to have_content('The page you were looking for doesn\'t exist.')
+
+      visit merchant_dashboard_path
+
+      expect(current_path).to eq(merchant_dashboard_path)
+      expect(page).to have_content('The page you were looking for doesn\'t exist.')
+    end
   end
 
   describe 'as a non-registered user' do
