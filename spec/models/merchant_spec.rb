@@ -50,7 +50,7 @@ describe Merchant, type: :model do
       order_2.item_orders.create!(item: chain, price: chain.price, quantity: 2)
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
-      expect(@meg.distinct_cities).to eq(%w[Denver Hershey])
+      expect(@meg.distinct_cities.sort).to eq(["Denver", "Hershey"])
     end
   end
 end

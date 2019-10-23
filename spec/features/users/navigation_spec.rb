@@ -10,7 +10,9 @@ RSpec.describe 'As a User' do
       visit '/'
 
       within 'nav' do
-        click_link 'Profile'
+        expect(page).to have_content('Logged in as:')
+
+        click_link 'funbucket12'
       end
 
       expect(current_path).to eq('/profile')

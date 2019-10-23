@@ -42,4 +42,8 @@ Rails.application.routes.draw do
   get '/login', to: 'users#login'
   get '/profile', to: 'users#show'
   get '/logout', to: 'users#logout'
+
+  namespace :merchant do
+    get '/', to: 'dashboard#index'
+  end
 end
