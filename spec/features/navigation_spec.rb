@@ -223,6 +223,61 @@ RSpec.describe 'Site Navigation' do
     end
   end
 
+  describe "As an admin" do
+    before :each do
+      @admin = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 3)
+
+      visit '/login'
+
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+
+      click_button 'Login'
+    end
+
+    it "I see a nav bar with links to all pages" do
+      visit '/merchants'
+
+      within('nav') { click_link 'Home' }
+      expect(current_path).to eq('/')
+
+      within('nav') { click_link 'Items' }
+      expect(current_path).to eq('/items')
+
+      within('nav') { click_link 'Merchants' }
+      expect(current_path).to eq('/merchants')
+
+      within('nav') { click_link 'Profile' }
+      expect(current_path).to eq('/profile')
+
+      within('nav') { click_link 'Dashboard' }
+      expect(current_path).to eq('/admin')
+
+      within('nav') { click_link 'Users' }
+      expect(current_path).to eq('/admin/users')
+
+      within('nav') { click_link 'Logout' }
+      expect(current_path).to eq('/')
+    end
+
+    it "I cannot see links I'm not authorized for" do
+      visit '/items'
+
+      within('nav') do
+        expect(page).to_not have_link 'Login'
+        expect(page).to_not have_link 'Register'
+        expect(page).to_not have_link 'Cart (0)'
+      end
+    end
+
+    it "will display login name" do
+      visit '/items'
+
+      within('nav') { expect(page).to have_content("Logged in as Gmoney") }
+    end
+  end
+
+
 
 
 end
