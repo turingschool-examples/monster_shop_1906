@@ -23,7 +23,12 @@
       <% if merchant_employee? || merchant_admin? %>
         <%= link_to "Merchant Dashboard", "/merchant" %>
       <% end %>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% if site_admin? %>
+        <%= link_to "Admin Dashboard", "/admin" %>
+        <%= link_to "Users", "/admin/users" %>
+      <% else %>
+        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% end %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
