@@ -29,9 +29,14 @@
           <li class="nav-item">
             <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
           </li>
-          <% if current_user && current_user.default? %>
+          <% if current_user %>
             <li class="nav-item">
               <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          <% end %>
+          <% if current_user && (current_user.merchant_employee? || current_user.merchant_admin?) %>
+            <li class="nav-item">
+              <a class="nav-link" href="/merchant">Dashboard</a>
             </li>
           <% end %>
         </ul>
