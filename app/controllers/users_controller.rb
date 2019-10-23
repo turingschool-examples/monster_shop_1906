@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
 
+  def verify_user
+    render file: "/public/404" unless default_user? || current_admin?
+  end
+
   def new
   end
 
   def show
-    render file: "/public/404" unless current_user
+    verify_user
   end
 
   def create
@@ -17,6 +21,9 @@ class UsersController < ApplicationController
       flash[:error] = new_user.errors.full_messages.to_sentence
       redirect_to '/register'
     end
+  end
+
+  def edit
   end
 
   private
