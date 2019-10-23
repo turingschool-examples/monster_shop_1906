@@ -36,7 +36,7 @@
               <a class="nav-link" href="/profile">Profile</a>
             </li>
           <% end %>
-          <% if current_user && (current_user.merchant_employee? || current_user.merchant_admin?) %>
+          <% if current_merchant %>
             <li class="nav-item">
               <a class="nav-link" href="/merchant">Dashboard</a>
             </li>
