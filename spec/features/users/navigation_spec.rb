@@ -22,7 +22,7 @@ RSpec.describe 'As a User' do
       within 'nav' do
         expect(page).to have_content('Logged in as:')
 
-        click_link 'funbucket12'
+        click_link 'Bob'
       end
 
       expect(current_path).to eq('/profile')
