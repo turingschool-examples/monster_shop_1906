@@ -1,54 +1,216 @@
 require 'rails_helper'
 
 RSpec.describe 'User logout' do
-  before :each do
-    @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
 
-    visit '/login'
+  describe 'default user' do
+    before :each do
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
 
-    fill_in :email, with: 'test@gmail.com'
-    fill_in :password, with: 'password123'
+      visit '/login'
 
-    click_button 'Login'
-  end
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
 
-  it 'can log out by going to logout path' do
-    visit '/logout'
+      click_button 'Login'
+    end
 
-    expect(current_path).to eq('/')
-    expect(page).to have_content('Gmoney, you have logged out!')
+    it 'can log out by going to logout path' do
+      visit '/logout'
 
-    within 'nav' do
-      expect(page).to have_link('Login')
-      expect(page).to have_link('Register')
-      expect(page).to_not have_link('Logout')
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'can log out by clicking logout button in navbar' do
+      within('nav') { click_link('Logout') }
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'empties the cart after a user logs out' do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+
+      visit "/items/#{paper.id}"
+      click_button("Add To Cart")
+
+      within('nav') { expect(page).to have_link('Cart (1)') }
+
+      visit '/logout'
+
+      within('nav') { expect(page).to have_link('Cart (0)') }
     end
   end
 
-  it 'can log out by clicking logout button in navbar' do
-    within('nav') { click_link('Logout') }
+  describe 'merchant_employee' do
+    before :each do
+      @merchant_employee = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
 
-    expect(current_path).to eq('/')
-    expect(page).to have_content('Gmoney, you have logged out!')
+      visit '/login'
 
-    within 'nav' do
-      expect(page).to have_link('Login')
-      expect(page).to have_link('Register')
-      expect(page).to_not have_link('Logout')
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+
+      click_button 'Login'
+    end
+
+    it 'can log out by going to logout path' do
+      visit '/logout'
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'can log out by clicking logout button in navbar' do
+      within('nav') { click_link('Logout') }
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'empties the cart after a user logs out' do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+
+      visit "/items/#{paper.id}"
+      click_button("Add To Cart")
+
+      within('nav') { expect(page).to have_link('Cart (1)') }
+
+      visit '/logout'
+
+      within('nav') { expect(page).to have_link('Cart (0)') }
     end
   end
 
-  it 'empties the cart after a user logs out' do
-    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-    paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+  describe 'merchant admin' do
+    before :each do
+      @merchant_admin = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 2)
 
-    visit "/items/#{paper.id}"
-    click_button("Add To Cart")
+      visit '/login'
 
-    within('nav') { expect(page).to have_link('Cart (1)') }
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
 
-    visit '/logout'
+      click_button 'Login'
+    end
 
-    within('nav') { expect(page).to have_link('Cart (0)') }
+    it 'can log out by going to logout path' do
+      visit '/logout'
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'can log out by clicking logout button in navbar' do
+      within('nav') { click_link('Logout') }
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'empties the cart after a user logs out' do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+
+      visit "/items/#{paper.id}"
+      click_button("Add To Cart")
+
+      within('nav') { expect(page).to have_link('Cart (1)') }
+
+      visit '/logout'
+
+      within('nav') { expect(page).to have_link('Cart (0)') }
+    end
+  end
+
+  describe 'admin' do
+    before :each do
+      @admin = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 3)
+
+      visit '/login'
+
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+
+      click_button 'Login'
+    end
+
+    it 'can log out by going to logout path' do
+      visit '/logout'
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'can log out by clicking logout button in navbar' do
+      within('nav') { click_link('Logout') }
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Gmoney, you have logged out!')
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        expect(page).to have_link('Register')
+        expect(page).to_not have_link('Logout')
+      end
+    end
+
+    it 'empties the cart after a user logs out' do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+
+      visit "/items/#{paper.id}"
+      click_button("Add To Cart")
+
+      within('nav') { expect(page).to have_link('Cart (1)') }
+
+      visit '/logout'
+
+      within('nav') { expect(page).to have_link('Cart (0)') }
+    end
   end
 end
