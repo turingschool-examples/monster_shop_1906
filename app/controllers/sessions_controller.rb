@@ -18,6 +18,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    user = current_user
+    reset_session
+    flash[:success] = ["#{user.name}, you have logged out!"]
+    redirect_to '/'
+  end
+
   private
 
   def redirect(user)
