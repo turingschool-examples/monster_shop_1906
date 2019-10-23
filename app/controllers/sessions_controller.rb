@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}! You are logged in."
       if user.role == "default"
-        redirect_to "/profile"
+        redirect_to "/profile/#{user.id}"
       elsif user.role == "merchant_employee" || user.role == "merchant_admin"
         redirect_to "/merchant/#{user.id}"
       elsif user.role == "admin"
