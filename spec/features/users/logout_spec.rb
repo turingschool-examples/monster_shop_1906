@@ -198,19 +198,5 @@ RSpec.describe 'User logout' do
         expect(page).to_not have_link('Logout')
       end
     end
-
-    it 'empties the cart after a user logs out' do
-      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
-
-      visit "/items/#{paper.id}"
-      click_button("Add To Cart")
-
-      within('nav') { expect(page).to have_link('Cart (1)') }
-
-      visit '/logout'
-
-      within('nav') { expect(page).to have_link('Cart (0)') }
-    end
   end
 end
