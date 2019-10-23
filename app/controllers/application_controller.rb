@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
                 :current_user,
                 :current_merchant_employee?,
                 :current_merchant_admin?,
-                :current_admin?
+                :current_admin?,
+                :above_average_user?
 
   def cart
     @cart ||= Cart.new(session[:cart] ||= Hash.new(0))
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def current_admin?
     current_user && current_user.admin?
+  end
+
+  def above_average_user?
+    current_merchant_employee? || current_merchant_admin? || current_admin?
   end
 
 end
