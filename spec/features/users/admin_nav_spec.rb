@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'As an admin' do
   it 'has a link to the admin dashboard' do
-    admin = User.create(username:'funbucket14', password: 'secure', role: 3)
+    admin = User.create(username: 'funbucket14', password: 'secure', role: 3)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
@@ -23,6 +25,5 @@ RSpec.describe 'As an admin' do
     within 'nav' do
       expect(page).to_not have_link('Cart')
     end
-
   end
 end

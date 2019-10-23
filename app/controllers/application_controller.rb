@@ -14,14 +14,14 @@ class ApplicationController < ActionController::Base
   end
 
   def merchant_employee?
-    current_user && current_user.merchant_employee?
+    current_user&.merchant_employee?
   end
 
   def merchant_admin?
-    current_user && current_user.merchant_admin?
+    current_user&.merchant_admin?
   end
 
   def site_admin?
-    current_user && current_user.site_admin?
+    current_user&.site_admin?
   end
 end
