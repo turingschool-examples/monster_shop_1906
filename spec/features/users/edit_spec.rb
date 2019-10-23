@@ -4,10 +4,12 @@ describe "As a regular User" do
   describe "When I visit my profile page and click link to edit profile" do
     before :each do
       @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @merchant = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
-    it "Prompts me to edit my profile with a form" do
 
+    it "Prompts me to edit my profile with a form" do
       visit "/profile/#{@user.id}"
       click_link 'Edit Profile'
 
@@ -39,16 +41,26 @@ describe "As a regular User" do
       visit "/profile/#{@user.id}"
       click_link 'Edit Profile'
 
-      fill_in 'Name', with: "Patty"
+      fill_in 'Name', with: "Pattylicious"
       fill_in 'Address', with: "homeless"
       click_button 'Submit Changes'
 
-      expect(page).to have_content('Hello, Patty! You have successfully updated your profile.')
+      expect(page).to have_content('Hello, Pattylicious! You have successfully updated your profile.')
       expect(page).to have_content('Address: homeless')
+    end
 
+    it "Won't let me use an email already being used" do
+      visit "/profile/#{@user.id}"
+      click_link 'Edit Profile'
+      expect(current_path).to eq("/profile/#{@user.id}/edit")
+
+      fill_in 'Email', with: "dinosaurs_rule@gmail.com"
+      click_button 'Submit Changes'
+
+      expect(current_path).to eq("/profile/#{@user.id}/edit")
+      expect(page).to have_content('Email has already been taken')
     end
   end
-
 
   describe "When I visit my profile page and click link to edit password" do
     before :each do
@@ -94,8 +106,9 @@ describe "As a regular User" do
       fill_in 'Password', with: "apple"
       fill_in 'Password confirmation', with: "notanapple"
       click_button 'Submit Changes'
-      expect(current_path).to eq("/profile/#{@user.id}/password")
-      expect(page).to have_content('Both new passwords must match')
+
+      expect(current_path).to eq("/profile/#{@user.id}/edit/password")
+      expect(page).to have_content("Password confirmation doesn't match Password")
     end
   end
 end
