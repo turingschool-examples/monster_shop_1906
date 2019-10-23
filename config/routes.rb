@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   namespace :merchant do
-    get '/dashboard', to: 'dashboard#index'
+    get '/', to: 'dashboard#index'
   end
 
   namespace :admin do
