@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Merchant.destroy_all
 Item.destroy_all
 Review.destroy_all
