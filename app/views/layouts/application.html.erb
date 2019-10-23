@@ -26,7 +26,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/merchants">Merchants</a>
           </li>
-          <% unless current_user && current_user.admin? %>
+          <% unless current_admin %>
             <li class="nav-item">
               <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
             </li>
@@ -41,7 +41,7 @@
               <a class="nav-link" href="/merchant">Dashboard</a>
             </li>
           <% end %>
-          <% if current_user && current_user.admin? %>
+          <% if current_admin %>
             <li class="nav-item">
               <a class="nav-link" href="/admin">Dashboard</a>
             </li>
