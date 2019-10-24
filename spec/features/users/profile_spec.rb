@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 # As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
-
-# As a registered user
 # When I visit my Profile page
 # And I have orders placed in the system
 # Then I see a link on my profile page called "My Orders"
@@ -37,8 +32,51 @@ RSpec.describe 'As a registered user' do
         expect(page).to have_content("State: CO")
         expect(page).to have_content("Zip: 80233")
         expect(page).to have_content("Email: bob@email.com")
-        expect(page).to have_link('Edit Profile')
       end
+    end
+    
+    it 'has a link to edit the user profile data' do
+      user = User.create(
+        name: 'Bob', 
+        address: '123 Main', 
+        city: 'Denver', 
+        state: 'CO', 
+        zip: 80_233, 
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit profile_path
+      
+      within '#user-info' do
+        click_link 'Edit Profile'
+      end
+
+      expect(current_path).to eq('/profile/edit')
+    end
+
+    it 'has a link to user order page' do
+      user = User.create(
+        name: 'Bob', 
+        address: '123 Main', 
+        city: 'Denver', 
+        state: 'CO', 
+        zip: 80_233, 
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit profile_path
+
+      within '#user-orders' do
+        click_link 'My Orders'
+      end
+
+      expect(current_path).to eq('/profile/orders')
     end
   end
 end
