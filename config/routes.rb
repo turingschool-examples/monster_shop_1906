@@ -24,8 +24,9 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show'
-  get '/login', to: 'users#login'
-  get '/logout', to: 'users#logout'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create', as: 'login_create'
+  get '/logout', to: 'sessions#logout'
 
   namespace :admin do
     get '/', to: 'dashboard#index'
