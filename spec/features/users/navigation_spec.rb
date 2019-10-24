@@ -12,7 +12,7 @@ RSpec.describe 'As a User' do
         state: 'CO', 
         zip: 80_233, 
         email: 'bob@email.com',
-         password: 'secure'
+        password: 'secure'
       )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
