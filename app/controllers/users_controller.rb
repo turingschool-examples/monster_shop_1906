@@ -36,6 +36,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+  end
+
+  def update_password
+    current_user.update(password_params)
+    if current_user.save
+      flash[:success] = 'Your password has been changed.'
+      redirect_to '/profile'
+    else
+      flash.now[:error] = current_user.errors.full_messages.first
+      render :edit_password
+    end
+  end
+
   private
     def user_params
       params.permit(:name,:address,:city,:state,:zip,:email,:password,:password_confirmation)
@@ -43,5 +57,9 @@ class UsersController < ApplicationController
 
     def user_update_params
       params.permit(:name,:address,:city,:state,:zip,:email)
+    end
+
+    def password_params
+      params.permit(:password,:password_confirmation)
     end
 end

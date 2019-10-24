@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
+  get '/profile/change-password', to: 'users#edit_password'
+  patch '/profile/update-password', to: 'users#update_password'
   patch '/profile/update', to: 'users#update'
 
   get '/merchants', to: 'merchants#index'
