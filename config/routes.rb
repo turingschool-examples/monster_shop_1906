@@ -24,9 +24,11 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
+  get '/profile/edit', to: 'users#edit_profile'
+  get '/profile/edit_password', to: 'users#edit_password'
   get '/profile/orders', to: 'users#show' # Change this when we come up with a solution
-  patch '/profile/update', to: 'users#update'
+  patch '/profile/update', to: 'users#update_profile'
+  patch '/profile/update_password', to: 'users#update_password'
 
   get '/login', to: 'sessions#login'
   post '/login', to: 'sessions#create', as: 'login_create'
