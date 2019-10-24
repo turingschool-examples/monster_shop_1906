@@ -5,15 +5,7 @@ require 'rails_helper'
 RSpec.describe 'As a User' do
   describe 'as a Registered User' do
     it "has profile and logout links but doesn't have login or register links" do
-      user = User.create(
-        password: 'secure', 
-        name: 'Bob G', 
-        address: '123 Main St.', 
-        city: 'Denver', 
-        state: 'CO', 
-        zip: '80202', 
-        email: "bob@gmail.com"
-      )
+      user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -40,15 +32,7 @@ RSpec.describe 'As a User' do
     end
 
     it 'restricts access to merchant and admin dashboards' do
-      user = User.create(
-        password: 'secure', 
-        name: 'Bob G', 
-        address: '123 Main St.', 
-        city: 'Denver', 
-        state: 'CO', 
-        zip: '80202', 
-        email: "bob@gmail.com"
-      )
+      user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 

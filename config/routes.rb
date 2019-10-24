@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   patch '/cart/:item_id/:increment_decrement', to: 'cart#increment_decrement'
 
   get '/register', to: 'users#new'
+  post '/users', to: 'users#create'
   get '/profile', to: 'users#show'
   get '/login', to: 'users#login'
   get '/logout', to: 'users#logout'

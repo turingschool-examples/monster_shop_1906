@@ -4,16 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'As a Merchant' do
   it 'employee or admin I see the merchant dashboard' do
-    user = User.create(
-      password: 'secure', 
-      name: 'Bob G', 
-      address: '123 Main St.', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: '80202', 
-      email: "bob@gmail.com", 
-      role: 1
-    )
+    user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure', role: 1)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -27,26 +18,8 @@ RSpec.describe 'As a Merchant' do
   end
 
   it 'employee or admin I do not have access to site admin dashboard' do
-    merchant_employee = User.create(
-      password: 'secure', 
-      name: 'Bob G', 
-      address: '123 Main St.', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: '80202', 
-      email: "bob@gmail.com", 
-      role: 1
-    )
-    merchant_admin = User.create(
-      password: 'secure', 
-      name: 'Bob G', 
-      address: '123 Main St.', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: '80202', 
-      email: "bob@gmail.com", 
-      role: 2
-    )
+    merchant_employee = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure', role: 1)
+    merchant_admin = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure', role: 2)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
 
