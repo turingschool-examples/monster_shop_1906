@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'As a User' do
-  describe 'when I click login, I enter my valid email and password' do
+  describe 'when I click login, I enter an email and password' do
     before(:each) do
       visit welcome_path
       click_link 'Log In'
+      expect(current_path).to eq(login_path)
     end
 
-    it 'as a regular user, I am redirected to my profile page' do
+    it 'cannot login with invalid credentials' do
       user = User.create(
         name: 'Bob',
         address: '123 Main',
@@ -18,47 +19,140 @@ RSpec.describe 'As a User' do
         password: 'secure'
       )
 
-      expect(current_path).to eq(login_path)
-
       fill_in :email, with: user.email
-      fill_in :password, with: user.password
+      fill_in :password, with: 'not secure'
 
       click_on 'Sign me in'
 
-      expect(current_path).to eq(profile_path)
-      expect(page).to have_content("Welcome back, #{user.name}!")
-      expect(page).to have_link('Log Out')
-      expect(page).to_not have_link('Register')
-      expect(page).to_not have_link('Log In')
+      expect(page).to have_content('The email and password you entered did not match our records. Please double-check and try again.')
+      expect(find_field(:email).value).to eq(nil)
+      expect(find_field(:password).value).to eq(nil)
     end
 
-    it 'as a merchant employee or admin, I am redirected to my merchant dashboard' do
-      merchant_employee = User.create(
-        name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
-        email: 'bob@email.com',
-        password: 'secure',
-        role: 1
-      )
+    describe 'as a regular user' do
+      it 'when I enter my valid credentials, I am redirected to my profile page' do
+        user = User.create(
+          name: 'Bob',
+          address: '123 Main',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80_233,
+          email: 'bob@email.com',
+          password: 'secure'
+        )
+  
+        fill_in :email, with: user.email
+        fill_in :password, with: user.password
+  
+        click_on 'Sign me in'
+  
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content("Welcome back, #{user.name}!")
+        expect(page).to have_link('Log Out')
+        expect(page).to_not have_link('Register')
+        expect(page).to_not have_link('Log In')
+      end
 
-      expect(current_path).to eq(login_path)
+      it 'redirects me to the appropriate profile if Im already logged in' do
+        user = User.create(
+          name: 'Bob',
+          address: '123 Main',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80_233,
+          email: 'bob@email.com',
+          password: 'secure'
+        )
 
-      fill_in :email, with: merchant_employee.email
-      fill_in :password, with: merchant_employee.password
+        fill_in :email, with: user.email
+        fill_in :password, with: user.password
+  
+        click_on 'Sign me in'
 
-      click_on 'Sign me in'
+        visit login_path
 
-      expect(current_path).to eq(merchant_dashboard_path)
-      expect(page).to have_content("Welcome back, #{merchant_employee.name}!")
-      expect(page).to have_link('Log Out')
-      expect(page).to_not have_link('Register')
-      expect(page).to_not have_link('Log In')
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content('You are already logged in!')
+      end
     end
 
-    it 'as a site admin, I am redirected to my site admin dashboard' do
+    describe 'as a merchant employee or merchant admin' do
+      it 'when I enter my valid credentials, I am redirected to my merchant dashboard' do
+        merchant_employee = User.create(
+          name: 'Bob',
+          address: '123 Main',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80_233,
+          email: 'bob@email.com',
+          password: 'secure',
+          role: 1
+        )
+  
+        fill_in :email, with: merchant_employee.email
+        fill_in :password, with: merchant_employee.password
+  
+        click_on 'Sign me in'
+  
+        expect(current_path).to eq(merchant_dashboard_path)
+        expect(page).to have_content("Welcome back, #{merchant_employee.name}!")
+        expect(page).to have_link('Log Out')
+        expect(page).to_not have_link('Register')
+        expect(page).to_not have_link('Log In')
+      end
+
+      it 'redirects me to the merchant dashboard if Im already logged in' do
+        merchant_admin = User.create(
+          name: 'Bob',
+          address: '123 Main',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80_233,
+          email: 'bob@email.com',
+          password: 'secure',
+          role: 2
+        )
+
+        fill_in :email, with: merchant_admin.email
+        fill_in :password, with: merchant_admin.password
+  
+        click_on 'Sign me in'
+
+        visit login_path
+
+        expect(current_path).to eq(merchant_dashboard_path)
+        expect(page).to have_content('You are already logged in!')
+      end
+    end
+
+    describe 'as a site admin' do
+      it 'when I enter my valid credentials, I am redirected to my site admin dashboard' do
+        site_admin = User.create(
+          name: 'Bob',
+          address: '123 Main',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80_233,
+          email: 'bob@email.com',
+          password: 'secure',
+          role: 3
+        )
+  
+    
+        fill_in :email, with: site_admin.email
+        fill_in :password, with: site_admin.password
+  
+        click_on 'Sign me in'
+  
+        expect(current_path).to eq(admin_path)
+        expect(page).to have_content("Welcome back, #{site_admin.name}!")
+        expect(page).to have_link('Log Out')
+        expect(page).to_not have_link('Register')
+        expect(page).to_not have_link('Log In')
+      end
+    end
+
+    it 'redirects me to the site admin dashboard if Im already logged in' do
       site_admin = User.create(
         name: 'Bob',
         address: '123 Main',
@@ -70,18 +164,15 @@ RSpec.describe 'As a User' do
         role: 3
       )
 
-      expect(current_path).to eq(login_path)
-
       fill_in :email, with: site_admin.email
       fill_in :password, with: site_admin.password
 
       click_on 'Sign me in'
 
+      visit login_path
+
       expect(current_path).to eq(admin_path)
-      expect(page).to have_content("Welcome back, #{site_admin.name}!")
-      expect(page).to have_link('Log Out')
-      expect(page).to_not have_link('Register')
-      expect(page).to_not have_link('Log In')
+      expect(page).to have_content('You are already logged in!')
     end
   end
 end

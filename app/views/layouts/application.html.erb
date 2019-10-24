@@ -14,7 +14,7 @@
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <% if current_user %>
-        <%= link_to "Log Out", "/logout" %>
+        <%= link_to "Log Out", "/logout", method: :delete %>
         <p>Logged in as: <%= link_to "#{current_user.name}", "/profile" %></p>
       <% else %>
         <%= link_to "Register", "/register"%>

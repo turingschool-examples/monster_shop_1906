@@ -36,7 +36,7 @@ RSpec.describe 'As a User' do
         click_link 'Log Out'
       end
 
-      expect(current_path).to eq('/logout')
+      expect(current_path).to eq(welcome_path)
     end
 
     it 'restricts access to merchant and admin dashboards' do
