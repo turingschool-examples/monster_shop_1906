@@ -21,6 +21,13 @@ class UsersController < ApplicationController
   end
 
   def update
+    if current_user.update(update_profile_params)
+      flash[:success] = 'Your profile data has been updated!'
+      redirect_to profile_path
+    else
+      flash[:error] = @user.errors.full_messages.uniq.to_sentence
+      render :edit
+    end
   end
 
   def show
@@ -31,5 +38,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+  end
+
+  def update_profile_params
+    params.permit(:name, :address, :city, :state, :zip, :email)
   end
 end

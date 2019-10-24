@@ -1,7 +1,9 @@
 class SessionsController < ApplicationController
   def login
-    flash[:error] = 'You are already logged in!'
-    redirect_login if current_user
+    if current_user
+      flash[:error] = 'You are already logged in!'
+      redirect_login 
+    end
   end
 
   def create
@@ -11,7 +13,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome back, #{user.name}!"
       redirect_login
     else
-      flash[:error] = 'The email and password you entered did not match our records. Please double-check and try again.'
+      flash.now[:error] = 'The email and password you entered did not match our records. Please double-check and try again.'
       render :login
     end
   end
