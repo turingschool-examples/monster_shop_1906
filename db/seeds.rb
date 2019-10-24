@@ -43,3 +43,15 @@ dog_bone.reviews.create(title: 'Amazing!', content: 'Truly changed my life!', ra
 dog_bowl.reviews.create(title: 'Sucks!', content: 'I really really hate it.', rating: 1)
 dog_bowl.reviews.create(title: "It's okay.", content: 'Not that bad, I guess.', rating: 3)
 dog_bowl.reviews.create(title: 'Amazing!', content: 'Truly changed my life!', rating: 5)
+
+# regular user
+user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80233, email: 'user@user.com', password: 'secure', role: 0)
+
+# merchant employee
+user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80233, email: 'merchant_employee@user.com', password: 'secure', role: 1)
+
+# merchant admin
+user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80233, email: 'merchant_admin@user.com', password: 'secure', role: 2)
+
+# site admin
+user = User.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80233, email: 'site_admin@user.com', password: 'secure', role: 3)
