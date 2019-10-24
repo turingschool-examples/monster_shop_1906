@@ -26,8 +26,10 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/orders', to: 'users#show' # Change this when we come up with a solution
-  get '/login', to: 'users#login'
-  get '/logout', to: 'users#logout'
+
+  get '/login', to: 'sessions#login'
+  post '/login', to: 'sessions#create', as: 'login_create'
+  get '/logout', to: 'sessions#logout'
 
   namespace :admin do
     get '/', to: 'dashboard#index'

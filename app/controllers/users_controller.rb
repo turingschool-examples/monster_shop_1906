@@ -23,13 +23,9 @@ class UsersController < ApplicationController
   def update
   end
 
-  def login; end
-
   def show
     render_404 unless current_user
   end
-
-  def logout; end
 
   private
 
