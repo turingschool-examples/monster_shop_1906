@@ -1,0 +1,14 @@
+<section id='user-info'>
+  <%= 
+    render partial: 'partials/user_info', locals: {
+      name: current_user.name,
+      address: current_user.address,
+      city: current_user.city,
+      state: current_user.state,
+      zip: current_user.zip,
+      email: current_user.email
+    }
+  %>
+  <p><%= link_to 'Edit Profile', '/profile/edit' %></p>
+</section>
+
