@@ -29,4 +29,11 @@ class Item <ApplicationRecord
     where(active?: true)
   end
 
+  def quantity_ordered
+    item_orders.sum(:quantity)
+  end
+
+  def self.top_five_ordered
+    binding.pry
+  end
 end
