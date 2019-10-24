@@ -28,7 +28,7 @@ RSpec.describe("Order Creation") do
       click_on "Checkout"
     end
 
-    it 'I can create a new order' do
+    xit 'I can create a new order' do
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
@@ -88,7 +88,7 @@ RSpec.describe("Order Creation") do
       end
     end
 
-    it 'i cant create order if info not filled out' do
+    xit 'i cant create order if info not filled out' do
       name = ""
       address = "123 Sesame St."
       city = "NYC"
