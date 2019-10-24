@@ -106,5 +106,34 @@ RSpec.describe 'Edit Page' do
         expect(page).to have_content("Address can't be blank")
       end
     end
+
+    it 'a user cannot edit their email to another user email' do
+      @users.each_with_index do |user, index|
+        visit '/login'
+
+        fill_in :email, with: user.email
+        fill_in :password, with: user.password
+        click_button 'Login'
+
+        visit '/profile'
+
+        click_link 'Edit Profile'
+
+        expect(current_path).to eq('/profile/edit')
+
+        expect(find_field('Name').value).to eq(user.name)
+        expect(find_field('Address').value).to eq(user.address)
+        expect(find_field('City').value).to eq(user.city)
+        expect(find_field('State').value).to eq(user.state)
+        expect(find_field('Zip').value).to eq("#{user.zip}")
+        expect(find_field('Email').value).to eq(user.email)
+        expect(page).to_not have_content 'Password'
+
+        fill_in :email, with: @users[index-1].email
+        click_button 'Update Information'
+
+        expect(page).to have_content("Email has already been taken")
+      end
+    end
   end
 end
