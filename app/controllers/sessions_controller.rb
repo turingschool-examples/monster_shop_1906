@@ -17,6 +17,9 @@ class SessionsController < ApplicationController
   end
 
   def logout
+    reset_session
+    flash[:success] = 'You have successfully logged out!'
+    redirect_to welcome_path
   end
 
   private
