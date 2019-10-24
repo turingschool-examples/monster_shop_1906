@@ -25,4 +25,19 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def self.active_only
+    where(active?: true)
+  end
+
+  def quantity_ordered
+    item_orders.sum(:quantity)
+  end
+
+  def self.top_five_ordered
+    joins(:item_orders).group('items.id').order('sum(item_orders.quantity) DESC').limit(5)
+  end
+
+  def self.bottom_five_ordered
+    joins(:item_orders).group('items.id').order('sum(item_orders.quantity)').limit(5)
+  end
 end
