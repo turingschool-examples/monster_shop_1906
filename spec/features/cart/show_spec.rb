@@ -55,6 +55,28 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+
+      it 'Visitor is prompted to register or login before checking out' do
+        visit '/cart'
+
+        within "#visitor-requirement" do
+          expect(page).to have_content('Please Login or Register to checkout')
+          expect(page).to have_link('Register')
+          expect(page).to have_link('Login')
+
+          click_link 'Register'
+        end
+
+        expect(current_path).to eq('/register')
+
+        visit '/cart'
+
+        within "#visitor-requirement" do
+          click_link 'Login'
+        end
+
+        expect(current_path).to eq('/login')
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
