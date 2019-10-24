@@ -20,8 +20,20 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper, @tire, @pencil]
     end
 
-    it 'Theres a link to checkout' do
-      visit '/cart'
+    it 'If I am a registered user, there is a link to checkout' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit cart_path
 
       expect(page).to have_link('Checkout')
 
@@ -29,11 +41,31 @@ RSpec.describe 'Cart show' do
 
       expect(current_path).to eq('/orders/new')
     end
+
+    it 'If I am not a registerd user, there is no checkout link, but there is a prompt to register or login' do
+      visit cart_path
+
+      expect(page).to have_content('Please Register or Log In to Checkout')
+
+      within '#checkout' do
+        click_link 'Register'
+      end
+
+      expect(current_path).to eq(register_path)
+
+      visit cart_path
+
+      within '#checkout' do
+        click_link 'Log In'
+      end
+
+      expect(current_path).to eq(login_path)
+    end
   end
 
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do
-      visit '/cart'
+      visit cart_path
 
       expect(page).to_not have_link('Checkout')
     end
