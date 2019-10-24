@@ -81,7 +81,7 @@ section[id*='review'] {
    background-color: #002244;
  }
 
- .topnav a {
+ .topnav a, .topnav div {
    float: left;
    color: #f2f2f2;
    text-align: center;
@@ -93,15 +93,6 @@ section[id*='review'] {
  .topnav a:hover {
    background-color: #17BEBB;
    color: black;
- }
-
- .topnav div {
-   float: left;
-   color: #f2f2f2;
-   text-align: center;
-   padding: 14px 16px;
-   text-decoration: none;
-   font-size: 17px;
  }
 
  .address{
