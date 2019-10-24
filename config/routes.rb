@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/orders', to: 'users#show' # Change this when we come up with a solution
+  patch '/profile/update', to: 'users#update'
 
   get '/login', to: 'sessions#login'
   post '/login', to: 'sessions#create', as: 'login_create'
