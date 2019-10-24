@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get '/profile/change-password', to: 'users#edit_password'
   patch '/profile/update-password', to: 'users#update_password'
   patch '/profile/update', to: 'users#update'
+  # scope path: 'profile', module: 'profile' do
+  #   get '/change-password', to: 'users#edit_password'
+  # end
 
   get '/merchants', to: 'merchants#index'
   get '/merchants/new', to: 'merchants#new'
@@ -43,8 +46,12 @@ Rails.application.routes.draw do
   delete '/cart/:item_id', to: 'cart#remove_item'
   patch '/cart/:item_id/:increment_decrement', to: 'cart#increment_decrement'
 
-  get '/orders/new', to: 'orders#new'
-  post '/orders', to: 'orders#create'
+  # get '/orders/new', to: 'orders#new'
+  scope module: 'profile' do
+    post '/profile/orders', to: 'orders#create'
+    get '/profile/orders', to: 'orders#index'
+  end
+  # post '/orders', to: 'orders#create'
   get '/orders/:id', to: 'orders#show'
 
   get '/merchant', to: 'merchant/dashboard#index'
