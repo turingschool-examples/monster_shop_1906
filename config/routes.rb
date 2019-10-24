@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#login'
   post '/login', to: 'sessions#create', as: 'login_create'
-  get '/logout', to: 'sessions#logout'
+  delete '/logout', to: 'sessions#logout'
 
   namespace :admin do
     get '/', to: 'dashboard#index'
