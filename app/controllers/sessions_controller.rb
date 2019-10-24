@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  def new
+  def login
   end
 
   def create
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   end
 
   private
-  
+
   def redirect_login
     if merchant_employee? || merchant_admin?
       redirect_to merchant_dashboard_path
