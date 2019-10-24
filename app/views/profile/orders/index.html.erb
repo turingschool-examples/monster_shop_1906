@@ -1,5 +1,6 @@
 <% current_user.orders.each do |order| %>
-  <section id = "order-<% order.id %>">
-
+  <section id = "order-<%= order.id %>">
+    <p>Order #<%= order.id %></p>
+    <p>Status: <%= order.status %></p>
   </section>
 <% end %>
