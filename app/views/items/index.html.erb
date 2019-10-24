@@ -5,7 +5,7 @@
   <h1>All Items</h1>
 <% end %>
 <section class="grid-container">
-  <% @items.each do |item| %>
+  <% @items.active_only.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
       <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
       <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
@@ -22,4 +22,24 @@
       <% end %>
     </section>
     <% end %>
+</section>
+
+<section class="top-five">
+  <h3>Five Most Popular Items</h3>
+  <% @items.top_five_ordered.each_with_index do |item, index| %>
+    <article id="top-five-<%= index %>">
+      <h5><%= link_to item.name, "/items/#{item.id}" %></h5>
+      <p>Quantity Ordered: <%= item.quantity_ordered %></p>
+    </article>
+  <% end %>
+</section>
+
+<section class="bottom-five">
+  <h3>Five Least Popular Items</h3>
+  <% @items.bottom_five_ordered.each_with_index do |item, index| %>
+    <article id="bottom-five-<%= index %>">
+      <h5><%= link_to item.name, "/items/#{item.id}" %></h5>
+      <p>Quantity Ordered: <%= item.quantity_ordered %></p>
+    </article>
+  <% end %>
 </section>
