@@ -26,15 +26,37 @@
           <li class="nav-item">
             <a class="nav-link" href="/merchants">Merchants</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
-          </li>
+          <% unless current_admin? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart (<%= cart.total_items %>) </a>
+            </li>
+          <% end %>
+          <% if current_user %>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          <% end %>
+          <% if current_merchant? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/merchant">Dashboard</a>
+            </li>
+          <% end %>
+          <% if current_admin? %>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">Users</a>
+            </li>
+          <% end %>
         </ul>
         <ul class="navbar-nav ml-auto">
           <% if current_user %>
+            <span class="navbar-text" id="nav-text">Logged in as <%= current_user.name %></span>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
+
           <% else %>
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>

@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    if current_user
+      @user = User.find(session[:user_id])
+    else
+      render file: '/public/404'
+    end
   end
 
   private
@@ -24,5 +28,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
-
 end
