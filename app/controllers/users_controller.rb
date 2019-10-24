@@ -17,6 +17,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
   def show
     render_404 unless current_user
   end
