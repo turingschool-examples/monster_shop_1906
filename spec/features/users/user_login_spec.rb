@@ -8,7 +8,7 @@ RSpec.describe 'As a User' do
       expect(current_path).to eq(login_path)
     end
 
-    it 'cannot login with invalid credentials' do
+    it 'cannot login with invalid password' do
       user = User.create(
         name: 'Bob',
         address: '123 Main',
@@ -29,6 +29,27 @@ RSpec.describe 'As a User' do
       expect(find_field(:password).value).to eq(nil)
     end
 
+    it 'cannot login with invalid email' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      fill_in :email, with: 'not_bob@email.com'
+      fill_in :password, with: user.password
+
+      click_on 'Sign me in'
+
+      expect(page).to have_content('The email and password you entered did not match our records. Please double-check and try again.')
+      expect(find_field(:email).value).to eq(nil)
+      expect(find_field(:password).value).to eq(nil)
+    end
+
     describe 'as a regular user' do
       it 'when I enter my valid credentials, I am redirected to my profile page' do
         user = User.create(
@@ -40,12 +61,12 @@ RSpec.describe 'As a User' do
           email: 'bob@email.com',
           password: 'secure'
         )
-  
+
         fill_in :email, with: user.email
         fill_in :password, with: user.password
-  
+
         click_on 'Sign me in'
-  
+
         expect(current_path).to eq(profile_path)
         expect(page).to have_content("Welcome back, #{user.name}!")
         expect(page).to have_link('Log Out')
@@ -66,7 +87,7 @@ RSpec.describe 'As a User' do
 
         fill_in :email, with: user.email
         fill_in :password, with: user.password
-  
+
         click_on 'Sign me in'
 
         visit login_path
@@ -88,12 +109,12 @@ RSpec.describe 'As a User' do
           password: 'secure',
           role: 1
         )
-  
+
         fill_in :email, with: merchant_employee.email
         fill_in :password, with: merchant_employee.password
-  
+
         click_on 'Sign me in'
-  
+
         expect(current_path).to eq(merchant_dashboard_path)
         expect(page).to have_content("Welcome back, #{merchant_employee.name}!")
         expect(page).to have_link('Log Out')
@@ -115,7 +136,7 @@ RSpec.describe 'As a User' do
 
         fill_in :email, with: merchant_admin.email
         fill_in :password, with: merchant_admin.password
-  
+
         click_on 'Sign me in'
 
         visit login_path
@@ -137,13 +158,13 @@ RSpec.describe 'As a User' do
           password: 'secure',
           role: 3
         )
-  
-    
+
+
         fill_in :email, with: site_admin.email
         fill_in :password, with: site_admin.password
-  
+
         click_on 'Sign me in'
-  
+
         expect(current_path).to eq(admin_path)
         expect(page).to have_content("Welcome back, #{site_admin.name}!")
         expect(page).to have_link('Log Out')
