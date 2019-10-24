@@ -1,5 +1,5 @@
 <section id='user-info'>
-  <%= 
+  <%=
     render partial: 'partials/user_info', locals: {
       name: current_user.name,
       address: current_user.address,
@@ -10,9 +10,9 @@
     }
   %>
   <p><%= link_to 'Edit Profile', profile_edit_path %></p>
+  <p><%= link_to 'Edit Password', profile_edit_password_path %></p>
 </section>
 
 <section id='user-orders'>
   <p><%= link_to 'My Orders', profile_orders_path %></p>
 </section>
-
