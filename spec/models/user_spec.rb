@@ -70,4 +70,21 @@ describe User, type: :model do
       expect(admin.admin?).to be_truthy
     end
   end
+
+  describe 'instance methods' do
+    it 'returns boolean for if a user has orders' do
+      user = User.create( name: 'Bob J',
+                          address: '123 Fake St',
+                          city: 'Denver',
+                          state: 'Colorado',
+                          zip: 80111,
+                          email: 'user@user.com',
+                          password: 'password')
+
+      expect(user.has_orders?).to be_falsy
+      order = user.orders.create!(name: user.name, address: user.address, city: user.city, state: user.state, zip: user.zip)
+
+      expect(user.has_orders?).to be_truthy
+    end
+  end
 end
