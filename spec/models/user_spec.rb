@@ -13,6 +13,10 @@ describe User, type: :model do
     it { should validate_confirmation_of :password }
   end
 
+  describe 'relationships' do
+    it { should have_many :orders }
+  end
+
   describe 'roles' do
     it "can be created by a default user" do
       user = User.create( name: 'Bob J',

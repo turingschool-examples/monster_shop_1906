@@ -34,39 +34,14 @@ RSpec.describe "As a visitor" do
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       pulltoy = brian.items.create(name: "Pulltoy", description: "It'll never fall apart!", price: 14, image: "https://www.valupets.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/l/a/large_rubber_dog_pull_toy.jpg", inventory: 7)
-
-
-      visit "/items/#{paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{tire.id}"
-      click_on "Add To Cart"
-      visit "/items/#{pencil.id}"
-      click_on "Add To Cart"
-
-      visit "/cart"
-      click_on "Checkout"
-
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
-
-      click_button "Create Order"
+      user = User.create(name: 'Bob J', address: '123 Fake St', city: 'Denver', state: 'Colorado', zip: 80111, email: 'user@user.com', password: 'password' )
+      order = Order.create!(name: 'Bob', address: 'fake street', city: 'new city', state: 'new state', zip: '80021', user_id: user.id)
+      item_order_1 = order.item_orders.create(item_id: paper.id, price: paper.price, quantity: 2)
+      item_order_2 = order.item_orders.create(item_id: tire.id, price: tire.price, quantity: 1)
+      item_order_3 = order.item_orders.create(item_id: pencil.id, price: pencil.price, quantity: 1)
 
       visit "/merchants/#{meg.id}"
       expect(page).to_not have_link("Delete Merchant")
-
-      # visit "/merchants/#{brian.id}"
-      # expect(page).to have_link("Delete Merchant")
     end
   end
 end

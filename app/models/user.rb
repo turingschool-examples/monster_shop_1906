@@ -8,6 +8,8 @@ class User < ApplicationRecord
             confirmation: { case_sensitive: true },
             :if => :password
 
+  has_many :orders
+
 
   has_secure_password
 
