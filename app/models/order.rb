@@ -8,4 +8,16 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def created_date
+    created_at.strftime('%B %d, %Y')
+  end
+
+  def updated_date
+    updated_at.strftime('%B %d, %Y')
+  end
+
+  def item_count
+    item_orders.sum(:quantity)
+  end
 end
