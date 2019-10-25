@@ -1,6 +1,6 @@
 <h1 class='mt-4'>Register</h1>
 
-<%= form_tag "/users/#{@user.id}", method: :patch, class: 'form-width' do %>
+<%= form_tag "/profile", method: :patch, class: 'form-width' do %>
   <%= label_tag :name %>
   <%= text_field_tag :name, @user.name, class: 'form-control' %>
 

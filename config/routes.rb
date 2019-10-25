@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile/edit', to: 'users#edit'
-  patch '/users/:id', to: 'users#update'
+  patch '/profile', to: 'users#update'
 
 
   get '/login', to: 'sessions#new'
