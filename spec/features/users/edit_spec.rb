@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'As a registered user' do
@@ -108,6 +110,35 @@ RSpec.describe 'As a registered user' do
       expect(current_path).to eq(profile_path)
 
       expect(page).to have_content('Your password has been updated successfully!')
+    end
+
+    it 'password cannot be updated if they do not match' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit profile_path
+
+      within '#user-info' do
+        click_link 'Edit Password'
+      end
+
+      expect(current_path).to eq('/profile/edit_password')
+
+      fill_in :password, with: 'mystery'
+      fill_in :password_confirmation, with: 'notmystery'
+
+      click_button 'Update Password'
+
+      expect(page).to have_content('Password confirmation doesn\'t match Password')
     end
   end
 end
