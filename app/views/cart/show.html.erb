@@ -1,13 +1,12 @@
 <h1>Cart</h1>
 
-<% unless current_user %>
-  <section id = 'visitor-requirement'>
-    <p>Please <%= link_to 'Login', '/login' %> or <%= link_to 'Register', '/register' %> to checkout</p>
-  </section>
-<% end %>
-
 <% if !@items.empty? %>
 <center>
+  <% unless current_user %>
+    <section id = 'visitor-requirement'>
+      <p>Please <%= link_to 'Login', '/login' %> or <%= link_to 'Register', '/register' %> to checkout</p>
+    </section>
+  <% end %>
 <table class = "cart-items">
   <tr>
     <th>Item</th>
