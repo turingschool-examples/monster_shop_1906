@@ -14,4 +14,69 @@ describe User, type: :model do
     it { should validate_uniqueness_of(:email) }
     it { should validate_presence_of(:password) }
   end
+
+  describe 'relationships' do
+    it { should have_many :orders }
+  end
+
+  describe 'roles' do
+    it 'default user' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      expect(user.role).to eq('default')
+    end
+
+    it 'merchant_employee' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure',
+        role: 1
+      )
+
+      expect(user.role).to eq('merchant_employee')
+    end
+
+    it 'merchant_admin' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure',
+        role: 2
+      )
+
+      expect(user.role).to eq('merchant_admin')
+    end
+
+    it 'site_admin' do
+      user = User.create(
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
+        password: 'secure',
+        role: 3
+      )
+
+      expect(user.role).to eq('site_admin')
+    end
+  end
 end

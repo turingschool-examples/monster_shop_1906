@@ -15,5 +15,7 @@ class User < ApplicationRecord
   validates_length_of :zip, is: 5
   validates_numericality_of :zip
 
+  has_many :orders
+
   enum role: %w[default merchant_employee merchant_admin site_admin]
 end
