@@ -17,9 +17,28 @@ class UsersController < ApplicationController
 
   def show
     if current_user
-      @user = User.find(session[:user_id])
+      @user = current_user
     else
       render file: '/public/404'
+    end
+  end
+
+  def edit
+    if current_user
+      @user = current_user
+    else
+      render file: '/public/404'
+    end
+  end
+
+  def update
+    @user = current_user
+    if @user.update(user_params)
+      flash[:success] = ['You have succesfully updated your information!']
+      redirect_to '/profile'
+    else
+      flash[:error] = @user.errors.full_messages
+      render :edit
     end
   end
 
