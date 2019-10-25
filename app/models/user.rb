@@ -7,3 +7,14 @@ class User < ApplicationRecord
 
   enum role: %w(default merchant_employee merchant_admin admin)
 end
+
+
+# validates :password,
+#           presence: true,
+#           length: { minimum: 2 },
+#           confirmation: { case_sensitive: true },
+#           if: :password
+#
+# validates :password_confirmation,
+#           presence: true,
+#           if: :password
