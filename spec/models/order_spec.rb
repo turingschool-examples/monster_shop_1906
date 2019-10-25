@@ -25,6 +25,7 @@ describe Order, type: :model do
 
       user = User.create(name: 'Bob J', address: '123 Fake St', city: 'Denver', state: 'Colorado', zip: 80111, email: 'user@user.com', password: 'password' )
       @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id)
+      @order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id, created_at: 'Fri, 18 Oct 2019 21:56:35 UTC +00:00', updated_at: 'Fri, 25 Oct 2019 21:56:35 UTC +00:00')
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
@@ -35,6 +36,22 @@ describe Order, type: :model do
 
     it 'defaults status to pending' do
       expect(@order_1.status).to eq('pending')
+    end
+
+    it 'returns a created date in FullMonth Day, Year' do
+      expect(@order_2.created_date).to eq('October 18, 2019')
+    end
+
+    it 'returns an updated date in FullMonth Day, Year' do
+      expect(@order_2.updated_date).to eq('October 25, 2019')
+    end
+
+    it 'returns the total quantity of items in an order' do
+      expect(@order_1.item_count).to eq(5)
+    end
+
+    it 'returns the grand total of item prices in an order' do
+      expect(@order_1.grandtotal).to eq(230)
     end
   end
 end

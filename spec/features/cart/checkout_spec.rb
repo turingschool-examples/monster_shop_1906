@@ -85,7 +85,7 @@ describe 'As a registered user with items in my cart' do
 
     within "#order-#{order.id}" do
       expect(page).to have_content("#{order.id}")
-      expect(page).to have_content(order.status)
+      expect(page).to have_content(order.status.capitalize)
     end
   end
 end
