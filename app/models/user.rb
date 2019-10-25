@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: [:default, :merchant_employee, :merchant_admin, :admin]
+
+  def has_orders?
+    orders.count > 0
+  end
 end
