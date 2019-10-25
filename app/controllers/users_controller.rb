@@ -17,11 +17,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_profile
-  end
+  def edit_profile; end
 
-  def edit_password
-  end
+  def edit_password; end
 
   def update_profile
     if current_user.update(update_profile_params)

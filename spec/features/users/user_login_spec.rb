@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'As a User' do
@@ -158,7 +160,6 @@ RSpec.describe 'As a User' do
           password: 'secure',
           role: 3
         )
-
 
         fill_in :email, with: site_admin.email
         fill_in :password, with: site_admin.password

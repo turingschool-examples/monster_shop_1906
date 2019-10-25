@@ -6,11 +6,11 @@ RSpec.describe 'As a User' do
   describe 'as a Registered User' do
     it "has profile and logout links but doesn't have login or register links" do
       user = User.create(
-        name: 'Bob', 
-        address: '123 Main', 
-        city: 'Denver', 
-        state: 'CO', 
-        zip: 80_233, 
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
@@ -41,12 +41,12 @@ RSpec.describe 'As a User' do
 
     it 'restricts access to merchant and admin dashboards' do
       user = User.create(
-        name: 'Bob', 
-        address: '123 Main', 
-        city: 'Denver', 
-        state: 'CO', 
-        zip: 80_233, 
-        email: 'bob@email.com', 
+        name: 'Bob',
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233,
+        email: 'bob@email.com',
         password: 'secure'
       )
 

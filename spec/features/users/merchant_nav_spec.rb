@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe 'As a Merchant' do
   it 'employee or admin I see the merchant dashboard' do
     user = User.create(
-      name: 'Bob', 
-      address: '123 Main', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: 80_233, 
-      email: 'bob@email.com', 
-      password: 'secure', 
+      name: 'Bob',
+      address: '123 Main',
+      city: 'Denver',
+      state: 'CO',
+      zip: 80_233,
+      email: 'bob@email.com',
+      password: 'secure',
       role: 1
     )
 
@@ -28,23 +28,23 @@ RSpec.describe 'As a Merchant' do
 
   it 'employee or admin I do not have access to site admin dashboard' do
     merchant_employee = User.create(
-      name: 'Bob', 
-      address: '123 Main', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: 80_233, 
-      email: 'bob@email.com', 
-      password: 'secure', 
+      name: 'Bob',
+      address: '123 Main',
+      city: 'Denver',
+      state: 'CO',
+      zip: 80_233,
+      email: 'bob@email.com',
+      password: 'secure',
       role: 1
     )
     merchant_admin = User.create(
-      name: 'Bob', 
-      address: '123 Main', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: 80_233, 
-      email: 'bob@email.com', 
-      password: 'secure', 
+      name: 'Bob',
+      address: '123 Main',
+      city: 'Denver',
+      state: 'CO',
+      zip: 80_233,
+      email: 'bob@email.com',
+      password: 'secure',
       role: 2
     )
 

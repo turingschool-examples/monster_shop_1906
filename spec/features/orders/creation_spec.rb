@@ -112,5 +112,25 @@ RSpec.describe('Order Creation') do
       expect(page).to have_content('Please complete address form to create an order.')
       expect(page).to have_button('Create Order')
     end
+
+    it 'after I create an order, I am taken to the order page and see a status of pending' do
+      fill_in :name, with: 'Bert'
+      fill_in :address, with: '123 Sesame St.'
+      fill_in :city, with: 'NYC'
+      fill_in :state, with: 'New York'
+      fill_in :zip, with: 10_001
+
+      click_button 'Create Order'
+
+      new_order = Order.last
+
+      expect(current_path).to eq(order_path(new_order))
+
+      expect(page).to have_content('Status: Pending')
+
+      within 'nav' do
+        expect(page).to have_content('Cart: 0')
+      end
+    end
   end
 end
