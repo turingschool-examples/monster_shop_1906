@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe 'As an admin' do
   it 'has a link to the admin dashboard' do
     admin = User.create(
-      name: 'Bob', 
-      address: '123 Main', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: 80_233, 
-      email: 'bob@email.com', 
-      password: 'secure', 
+      name: 'Bob',
+      address: '123 Main',
+      city: 'Denver',
+      state: 'CO',
+      zip: 80_233,
+      email: 'bob@email.com',
+      password: 'secure',
       role: 3
     )
 
@@ -38,12 +38,12 @@ RSpec.describe 'As an admin' do
 
   it 'does not have access to cart or merchant' do
     admin = User.create(
-      name: 'Bob', 
-      address: '123 Main', 
-      city: 'Denver', 
-      state: 'CO', 
-      zip: 80_233, 
-      email: 'bob@email.com', 
+      name: 'Bob',
+      address: '123 Main',
+      city: 'Denver',
+      state: 'CO',
+      zip: 80_233,
+      email: 'bob@email.com',
       password: 'secure', role: 3
     )
 
