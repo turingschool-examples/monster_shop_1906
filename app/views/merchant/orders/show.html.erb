@@ -1,0 +1,15 @@
+<h1>Order Show for Merchant</h1>
+
+<section class="customer-info">
+  <p><%= @order.name %></p>
+  <p><%= @order.address %> <%= @order.city %>, <%= @order.state %> <%= @order.zip %></p>
+</section>
+
+<% @order.items_of_merchant(current_user.merchant_id).each do |item| %>
+  <section id="item-<%=item.id %>">
+    <%= link_to item.name, "/items/#{item.id}" %>
+    <%= image_tag item.image %>
+    <p>Item Price: <%= number_to_currency(item.price) %></p>
+    <p>Quantity Ordered: <%= item.quantity_ordered(@order.id)%></p>
+  </section>
+<% end %>
