@@ -51,18 +51,18 @@ describe 'On the merchant dashboard /merchant' do
       end
     end
 
-    # it 'has a link to view a merchants items' do
-    #   @users.each do |user|
-    #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    #     visit '/merchant'
-    #
-    #     expect(page).to have_link("My Merchant's Items")
-    #
-    #     click_link "My Merchant's Items"
-    #
-    #     expect(current_path).to eq("/merchants/#{@chester_the_merchant.id}/items")
-    #   end
-    # end
+    it 'has a link to view a merchants items' do
+      @users.each do |user|
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        visit '/merchant'
+
+        expect(page).to have_link("My Merchant's Items")
+
+        click_link "My Merchant's Items"
+
+        expect(current_path).to eq("/merchant/items")
+      end
+    end
 #     As a merchant employee or admin
 # When I visit my merchant dashboard
 # I see a link to view my own items
