@@ -8,7 +8,7 @@ RSpec.describe 'As a registered user' do
 
       tire = meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
       pull_toy = brian.items.create(name: 'Pull Toy', description: 'Great pull toy!', price: 10, image: 'http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg', inventory: 32)
-      
+
       user = User.create(
         name: 'Bob',
         address: '123 Main',
@@ -32,7 +32,7 @@ RSpec.describe 'As a registered user' do
         expect(page).to have_content("Date Created: #{order_1.created_at}")
         expect(page).to have_content("Last Updated: #{order_1.updated_at}")
         expect(page).to have_content("Status: #{order_1.status}")
-        expect(page).to have_content("Total Items: #{order_1.total_items}")
+        expect(page).to have_content("Total Quantity: #{order_1.total_quantity}")
         expect(page).to have_content("Grand Total: #{order_1.grand_total}")
       end
     end
