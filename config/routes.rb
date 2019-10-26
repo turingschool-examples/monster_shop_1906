@@ -50,6 +50,9 @@ Rails.application.routes.draw do
     patch '/profile/orders/:id', to: 'orders#update'
   end
 
-  get '/merchant', to: 'merchant/dashboard#index'
+  namespace :merchant do
+    get '/', to: 'dashboard#index'
+    get "/items", to: 'items#index'
+  end
   get '/admin', to: 'admin/dashboard#index'
 end
