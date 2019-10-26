@@ -63,10 +63,5 @@ describe 'On the merchant dashboard /merchant' do
         expect(current_path).to eq("/merchant/items")
       end
     end
-#     As a merchant employee or admin
-# When I visit my merchant dashboard
-# I see a link to view my own items
-# When I click that link
-# I should be taken to my merchant's items ("/merchant/items")
   end
 end
