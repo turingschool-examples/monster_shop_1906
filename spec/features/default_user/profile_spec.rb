@@ -65,4 +65,36 @@ RSpec.describe 'As a default user' do
       expect(page).to have_content('billy.bob@gmail.com')
     end
   end
+
+  it 'can click a button to update password' do
+    visit '/profile'
+
+    click_link 'Change Your Password'
+
+    expect(current_path).to eq('/profile/edit')
+
+    fill_in :password, with: 'gmoneyisgreat'
+    fill_in :password_confirmation, with: 'gmoneyisgreat'
+
+    click_button 'Update Password'
+
+    expect(current_path).to eq('/profile')
+    expect(page).to have_content('You have successfully updated your password!')
+  end
+
+  it 'cannot change password if password field is blank' do
+    visit '/profile/edit?info=false'
+
+    fill_in :password, with: ''
+    fill_in :password_confirmation, with: 'gmoneyisawesome'
+
+    click_button 'Update Password'
+
+    expect(current_path).to eq('/profile')
+
+    expect(page).to have_content('Please fill in both password fields')
+
+    expect(page).to have_field :password
+    expect(page).to have_field :password_confirmation
+  end
 end
