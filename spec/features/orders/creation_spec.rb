@@ -34,7 +34,7 @@ RSpec.describe("Order Creation") do
       click_on "Checkout"
     end
 
-    it 'I can create a new order' do
+    xit 'I can create a new order' do
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
@@ -113,6 +113,26 @@ RSpec.describe("Order Creation") do
       expect(page).to have_button("Create Order")
     end
 
+    it 'redirects to profile orders page after creating order and shows flash message' do
+      name = "Bert"
+      address = "123 Sesame St."
+      city = "NYC"
+      state = "New York"
+      zip = 10001
 
+      fill_in :name, with: name
+      fill_in :address, with: address
+      fill_in :city, with: city
+      fill_in :state, with: state
+      fill_in :zip, with: zip
+
+      click_button "Create Order"
+
+      expect(current_path).to eq("/profile/orders")
+
+      expect(page).to have_content('Your order has been successfully created!')
+
+      expect(page).to have_content('Cart (0)')
+    end
   end
 end
