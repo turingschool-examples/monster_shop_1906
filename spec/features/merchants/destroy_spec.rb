@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "As a visitor" do
+  before :each do
+    @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+    visit '/login'
+    fill_in :email, with: 'test@gmail.com'
+    fill_in :password, with: 'password123'
+    click_button 'Login'
+  end
   describe "When I visit a merchant show page" do
     it "I can delete a merchant" do
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)

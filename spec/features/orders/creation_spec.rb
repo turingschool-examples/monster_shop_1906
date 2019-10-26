@@ -24,6 +24,12 @@ RSpec.describe("Order Creation") do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
 
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      visit '/login'
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+      click_button 'Login'
+
       visit "/cart"
       click_on "Checkout"
     end
