@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get '/orders/:id', to: 'orders#show'
 
   get '/profile', to: 'users#show'
+  get '/profile/orders', to: 'profile#index'
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile/edit', to: 'users#edit'
