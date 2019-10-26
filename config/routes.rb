@@ -47,9 +47,8 @@ Rails.application.routes.draw do
     post '/profile/orders', to: 'orders#create'
     get '/profile/orders', to: 'orders#index'
     get '/profile/orders/:id', to: 'orders#show'
+    patch '/profile/orders/:id', to: 'orders#update'
   end
-
-  get '/orders/:id', to: 'orders#show'
 
   get '/merchant', to: 'merchant/dashboard#index'
   get '/admin', to: 'admin/dashboard#index'
