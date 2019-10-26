@@ -24,6 +24,10 @@ class Order <ApplicationRecord
   def unfulfilled_item_orders
     item_orders.each do |item_order|
       item_order.update(status: 'unfulfilled')
-    end 
+    end
+  end
+
+  def items_of_merchant(merchant_id)
+    items.where(merchant_id: merchant_id)
   end
 end

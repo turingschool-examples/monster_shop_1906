@@ -47,5 +47,13 @@ describe Item, type: :model do
       order_1.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it 'returns the quantity ordered for the item' do
+      user = User.create(name: 'Bob J', address: '123 Fake St', city: 'Denver', state: 'Colorado', zip: 80111, email: 'user@user.com', password: 'password' )
+      order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id)
+      order_1.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
+
+      expect(@chain.quantity_ordered(order_1.id)).to eq 2
+    end
   end
 end
