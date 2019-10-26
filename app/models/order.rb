@@ -20,4 +20,10 @@ class Order <ApplicationRecord
   def item_count
     item_orders.sum(:quantity)
   end
+
+  def unfulfilled_item_orders
+    item_orders.each do |item_order|
+      item_order.update(status: 'unfulfilled')
+    end 
+  end
 end
