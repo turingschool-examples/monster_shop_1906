@@ -24,9 +24,3 @@ RSpec.describe 'As a logged in Merchant (employee/admin)' do
     expect(current_path).to eq(merchant_user_items_path)
   end
 end
-
-# As a merchant employee or admin
-# When I visit my merchant dashboard
-# I see a link to view my own items
-# When I click that link
-# I should be taken to my merchant's items ("/merchant/items")
