@@ -26,6 +26,14 @@ class Profile::OrdersController < ApplicationController
     end
   end
 
+  def update
+    order = Order.find(params[:id])
+    order.update(status: 'cancelled')
+    order.unfulfilled_item_orders
+    flash[:notice] = "Order #: #{order.id} has been cancelled"
+    redirect_to '/profile'
+  end
+
 
   private
 
