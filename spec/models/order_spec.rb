@@ -23,12 +23,18 @@ describe Order, type: :model do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
+      @merchant_employee = User.create(merchant_id: @brian.id, name: 'Merchant User', address: '123 Fake St', city: 'Denver', state: 'Colorado', zip: 80111, email: 'merchant@user.com', password: 'password', role: 1 )
       user = User.create(name: 'Bob J', address: '123 Fake St', city: 'Denver', state: 'Colorado', zip: 80111, email: 'user@user.com', password: 'password' )
+
       @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id)
       @order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id, created_at: 'Fri, 18 Oct 2019 21:56:35 UTC +00:00', updated_at: 'Fri, 25 Oct 2019 21:56:35 UTC +00:00')
+      @order_3 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id, created_at: 'Fri, 18 Oct 2019 21:56:35 UTC +00:00', updated_at: 'Fri, 25 Oct 2019 21:56:35 UTC +00:00')
 
       @item_order_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @item_order_2 = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+
+      @item_order_3 = @order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @item_order_4 = @order_3.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
     it 'grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
@@ -60,6 +66,14 @@ describe Order, type: :model do
       @order_1.unfulfilled_item_orders
       expect(@item_order_1.status).to eq('unfulfilled')
       expect(@item_order_2.status).to eq('unfulfilled')
+    end
+
+    it 'returns the items of an order for the current_user.merchant' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
+
+      expected = [@pull_toy]
+
+      expect(@order_3.items_of_merchant(@merchant_employee.merchant_id)).to eq(expected)
     end
   end
 end
