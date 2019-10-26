@@ -16,10 +16,6 @@ describe 'On the merchant dashboard /merchant' do
       item_order_1 = @order.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
       item_order_2 = @order.item_orders.create!(item: dog_bone, price: dog_bone.price, quantity: 1)
 
-
-
-
-
       @users = [merchant_employee, merchant_admin]
     end
     it 'has the name and full address of the merchant I work for' do
