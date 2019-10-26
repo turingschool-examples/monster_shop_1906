@@ -1,0 +1,9 @@
+<h1>Merchant Dashboard</h1>
+
+<section class='employer-info'>
+  <% current_user.merchants.each do |merchant| %>
+    <p><%= merchant.name %></p>
+    <p><%= merchant.address %></p>
+    <p><%= merchant.city %>, <%= merchant.state %> <%= merchant.zip %></p>
+  <% end %>
+</section>
