@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Edit Page' do
   describe 'As a registered user (aka not a visitor)' do
     before(:each) do
-      user = User.create(
+      user = User.create!(
         name: 'Bob J',
         address: '123 Fake St',
         city: 'Denver',
@@ -12,7 +12,7 @@ RSpec.describe 'Edit Page' do
         email: 'user@user.com',
         password: 'password',
       )
-      merchant_employee = User.create(
+      merchant_employee = User.create!(
         name: 'Bob J',
         address: '123 Fake St',
         city: 'Denver',
@@ -22,7 +22,7 @@ RSpec.describe 'Edit Page' do
         password: 'password',
         role: 1
       )
-      merchad = User.create(
+      merchad = User.create!(
         name: 'Bob J',
         address: '123 Fake St',
         city: 'Denver',
@@ -32,7 +32,7 @@ RSpec.describe 'Edit Page' do
         password: 'password',
         role: 2
       )
-      admin = User.create(
+      admin = User.create!(
         name: 'Bob J',
         address: '123 Fake St',
         city: 'Denver',

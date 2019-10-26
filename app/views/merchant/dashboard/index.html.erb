@@ -1,17 +1,18 @@
 <h1>Merchant Dashboard</h1>
 
-<section class='employer-info'>
-  <% current_user.merchants.each do |merchant| %>
-    <p><%= merchant.name %></p>
-    <p><%= merchant.address %></p>
-    <p><%= merchant.city %>, <%= merchant.state %> <%= merchant.zip %></p>
-    <section class='pending-orders'>
-      <% merchant.pending_orders.each do |pending_order| %>
-        <%= link_to "Order #: #{pending_order.id}", "/orders/#{pending_order.id}"%>
-        <p>Order Date: <%= pending_order.created_date %></p>
-        <p>Item Total: <%= pending_order.item_count %></p>
-        <p>Grand Total: <%= pending_order.grandtotal %></p>
-      <% end  %>
-    </section>
-  <% end %>
-</section>
+<% if current_user.merchant %>
+  <section class='employer-info'>
+      <p><%= current_user.merchant.name %></p>
+      <p><%= current_user.merchant.address %></p>
+      <p><%= current_user.merchant.city %>, <%= current_user.merchant.state %> <%= current_user.merchant.zip %></p>
+      <section class='pending-orders'>
+        <% current_user.merchant.pending_orders.each do |pending_order| %>
+          <%= link_to "Order #: #{pending_order.id}", "/orders/#{pending_order.id}"%>
+          <p>Order Date: <%= pending_order.created_date %></p>
+          <p>Item Total: <%= pending_order.item_count %></p>
+          <p>Grand Total: <%= pending_order.grandtotal %></p>
+        <% end  %>
+      </section>
+      <%= link_to "My Merchant's Items", '/merchant/items' %>
+  </section>
+<% end %>

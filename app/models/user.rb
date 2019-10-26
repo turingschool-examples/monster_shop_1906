@@ -9,8 +9,7 @@ class User < ApplicationRecord
             :if => :password
 
   has_many :orders
-  has_many :merchant_users
-  has_many :merchants, through: :merchant_users
+  belongs_to :merchant, optional: true
 
   has_secure_password
 
