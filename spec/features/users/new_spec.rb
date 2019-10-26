@@ -55,7 +55,6 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("Zip can't be blank")
     expect(page).to have_content("Email can't be blank")
     expect(page).to have_content("Password can't be blank")
-    expect(page).to have_content("Password confirmation can't be blank")
   end
 
   it "shows flash message when passwords don't match" do
