@@ -25,4 +25,8 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def quantity_ordered(order_id)
+    item_orders.find_by(order_id: order_id).quantity
+  end
+
 end
