@@ -27,8 +27,8 @@ RSpec.describe 'As a registered user' do
 
       visit profile_orders_path
 
-      within "order-#{order_1.id}" do
-        expect(page).to have_link("ID: #{order_1.id}")
+      within "#order-#{order_1.id}" do
+        expect(page).to have_link("#{order_1.id}")
         expect(page).to have_content("Date Created: #{order_1.created_at}")
         expect(page).to have_content("Last Updated: #{order_1.updated_at}")
         expect(page).to have_content("Status: #{order_1.status}")
