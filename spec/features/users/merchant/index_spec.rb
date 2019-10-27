@@ -41,8 +41,8 @@ describe 'On the merchant dashboard /merchant' do
         within '.pending-orders' do
           expect(page).to have_link("Order #: #{@order.id}")
           expect(page).to have_content(@order.created_date)
-          expect(page).to have_content(@order.item_count)
-          expect(page).to have_content(@order.grandtotal)
+          expect(page).to have_content(@order.item_count_for_merchant(@chester_the_merchant.id))
+          expect(page).to have_content(@order.grand_total_for_merchant(@chester_the_merchant.id))
         end
       end
     end
