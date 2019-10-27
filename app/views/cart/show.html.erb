@@ -47,7 +47,7 @@
   <p>Total: <%= number_to_currency(cart.total) %></p>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if current_user %>
-    <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+    <p><%= link_to "Checkout", "/orders", method: :post %></p>
   <% else %>
     <section id='cart-logged-out-warning'>
       <p>You must <%= link_to 'register', '/register' %> and <%= link_to 'login', '/login' %> in order to complete checkout process.</p>
