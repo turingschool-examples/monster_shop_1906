@@ -44,14 +44,14 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user.id)
+      order = Order.create(user_id: @user.id)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
 
     it 'can find the quantity ordered of an item' do
-      order_1 = Order.create!(name: "Joe", address: "748 Main St", city: "Denver", state: "CO", zip: 80128, user_id: @user.id)
-      order_2 = Order.create!(name: "Bob", address: "818 Johnson Ave", city: "Miami", state: "FL", zip: 32946, user_id: @user.id)
+      order_1 = Order.create!(user_id: @user.id)
+      order_2 = Order.create!(user_id: @user.id)
 
       order_1.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 7)
       order_2.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 3)
@@ -74,7 +74,7 @@ describe Item, type: :model do
       @dog_bowl = @brian.items.create(name: "Dog Bowl", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?: false, inventory: 21)
 
       @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
-      @order_1 = Order.create!(name: "Joe", address: "748 Main St", city: "Denver", state: "CO", zip: 80128, user_id: @user.id)
+      @order_1 = Order.create!(user_id: @user.id)
 
       @order_1.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 7)
       @order_1.item_orders.create!(item_id: @dog_bowl.id, price: @dog_bowl.price, quantity: 6)

@@ -14,8 +14,8 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
     @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
     @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
-    @order_1 = Order.create!(name: @user.name, address: @user.address, city: @user.city, state: @user.state, zip: @user.zip, user_id: @user.id)
-    @order_2 = Order.create!(name: @user.name, address: @user.address, city: @user.city, state: @user.state, zip: @user.zip, user_id: @user.id)
+    @order_1 = Order.create!(user_id: @user.id)
+    @order_2 = Order.create!(user_id: @user.id)
     @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
     @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
     @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 3)
@@ -23,7 +23,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
 
   it 'shows orders including items' do
     visit '/profile/orders'
-    
+
     within "#orders-#{@order_1.id}" do
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content('Gatorskins')
