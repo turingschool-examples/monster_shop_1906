@@ -1,10 +1,12 @@
 <h1>Orders</h1>
 
 <% @orders.each do |order| %>
-  <section id="orders-<%= order.id %>"> 
-    <p>Order id: <%= order.id %></p>
-    <% order.items.each do |item| %>
-      <p><%= item.name %></p>
-    <% end %>
+  <section id="order-<%= order.id %>">
+    <p>Order id: <%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></p>
+    <p> <%= order.created_at %> </p>
+    <p> <%= order.updated_at %> </p>
+    <p> <%= order.status %> </p>
+    <p> <%= order.item_orders.count %> </p>
+    <p> <%= number_to_currency(order.grandtotal) %> </p>
   </section>
 <% end %>
