@@ -58,6 +58,12 @@ describe Item, type: :model do
 
       expect(@chain.quantity_ordered).to eq(10)
     end
+
+    it 'can reduce inventory quantity' do
+      @chain.reduce_quantity(6)
+
+      expect(@chain.inventory).to eq(4)
+    end
   end
 
   describe "class methods" do
