@@ -38,10 +38,12 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   get '/profile/orders', to: 'user_orders#index'
+  get '/profile/orders/:id', to: 'user_orders#show'
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update'
+  patch '/profile/orders/:id', to: 'user_orders#update'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
