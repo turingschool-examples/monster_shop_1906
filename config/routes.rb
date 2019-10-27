@@ -32,12 +32,12 @@ Rails.application.routes.draw do
   delete '/cart/:item_id', to: 'cart#remove_item'
   patch '/cart/:item_id/:increment_decrement', to: 'cart#increment_decrement'
 
-  get '/orders/new', to: 'orders#new'
+  # get '/orders/new', to: 'orders#new'
   post '/orders', to: 'orders#create'
-  get '/orders/:id', to: 'orders#show'
+  # get '/orders/:id', to: 'orders#show'
 
   get '/profile', to: 'users#show'
-  get '/profile/orders', to: 'profile#index'
+  get '/profile/orders', to: 'user_orders#index'
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile/edit', to: 'users#edit'
