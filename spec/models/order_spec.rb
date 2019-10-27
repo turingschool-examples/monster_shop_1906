@@ -52,12 +52,12 @@ describe Order, type: :model do
       expect(@order_2.updated_date).to eq('October 25, 2019')
     end
 
-    it 'returns the total quantity of items in an order' do
-      expect(@order_1.item_count).to eq(5)
+    it 'returns the total quantity of items in an order for a specific merchant' do
+      expect(@order_1.item_count_for_merchant(@merchant_employee.merchant_id)).to eq(3)
     end
 
-    it 'returns the grand total of item prices in an order' do
-      expect(@order_1.grandtotal).to eq(230)
+    it 'returns the grand total of item prices in an order for a merchant' do
+      expect(@order_1.grand_total_for_merchant(@merchant_employee.merchant_id)).to eq(30)
     end
 
     it "when cancelled all it's item orders status updates to unfulfilled" do

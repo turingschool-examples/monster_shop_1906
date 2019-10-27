@@ -9,8 +9,8 @@
         <% current_user.merchant.pending_orders.each do |pending_order| %>
           <%= link_to "Order #: #{pending_order.id}", "/merchant/orders/#{pending_order.id}"%>
           <p>Order Date: <%= pending_order.created_date %></p>
-          <p>Item Total: <%= pending_order.item_count %></p>
-          <p>Grand Total: <%= pending_order.grandtotal %></p>
+          <p>Item Total: <%= pending_order.item_count_for_merchant(current_user.merchant_id) %></p>
+          <p>Grand Total: <%= pending_order.grand_total_for_merchant(current_user.merchant_id) %></p>
         <% end  %>
       </section>
       <%= link_to "My Merchant's Items", '/merchant/items' %>
