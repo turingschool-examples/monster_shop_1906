@@ -16,6 +16,12 @@ RSpec.describe 'Cart show' do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
+
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      visit '/login'
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+      click_button 'Login'
     end
 
     it 'Theres a link to checkout' do
@@ -25,7 +31,7 @@ RSpec.describe 'Cart show' do
 
       click_on "Checkout"
 
-      expect(current_path).to eq("/orders/new")
+      expect(current_path).to eq("/profile/orders")
     end
   end
 

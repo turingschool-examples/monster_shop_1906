@@ -17,9 +17,44 @@ class UsersController < ApplicationController
 
   def show
     if current_user
-      @user = User.find(session[:user_id])
+      @user = current_user
     else
       render file: '/public/404'
+    end
+  end
+
+  def edit
+    if current_user
+      @info = params[:info]
+    else
+      render file: '/public/404'
+    end
+  end
+
+  def update
+    user = current_user
+    @info = params[:info]
+
+    if !@info && user.update(user_params)
+      flash[:success] = ['You have succesfully updated your information!']
+      redirect_to '/profile'
+    elsif !@info && !user.update(user_params)
+      flash.now[:error] = user.errors.full_messages
+      render :edit
+    elsif @info == 'false'
+      if params[:password].blank? || params[:password_confirmation].blank?
+        flash.now[:error] = ['Please fill in both password fields']
+        render :edit
+      elsif params[:password] != params[:password_confirmation]
+        flash.now[:error] = ['Password confirmation doesn\'t match Password']
+        render :edit
+      elsif user.update(user_params)
+        flash[:success] = ['You have successfully updated your password!']
+        redirect_to '/profile'
+      else
+        flash.now[:error] = user.errors.full_messages
+        render :edit
+      end
     end
   end
 

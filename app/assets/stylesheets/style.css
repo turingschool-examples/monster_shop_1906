@@ -6,7 +6,27 @@
   color: white;
 }
 
+table.profile-info {
+ font-family: arial, sans-serif;
+ border-collapse: collapse;
+ width: 50%;
+ margin: 0 auto;
+}
 
+td {
+  border: 1px solid black;
+  padding: 5px 5px 5px 10px;
+}
+
+table.cart-items {
+ font-family: arial, sans-serif;
+ border-collapse: collapse;
+ width: 100%;
+}
+
+td:first-child {
+  width: 100px;
+}
 
 
 

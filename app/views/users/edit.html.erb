@@ -1,0 +1,39 @@
+<% unless @info == 'false' %>
+  <h1 class='mt-4'>Update Your Information</h1>
+
+  <%= form_tag "/profile", method: :patch, class: 'form-width' do %>
+    <%= label_tag :name %>
+    <%= text_field_tag :name, current_user.name, class: 'form-control' %>
+
+    <%= label_tag :email_address %>
+    <%= email_field_tag :email, current_user.email, class: 'form-control' %>
+
+    <%= label_tag :address %>
+    <%= text_field_tag :address, current_user.address, class: 'form-control' %>
+
+    <%= label_tag :city %>
+    <%= text_field_tag :city, current_user.city, class: 'form-control' %>
+
+    <%= label_tag :state %>
+    <%= text_field_tag :state, current_user.state, class: 'form-control' %>
+
+    <%= label_tag :zip_code %>
+    <%= text_field_tag :zip, current_user.zip, class: 'form-control' %>
+
+    <%= submit_tag 'Update Info', class: 'btn btn-primary' %>
+  <% end %>
+
+<% else %>
+  <h1 class='mt-4'>Change Your Password</h1>
+
+  <%= form_tag "/profile?info=false", method: :patch, class: 'form-width' do %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password, nil, class: 'form-control' %>
+
+    <%= label_tag :password_confirmation %>
+    <%= password_field_tag :password_confirmation, nil, class: 'form-control' %>
+
+    <%= submit_tag 'Update Password', class: 'btn btn-primary' %>
+  <% end %>
+
+<% end %>
