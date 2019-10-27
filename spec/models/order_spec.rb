@@ -2,11 +2,6 @@ require 'rails_helper'
 
 describe Order, type: :model do
   describe "validations" do
-    it { should validate_presence_of :name }
-    it { should validate_presence_of :address }
-    it { should validate_presence_of :city }
-    it { should validate_presence_of :state }
-    it { should validate_presence_of :zip }
     it { should validate_presence_of :status }
   end
 
@@ -25,7 +20,7 @@ describe Order, type: :model do
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
       @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
-      @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user.id)
+      @order_1 = Order.create!(user_id: @user.id)
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
