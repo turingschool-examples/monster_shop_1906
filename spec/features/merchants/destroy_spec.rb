@@ -44,13 +44,13 @@ RSpec.describe "As a visitor" do
 
 
       visit "/items/#{paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{tire.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{pencil.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
 
       visit "/cart"
       click_on "Checkout"
