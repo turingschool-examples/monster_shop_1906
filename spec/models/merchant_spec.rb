@@ -53,6 +53,17 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to eq(['Denver', 'Hershey']).or eq(['Hershey', 'Denver'])
     end
 
+    it 'pending_orders' do
+      order_1 = Order.create!(user_id: @user.id, status: 'cancelled')
+      order_2 = Order.create!(user_id: @user_1.id)
+      order_3 = Order.create!(user_id: @user.id)
+      order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      order_2.item_orders.create!(item: @chain, price: @chain.price, quantity: 2)
+      order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+
+      expect(@meg.pending_orders).to eq([order_2, order_3])
+    end
+
     it 'total_items_in_order' do
       mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd', city: 'Denver', state: 'CO', zip: 80203)
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 4)
