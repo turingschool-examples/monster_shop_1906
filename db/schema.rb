@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20191027220608) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "price"
+    t.float "price"
     t.string "image"
     t.boolean "active?", default: true
     t.integer "inventory"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20191027220608) do
     t.string "address"
     t.string "city"
     t.string "state"
-    t.integer "zip"
+    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20191027220608) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
     t.integer "rating"
     t.bigint "item_id"
     t.index ["item_id"], name: "index_reviews_on_item_id"
