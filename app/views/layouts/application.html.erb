@@ -73,12 +73,12 @@
       <% flash.each do |type, messages| %>
         <% messages.each do |message| %>
           <% if type == 'error' %>
-            <article class="alert alert-danger mt-3 pb-0">
-              <p><%= message %></p>
+            <article class="alert alert-danger mt-3 pb-1">
+              <h6><%= message %></h6>
             </article>
           <% else %>
-            <article class="alert alert-success mt-3 pb-0">
-              <p><%= message %></p>
+            <article class="alert alert-success mt-3 pb-1">
+              <h6><%= message %></h6>
             </article>
           <% end %>
         <% end %>
