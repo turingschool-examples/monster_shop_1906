@@ -8,6 +8,8 @@ class Merchant <ApplicationRecord
                         :state,
                         :zip
 
+  validates_numericality_of :zip, only_integer: true
+  validates_length_of :zip, is: 5
 
   def no_orders?
     item_orders.empty?
