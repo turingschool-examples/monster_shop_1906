@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant dashboard page' do
+RSpec.describe 'Merchant dashboard page for merchant employee' do
   before :each do
     @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test1@gmail.com", password: "password123", password_confirmation: "password123")
 
@@ -40,16 +40,6 @@ RSpec.describe 'Merchant dashboard page' do
 
     expect(current_path).to eq("/merchants/#{@mike.id}")
   end
-
-  # As a merchant employee or admin
-  # When I visit my merchant dashboard ("/merchant")
-  # If any users have pending orders containing items I sell
-  # Then I see a list of these orders.
-  # Each order listed includes the following information:
-  # - the ID of the order, which is a link to the order show page ("/merchant/orders/15")
-  # - the date the order was made
-  # - the total quantity of my items in the order
-  # - the total value of my items for that order
 
   it 'can see a list of pending orders' do
     visit '/merchant'
