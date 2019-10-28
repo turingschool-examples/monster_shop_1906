@@ -32,6 +32,10 @@ class Merchant <ApplicationRecord
     Order.where(id: ItemOrder.where(item_id: items.pluck(:id)).pluck(:order_id))
   end
 
+  def pending_orders
+    orders.where(status: 'Pending')
+  end
+
   def total_items_in_order(order)
     order.item_orders.where(item_id: items.pluck(:id)).sum(:quantity)
   end
