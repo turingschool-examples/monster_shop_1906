@@ -9,9 +9,9 @@ RSpec.describe 'review creation', type: :feature do
     it 'I see a link to add a review for that item' do
       visit "items/#{@chain.id}"
 
-      expect(page).to have_link("Add Review")
+      expect(page).to have_link("Create Review")
 
-      click_on "Add Review"
+      click_on "Create Review"
 
       expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
     end
@@ -23,7 +23,7 @@ RSpec.describe 'review creation', type: :feature do
 
         visit "/items/#{@chain.id}"
 
-        click_on "Add Review"
+        click_on "Create Review"
 
         fill_in :title, with: title
         fill_in :content, with: content
@@ -39,7 +39,7 @@ RSpec.describe 'review creation', type: :feature do
         within "#review-#{last_review.id}" do
           expect(page).to have_content(title)
           expect(page).to have_content(content)
-          expect(page).to have_content("Rating: #{rating}/5")
+          expect(page).to have_content("Rating: #{rating}")
         end
       end
 
@@ -49,7 +49,7 @@ RSpec.describe 'review creation', type: :feature do
 
         visit "/items/#{@chain.id}"
 
-        click_on "Add Review"
+        click_on "Create Review"
 
         fill_in :title, with: title
         fill_in :rating, with: rating
@@ -67,7 +67,7 @@ RSpec.describe 'review creation', type: :feature do
 
         visit "/items/#{@chain.id}"
 
-        click_on "Add Review"
+        click_on "Create Review"
 
         fill_in :title, with: title
         fill_in :content, with: content

@@ -1,6 +1,7 @@
 class Merchant <ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :item_orders, through: :items
+  has_many :users
 
   validates_presence_of :name,
                         :address,
@@ -8,6 +9,8 @@ class Merchant <ApplicationRecord
                         :state,
                         :zip
 
+  validates_numericality_of :zip, only_integer: true
+  validates_length_of :zip, is: 5
 
   def no_orders?
     item_orders.empty?
@@ -27,5 +30,13 @@ class Merchant <ApplicationRecord
 
   def orders
     Order.where(id: ItemOrder.where(item_id: items.pluck(:id)).pluck(:order_id))
+  end
+
+  def total_items_in_order(order)
+    order.item_orders.where(item_id: items.pluck(:id)).sum(:quantity)
+  end
+
+  def total_value_in_order(order)
+    order.item_orders.where(item_id: items.pluck(:id)).sum('price * quantity')
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User Profile Orders Page', type: :feature do
+RSpec.describe "Cancel Order" do
   before :each do
     @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
     visit '/login'
@@ -16,23 +16,30 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
 
     @order_1 = Order.create!(user_id: @user.id)
     @order_2 = Order.create!(user_id: @user.id)
-    @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
-    @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
+    @item_order_1 = @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
+    @item_order_2 = @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
     @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 3)
   end
 
-  it 'shows orders including items' do
+  it "can cancel a pending order" do
+    visit "/profile/orders/#{@order_1.id}"
+
+    click_button 'Cancel Order'
+
+    expect(current_path).to eq('/profile')
+
+    expect(Order.first.status).to eq('cancelled')
+    expect(Order.first.item_orders.first.status).to eq('cancelled')
+    expect(Order.first.item_orders.last.status).to eq('cancelled')
+    expect(Order.first.item_orders.first.item.inventory).to eq(12)
+    expect(Order.first.item_orders.last.item.inventory).to eq(3)
+
+    expect(page).to have_content('Your order is now cancelled')
+
     visit '/profile/orders'
 
-    within "#orders-#{@order_1.id}" do
-      expect(page).to have_content(@order_1.id)
-      expect(page).to have_content('Gatorskins')
-      expect(page).to have_content('Lined Paper')
-    end
-
-    within "#orders-#{@order_2.id}" do
-      expect(page).to have_content(@order_2.id)
-      expect(page).to have_content('Yellow Pencil')
+    within "#order-#{@order_1.id}" do
+      expect(page).to have_content("cancelled")
     end
   end
 end

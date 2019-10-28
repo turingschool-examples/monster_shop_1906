@@ -69,14 +69,24 @@
       </div>
     </nav>
 
-
-    <% flash.each do |type, messages| %>
-      <div class= "<%=type%>-flash">
+    <section class="container">
+      <% flash.each do |type, messages| %>
         <% messages.each do |message| %>
-          <p><%= message %></p>
+          <% if type == 'error' %>
+            <article class="alert alert-danger mt-3 pb-1">
+              <h6><%= message %></h6>
+            </article>
+          <% else %>
+            <article class="alert alert-success mt-3 pb-1">
+              <h6><%= message %></h6>
+            </article>
+          <% end %>
         <% end %>
-      </div>
-    <% end %>
-    <%= yield %>
+      <% end %>
+    </section>
+
+    <section class='container-fluid'>
+      <%= yield %>
+    </section>
   </body>
 </html>

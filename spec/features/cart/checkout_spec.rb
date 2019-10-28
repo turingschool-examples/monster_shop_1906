@@ -10,11 +10,11 @@ RSpec.describe 'Cart show' do
       @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{@tire.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{@pencil.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       @items_in_cart = [@paper,@tire,@pencil]
 
       @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")

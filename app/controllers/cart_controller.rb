@@ -35,6 +35,6 @@ class CartController < ApplicationController
   private
 
   def disallow_admin
-    render file: '/public/404' if current_admin?
+    render_404 if current_admin?
   end
 end

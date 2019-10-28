@@ -11,12 +11,12 @@ RSpec.describe 'Cart creation' do
 
     it "I see a link to add this item to my cart" do
       visit "/items/#{@paper.id}"
-      expect(page).to have_button("Add To Cart")
+      expect(page).to have_button("Add Item to Cart")
     end
 
     it "I can add this item to my cart" do
       visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
 
       expect(page).to have_content("#{@paper.name} was successfully added to your cart")
       expect(current_path).to eq("/items")
@@ -26,7 +26,7 @@ RSpec.describe 'Cart creation' do
       end
 
       visit "/items/#{@pencil.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
 
       within 'nav' do
         expect(page).to have_content("Cart (2)")

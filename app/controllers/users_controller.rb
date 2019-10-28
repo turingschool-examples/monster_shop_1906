@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/profile'
     else
-      flash.now[:failure] = @user.errors.full_messages.uniq
+      flash.now[:error] = @user.errors.full_messages.uniq
       render :new
     end
   end
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if current_user
       @user = current_user
     else
-      render file: '/public/404'
+      render_404
     end
   end
 
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if current_user
       @info = params[:info]
     else
-      render file: '/public/404'
+      render_404
     end
   end
 

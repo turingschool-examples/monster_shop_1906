@@ -45,7 +45,7 @@ RSpec.describe 'User logout' do
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
 
       visit "/items/#{paper.id}"
-      click_button("Add To Cart")
+      click_button("Add Item to Cart")
 
       within('nav') { expect(page).to have_link('Cart (1)') }
 
@@ -57,7 +57,8 @@ RSpec.describe 'User logout' do
 
   describe 'merchant_employee' do
     before :each do
-      @merchant_employee = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd', city: 'Denver', state: 'CO', zip: 80203)
+      @merchant_employee = @meg.users.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
 
       visit '/login'
 
@@ -98,7 +99,7 @@ RSpec.describe 'User logout' do
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
 
       visit "/items/#{paper.id}"
-      click_button("Add To Cart")
+      click_button("Add Item to Cart")
 
       within('nav') { expect(page).to have_link('Cart (1)') }
 
@@ -110,7 +111,8 @@ RSpec.describe 'User logout' do
 
   describe 'merchant admin' do
     before :each do
-      @merchant_admin = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 2)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd', city: 'Denver', state: 'CO', zip: 80203)
+      @merchant_admin = @meg.users.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 2)
 
       visit '/login'
 
@@ -151,7 +153,7 @@ RSpec.describe 'User logout' do
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
 
       visit "/items/#{paper.id}"
-      click_button("Add To Cart")
+      click_button("Add Item to Cart")
 
       within('nav') { expect(page).to have_link('Cart (1)') }
 
