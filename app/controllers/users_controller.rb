@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if current_user
       @user = current_user
     else
-      render file: '/public/404'
+      render_404
     end
   end
 
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if current_user
       @info = params[:info]
     else
-      render file: '/public/404'
+      render_404
     end
   end
 
