@@ -13,9 +13,14 @@ table.profile-info {
  margin: 0 auto;
 }
 
-td {
+td, th {
   border: 1px solid black;
   padding: 5px 5px 5px 10px;
+  vertical-align: middle !important;
+}
+
+td.cart-table {
+  width: 20%;
 }
 
 table.cart-items {
@@ -72,4 +77,13 @@ img {
 
 .review-width {
   width: 49%;
+}
+
+.cart-table {
+  table-layout: fixed ;
+  width: 100% ;
+}
+
+.cart-image {
+  width: 90%;
 }
