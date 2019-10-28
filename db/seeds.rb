@@ -131,7 +131,7 @@ lynda = User.create(
   password: "password1",
   password_confirmation: "password1"
 )
-merchant_employee = User.create(
+merchant_employee = florist.users.create(
   name: "Lael Whipple",
   address: "7392 Oklahoma Ave",
   city: "Nashville",
@@ -142,7 +142,7 @@ merchant_employee = User.create(
   password_confirmation: "password12",
   role: 1
 )
-merchant_admin = User.create(
+merchant_admin = pine_oakio.users.create(
   name: "Dudley Laughlin",
   address: "2348 Willow Dr",
   city: "Big Sky",
