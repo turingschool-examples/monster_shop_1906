@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/profile'
     else
-      flash.now[:failure] = @user.errors.full_messages.uniq
+      flash.now[:error] = @user.errors.full_messages.uniq
       render :new
     end
   end
