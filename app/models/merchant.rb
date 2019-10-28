@@ -31,4 +31,12 @@ class Merchant <ApplicationRecord
   def orders
     Order.where(id: ItemOrder.where(item_id: items.pluck(:id)).pluck(:order_id))
   end
+
+  def total_items_in_order(order)
+    order.item_orders.where(item_id: items.pluck(:id)).sum(:quantity)
+  end
+
+  def total_value_in_order(order)
+    order.item_orders.where(item_id: items.pluck(:id)).sum('price * quantity')
+  end
 end
