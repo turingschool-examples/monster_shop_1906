@@ -11,25 +11,29 @@
 
 <hr class="mt-4 mb-3">
 
-<h2 class="mt-4 mb-4 text-center">Pending Orders</h2>
+<% if !@merchant.pending_orders.empty? %>
+  <h2 class="mt-4 mb-4 text-center">Pending Orders</h2>
 
-<table class="table table-striped table-bordered cart-table">
-  <thead>
-    <tr>
-      <th scope="col">Order ID</th>
-      <th scope="col">Date Created</th>
-      <th scope="col">Quantity of Your Items</th>
-      <th scope="col">Total Value of Your Items</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @merchant.orders.each do |order| %>
-      <tr id="order-<%= order.id %>">
-        <th scope="row"><%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></th>
-        <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
-        <td class='total-quantity'><%= @merchant.total_items_in_order(order) %></td>
-        <td><%= number_to_currency(@merchant.total_value_in_order(order)) %></td>
+  <table class="table table-striped table-bordered cart-table">
+    <thead>
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Quantity of Your Items</th>
+        <th scope="col">Total Value of Your Items</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @merchant.orders.each do |order| %>
+        <tr id="order-<%= order.id %>">
+          <th scope="row"><%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></th>
+          <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
+          <td class='total-quantity'><%= @merchant.total_items_in_order(order) %></td>
+          <td><%= number_to_currency(@merchant.total_value_in_order(order)) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h2 class="mt-4 mb-4 text-center">No Pending Orders</h2>
+<% end %>
