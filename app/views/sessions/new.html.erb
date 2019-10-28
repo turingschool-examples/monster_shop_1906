@@ -1,12 +1,19 @@
-<h1 class='mt-4'>Login</h1>
+<h1 class='mt-4 mb-3'>Login</h1>
 
-<%= form_tag '/login', class: 'form-width' do %>
+<%= form_tag '/login' do %>
+  <section class='form-group form-width'>
+    <p>
+      <%= label_tag :email_address %>
+      <%= email_field_tag :email, nil, class: 'form-control' %>
+    </p>
 
-  <%= label_tag 'Email address' %>
-  <%= email_field_tag :email, nil, class: 'form-control' %>
+    <p>
+      <%= label_tag :password %>
+      <%= password_field_tag :password, nil, class: 'form-control' %>
+    </p>
 
-  <%= label_tag :password %>
-  <%= password_field_tag :password, nil, class: 'form-control' %>
-
-  <%= submit_tag 'Login', class: 'btn btn-primary' %>
+    <p class='justify-content-center row'>
+      <%= submit_tag 'Login', class: 'btn btn-primary mt-2' %>
+    </p>
+  </section>
 <% end %>
