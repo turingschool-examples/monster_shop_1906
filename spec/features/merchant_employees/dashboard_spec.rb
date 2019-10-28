@@ -59,4 +59,10 @@ RSpec.describe 'Merchant dashboard page for merchant employee' do
     end
   end
 
+  it 'can see a link to my merchants items' do
+    within('#merchant-info') { click_link 'My Items' }
+
+    expect(current_path).to eq('/merchant/items')
+  end
+
 end
