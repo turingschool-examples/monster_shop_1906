@@ -12,8 +12,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @orders.each do |order| %>
-      <tr id="order-<%= order.id %>">
+    <% @orders.each_with_index do |order, index| %>
+      <tr id="order-<%= index %>">
         <th scope="row"><%= order.id %></th>
         <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
         <td><%= order.status %></td>

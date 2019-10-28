@@ -30,19 +30,19 @@ RSpec.describe 'Admin dashboard page', type: :feature do
     visit '/admin'
   end
 
-  it 'can show all orders' do
-    within "#order-#{@order_1.id}" do
-      expect(page).to have_content(@order_1.id)
-      expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_1.status)
-      expect(page).to have_link(@user_1.name)
-    end
-
-    within "#order-#{@order_2.id}" do
+  it 'can show all orders and sort by status' do
+    within '#order-0' do
       expect(page).to have_content(@order_2.id)
       expect(page).to have_content(@order_2.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_2.status)
       expect(page).to have_link(@user_2.name)
+    end
+
+    within '#order-1' do
+      expect(page).to have_content(@order_1.id)
+      expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
+      expect(page).to have_content(@order_1.status)
+      expect(page).to have_link(@user_1.name)
     end
   end
 
@@ -51,27 +51,4 @@ RSpec.describe 'Admin dashboard page', type: :feature do
 
     expect(current_path).to eq("/admin/users/#{@user_1.id}")
   end
-
-  xit 'sorts orders by status' do
-    # how to test order of items on page?
-  end
 end
-
-
-# User Story 30, Admin can see all orders
-#
-# As an admin user
-# When I visit my admin dashboard ("/admin")
-# Then I see all orders in the system.
-# For each order I see the following information:
-#
-# - user who placed the order, which links to admin view of user profile
-# - order id
-# - date the order was created
-#
-# Orders are sorted by "status" in this order:
-#
-# - packaged
-# - pending
-# - shipped
-# - cancelled
