@@ -9,6 +9,9 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of :zip}
     it { should validate_presence_of :email}
     it { should validate_uniqueness_of :email}
+
+    it { should validate_numericality_of(:zip).only_integer }
+    it { should validate_length_of(:zip).is_equal_to(5) }
   end
 
   describe 'relationships' do
