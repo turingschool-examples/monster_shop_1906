@@ -65,4 +65,12 @@ RSpec.describe 'Merchant dashboard page for merchant admin' do
     expect(current_path).to eq('/merchant/items')
   end
 
+  it 'sees no pending orders if there are none' do
+    ItemOrder.destroy_all
+    Order.destroy_all
+    visit '/merchant'
+
+    expect(page).to have_content('No Pending Orders')
+  end
+
 end
