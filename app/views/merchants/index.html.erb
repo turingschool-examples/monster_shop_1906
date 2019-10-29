@@ -1,9 +1,16 @@
 <h1 class='mt-4 mb-2'>Merchants</h1>
-<section class="container-fluid row justify-content-center">
-  <% @merchants.each do |merchant|%>
-    <section class='card card-body bg-light m-3 p-4 col-md-3'>
-      <h2 class='text-center'><%= link_to merchant.name, "/merchants/#{merchant.id}" %></h2>
-    </section>
-  <% end %>
-</section>
+  <section class="container-fluid row justify-content-center">
+    <% @merchants.each do |merchant|%>
+      <section class='card card-body bg-light m-3 p-4 col-md-3', id= 'merchant-<%=merchant.id%>' >
+        <h2 class='text-center'><%= link_to merchant.name, "/merchants/#{merchant.id}" %></h2>
+        <% if current_admin? %>
+          <% if merchant.enabled? %>
+            <p class="enabled"> <%= link_to 'disable', "/admin/merchants/#{merchant.id}", method: :patch %> </p>
+          <% else %>
+            <p class="disabled"> <%= link_to 'enable', "/admin/merchants/#{merchant.id}", method: :patch %> </p>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+  </section>
 <p align="center"><%= link_to "New Merchant", "/merchants/new", class: 'btn btn-primary mt-3' %></p>
