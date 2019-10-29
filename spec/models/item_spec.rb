@@ -11,7 +11,7 @@ describe Item, type: :model do
 
     it { should validate_numericality_of(:price).is_greater_than(0) }
     it { should validate_numericality_of(:inventory).only_integer }
-    it { should validate_numericality_of(:inventory).is_greater_than(0) }
+    it { should validate_numericality_of(:inventory).is_greater_than_or_equal_to(0) }
   end
 
   describe "relationships" do
@@ -64,9 +64,15 @@ describe Item, type: :model do
     end
 
     it 'can reduce inventory quantity' do
-      @chain.reduce_quantity(6)
+      @chain.reduce_inventory(6)
 
       expect(@chain.inventory).to eq(4)
+    end
+
+    it 'can increase inventory quantity' do
+      @chain.increase_inventory(6)
+
+      expect(@chain.inventory).to eq(16)
     end
   end
 

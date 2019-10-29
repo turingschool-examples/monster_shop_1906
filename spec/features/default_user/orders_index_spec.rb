@@ -25,7 +25,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
     visit '/profile/orders'
 
     within "#order-#{@order_1.id}" do
-      expect(page).to have_link(@order_1.id)
+      expect(page).to have_link("#{@order_1.id}")
       expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_1.updated_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_1.status)
@@ -34,7 +34,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
     end
 
     within "#order-#{@order_2.id}" do
-      expect(page).to have_link(@order_2.id)
+      expect(page).to have_link("#{@order_2.id}")
       expect(page).to have_content(@order_2.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_2.updated_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_2.status)
@@ -46,7 +46,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
   it "has a link to the order show page" do
     visit '/profile/orders'
 
-    click_link (@order_1.id)
+    click_link("#{@order_1.id}")
 
     expect(current_path).to eq("/profile/orders/#{@order_1.id}")
   end

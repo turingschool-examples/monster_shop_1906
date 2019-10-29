@@ -54,16 +54,28 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to eq(['Denver', 'Hershey']).or eq(['Hershey', 'Denver'])
     end
 
-    it 'total_items_in_order' do
+    it 'pending_orders' do
+      order_1 = Order.create!(user_id: @user.id, status: 'cancelled')
+      order_2 = Order.create!(user_id: @user_1.id)
+      order_3 = Order.create!(user_id: @user.id)
+      order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      order_2.item_orders.create!(item: @chain, price: @chain.price, quantity: 2)
+      order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+
+      expect(@meg.pending_orders).to eq([order_2, order_3])
+    end
+
+    it 'items_in_order and total_items_in_order' do
       mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd', city: 'Denver', state: 'CO', zip: 80203)
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 4)
       pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
       order = Order.create!(user_id: @user.id)
-      order.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 3)
-      order.item_orders.create!(item_id: pencil.id, price: pencil.price, quantity: 4)
-      order.item_orders.create!(item_id: paper.id, price: paper.price, quantity: 1)
+      item_order_1 = order.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 3)
+      item_order_2 = order.item_orders.create!(item_id: pencil.id, price: pencil.price, quantity: 4)
+      item_order_3 = order.item_orders.create!(item_id: paper.id, price: paper.price, quantity: 1)
 
+      expect(mike.item_orders_in_order(order)).to eq([item_order_2, item_order_3])
       expect(mike.total_items_in_order(order)).to eq(5)
     end
 

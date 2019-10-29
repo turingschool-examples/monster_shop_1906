@@ -13,7 +13,12 @@ class UserOrdersController < ApplicationController
     order = Order.find(params[:id])
     order.update(status: 3)
     order.item_orders.each do |item_order|
-      item_order.update(status: 'cancelled')
+      if item_order.fulfilled?
+        item = item_order.item
+        item.increase_inventory(item_order.quantity)
+        item.save
+      end
+      item_order.update(status: 2)
     end
     flash[:success] = ['Your order is now cancelled']
     redirect_to '/profile'

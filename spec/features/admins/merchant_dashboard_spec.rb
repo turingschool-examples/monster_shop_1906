@@ -1,6 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant dashboard page for merchant admin' do
+# As an admin user
+# When I visit the merchant index page ("/merchants")
+# And I click on a merchant's name,
+# Then my URI route should be ("/admin/merchants/6")
+# Then I see everything that merchant would see
+
+RSpec.describe 'Admin can access the merchant dashboard' do
   before :each do
     @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test1@gmail.com", password: "password123", password_confirmation: "password123")
 
@@ -18,7 +24,7 @@ RSpec.describe 'Merchant dashboard page for merchant admin' do
     @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 4)
     @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
 
-    @admin = @mike.users.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 2)
+    @admin = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123", role: 3)
 
     visit '/login'
 
@@ -28,8 +34,8 @@ RSpec.describe 'Merchant dashboard page for merchant admin' do
     click_button 'Login'
   end
 
-  it 'can see the name and address of the merchant I work for' do
-    visit '/merchant'
+  it 'can see the name and address of the merchant' do
+    visit "/admin/merchant/#{@mike.id}"
 
     within '#merchant-info' do
       expect(page).to have_link(@mike.name)
@@ -42,7 +48,7 @@ RSpec.describe 'Merchant dashboard page for merchant admin' do
   end
 
   it 'can see a list of pending orders' do
-    visit '/merchant'
+    visit "/admin/merchant/#{@mike.id}"
 
     within "#order-#{@order_1.id}" do
       expect(page).to have_link("#{@order_1.id}")
@@ -59,18 +65,18 @@ RSpec.describe 'Merchant dashboard page for merchant admin' do
     end
   end
 
-  it 'can see a link to my merchants items' do
+  it 'can see a link to the merchants items' do
+    visit "/admin/merchant/#{@mike.id}"
+
     within('#merchant-info') { click_link 'My Items' }
 
-    expect(current_path).to eq('/merchant/items')
+    expect(current_path).to eq("/merchants/#{@mike.id}/items")
   end
 
-  it 'sees no pending orders if there are none' do
-    ItemOrder.destroy_all
-    Order.destroy_all
-    visit '/merchant'
+  it 'cannot access the merchant dashboard of a nonexistent merchant' do
+    visit "/admin/merchant/9876519"
 
-    expect(page).to have_content('No Pending Orders')
+    expect(page).to have_content('The page you were looking for doesn\'t exist (404)')
   end
 
 end

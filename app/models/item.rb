@@ -14,7 +14,7 @@ class Item <ApplicationRecord
   validates_numericality_of :price
   validates_numericality_of :price, greater_than: 0
   validates_numericality_of :inventory, only_integer: true
-  validates_numericality_of :inventory, greater_than: 0
+  validates_numericality_of :inventory, greater_than_or_equal_to: 0
 
   def average_review
     reviews.average(:rating)
@@ -44,7 +44,11 @@ class Item <ApplicationRecord
     joins(:item_orders).group('items.id').order('sum(item_orders.quantity)').limit(5)
   end
 
-  def reduce_quantity(quantity)
+  def reduce_inventory(quantity)
     self.inventory -= quantity
+  end
+
+  def increase_inventory(quantity)
+    self.inventory += quantity
   end
 end
