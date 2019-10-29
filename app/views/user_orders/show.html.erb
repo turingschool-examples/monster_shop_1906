@@ -54,8 +54,10 @@
     </tbody>
   </table>
 
-<article class="justify-content-center row">
-  <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch, class: 'btn btn-danger mt-4' %>
-</article>
+<% if @order.status != 'cancelled' %>
+  <article class="justify-content-center row">
+    <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch, class: 'btn btn-danger mt-4' %>
+  </article>
+<% end %>
 
 <br>
