@@ -25,8 +25,39 @@ describe Order, type: :model do
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
+
     it 'grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
+    end
+  end
+
+  describe 'status' do
+    before :each do
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      @order_1 = Order.create!(user_id: @user.id, status: 0)
+      @order_2 = Order.create!(user_id: @user.id)
+      @order_3 = Order.create!(user_id: @user.id, status: 2)
+      @order_4 = Order.create!(user_id: @user.id, status: 3)
+    end
+
+    it 'can be created as a packaged order' do
+      expect(@order_1.status).to eq('packaged')
+      expect(@order_1.packaged?).to eq(true)
+    end
+
+    it 'can be created as a pending order' do
+      expect(@order_2.status).to eq('pending')
+      expect(@order_2.pending?).to eq(true)
+    end
+
+    it 'can be created as a shipped order' do
+      expect(@order_3.status).to eq('shipped')
+      expect(@order_3.shipped?).to eq(true)
+    end
+
+    it 'can be created as a cancelled order' do
+      expect(@order_4.status).to eq('cancelled')
+      expect(@order_4.cancelled?).to eq(true)
     end
   end
 end
