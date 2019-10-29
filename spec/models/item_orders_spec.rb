@@ -14,14 +14,42 @@ describe ItemOrder, type: :model do
   end
 
   describe 'instance methods' do
-    it 'subtotal' do
-      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-      tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-      user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
-      order_1 = Order.create!(user_id: user.id)
-      item_order_1 = order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
+    before :each do
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      @order = Order.create!(user_id: @user.id)
+      @item_order_1 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 13)
+      @item_order_2 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: 'fulfilled')
+      @item_order_3 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 5, status: 'cancelled')
+    end
 
-      expect(item_order_1.subtotal).to eq(200)
+    it 'subtotal' do
+      expect(@item_order_1.subtotal).to eq(1300)
+    end
+
+    it 'unfulfilled' do
+      expect(@item_order_1.unfulfilled?).to eq(true)
+      expect(@item_order_2.unfulfilled?).to eq(false)
+      expect(@item_order_3.unfulfilled?).to eq(false)
+    end
+
+    it 'fulfilled' do
+      expect(@item_order_1.fulfilled?).to eq(false)
+      expect(@item_order_2.fulfilled?).to eq(true)
+      expect(@item_order_3.fulfilled?).to eq(false)
+    end
+
+    it 'cancelled' do
+      expect(@item_order_1.cancelled?).to eq(false)
+      expect(@item_order_2.cancelled?).to eq(false)
+      expect(@item_order_3.cancelled?).to eq(true)
+    end
+
+    it 'enough_inventory' do
+      expect(@item_order_1.enough_inventory?).to eq(false)
+      expect(@item_order_2.enough_inventory?).to eq(true)
+      expect(@item_order_3.enough_inventory?).to eq(true)
     end
   end
 
