@@ -41,9 +41,5 @@ class Merchant <ApplicationRecord
     order.item_orders.where(item_id: items.pluck(:id)).sum('price * quantity')
   end
 
-  # def is_active?
-  #   enabled?
-  # end
-
 
 end
