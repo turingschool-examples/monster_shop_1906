@@ -62,7 +62,7 @@ RSpec.describe "Cancel Order" do
     visit "/profile/orders/#{@order_1.id}"
 
     within '.cart-table' do
-      expect(page).to have_content('cancelled')
+      expect(page).to have_content('Cancelled')
     end
 
     expect(page).to_not have_button('Cancel Order')

@@ -28,7 +28,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
       expect(page).to have_link("#{@order_1.id}")
       expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_1.updated_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_1.status)
+      expect(page).to have_content(@order_1.status.capitalize)
       expect(page).to have_content(@order_1.item_orders.count)
       expect(page).to have_content(@order_1.grandtotal)
     end
@@ -37,7 +37,7 @@ RSpec.describe 'User Profile Orders Page', type: :feature do
       expect(page).to have_link("#{@order_2.id}")
       expect(page).to have_content(@order_2.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_2.updated_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_2.status)
+      expect(page).to have_content(@order_2.status.capitalize)
       expect(page).to have_content(@order_2.item_orders.count)
       expect(page).to have_content(@order_2.grandtotal)
     end
