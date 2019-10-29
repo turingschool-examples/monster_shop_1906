@@ -7,7 +7,8 @@ class Merchant <ApplicationRecord
                         :address,
                         :city,
                         :state,
-                        :zip
+                        :zip,
+                        :enabled?
 
   validates_numericality_of :zip, only_integer: true
   validates_length_of :zip, is: 5
@@ -39,4 +40,6 @@ class Merchant <ApplicationRecord
   def total_value_in_order(order)
     order.item_orders.where(item_id: items.pluck(:id)).sum('price * quantity')
   end
+
+
 end
