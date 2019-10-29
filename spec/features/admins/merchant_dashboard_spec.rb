@@ -51,14 +51,14 @@ RSpec.describe 'Admin can access the merchant dashboard' do
     visit "/admin/merchant/#{@mike.id}"
 
     within "#order-#{@order_1.id}" do
-      expect(page).to have_link(@order_1.id)
+      expect(page).to have_link("#{@order_1.id}")
       expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
       within('.total-quantity') { expect(page).to have_content(2) }
       expect(page).to have_content('$40.00')
     end
 
     within "#order-#{@order_2.id}" do
-      expect(page).to have_link(@order_2.id)
+      expect(page).to have_link("#{@order_2.id}")
       expect(page).to have_content(@order_2.created_at.strftime("%m/%d/%Y"))
       within('.total-quantity') { expect(page).to have_content(5) }
       expect(page).to have_content('$28.00')

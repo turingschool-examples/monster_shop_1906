@@ -27,7 +27,7 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
   end
 
   it 'can see customer info and info only for my items' do
-    within("#order-#{@order.id}") { click_link(@order.id) }
+    within("#order-#{@order.id}") { click_link("#{@order.id}") }
 
     expect(current_path).to eq("/merchant/orders/#{@order.id}")
 
