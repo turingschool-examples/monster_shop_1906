@@ -14,7 +14,7 @@ class Item <ApplicationRecord
   validates_numericality_of :price
   validates_numericality_of :price, greater_than: 0
   validates_numericality_of :inventory, only_integer: true
-  validates_numericality_of :inventory, greater_than: 0
+  validates_numericality_of :inventory, greater_than_or_equal_to: 0
 
   def average_review
     reviews.average(:rating)

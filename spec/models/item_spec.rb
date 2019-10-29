@@ -11,7 +11,7 @@ describe Item, type: :model do
 
     it { should validate_numericality_of(:price).is_greater_than(0) }
     it { should validate_numericality_of(:inventory).only_integer }
-    it { should validate_numericality_of(:inventory).is_greater_than(0) }
+    it { should validate_numericality_of(:inventory).is_greater_than_or_equal_to(0) }
   end
 
   describe "relationships" do
