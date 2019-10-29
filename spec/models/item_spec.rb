@@ -64,9 +64,15 @@ describe Item, type: :model do
     end
 
     it 'can reduce inventory quantity' do
-      @chain.reduce_quantity(6)
+      @chain.reduce_inventory(6)
 
       expect(@chain.inventory).to eq(4)
+    end
+
+    it 'can increase inventory quantity' do
+      @chain.increase_inventory(6)
+
+      expect(@chain.inventory).to eq(16)
     end
   end
 
