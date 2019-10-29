@@ -34,7 +34,7 @@ class Merchant <ApplicationRecord
   end
 
   def pending_orders
-    orders.where(status: 'Pending')
+    orders.where(status: 1)
   end
 
   def item_orders_in_order(order)

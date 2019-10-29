@@ -28,7 +28,7 @@ RSpec.describe "Order show page" do
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
       expect(page).to have_content(@order_1.updated_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_1.status)
+      expect(page).to have_content(@order_1.status.capitalize)
       expect(page).to have_content(@order_1.item_orders.count)
       expect(page).to have_content(@order_1.grandtotal)
     end
