@@ -28,7 +28,7 @@ RSpec.describe "Cancel Order" do
 
     expect(current_path).to eq('/profile')
 
-    expect(Order.first.status).to eq('cancelled')
+    expect(Order.first.status).to eq('Cancelled')
     expect(Order.first.item_orders.first.status).to eq('cancelled')
     expect(Order.first.item_orders.last.status).to eq('cancelled')
     expect(Order.first.item_orders.first.item.inventory).to eq(12)
@@ -39,7 +39,7 @@ RSpec.describe "Cancel Order" do
     visit '/profile/orders'
 
     within "#order-#{@order_1.id}" do
-      expect(page).to have_content("cancelled")
+      expect(page).to have_content("Cancelled")
     end
   end
 end

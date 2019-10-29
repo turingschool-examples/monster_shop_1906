@@ -5,6 +5,8 @@ class Order <ApplicationRecord
   has_many :items, through: :item_orders
   belongs_to :user
 
+  enum status: %w(Packaged Pending Shipped Cancelled)
+
   def grandtotal
     item_orders.sum('price * quantity')
   end

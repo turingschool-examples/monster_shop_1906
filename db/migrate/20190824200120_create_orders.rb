@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :city
       t.string :state
       t.integer :zip
-      t.string :status, default: 'Pending'
+      t.integer :status, default: 1
 
       t.timestamps
     end
