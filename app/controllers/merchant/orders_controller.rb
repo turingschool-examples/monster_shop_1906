@@ -11,10 +11,10 @@ class Merchant::OrdersController < Merchant::BaseController
 
   def update
     item_order = ItemOrder.find(params[:item_order_id])
-    item_order.update(status: 'fulfilled')
+    item_order.update(status: 1)
 
-    item = Item.find(item_order.item_id)
-    item.reduce_quantity(item_order.quantity)
+    item = item_order.item
+    item.reduce_inventory(item_order.quantity)
     item.save
 
     flash[:success] = ["You have successfully fulfilled #{item.name} for Order ##{item_order.order_id}"]
