@@ -4,20 +4,10 @@ class ItemOrder <ApplicationRecord
   belongs_to :item
   belongs_to :order
 
+  enum status: %w(unfulfilled fulfilled cancelled)
+
   def subtotal
     price * quantity
-  end
-
-  def unfulfilled?
-    status == 'unfulfilled'
-  end
-
-  def fulfilled?
-    status == 'fulfilled'
-  end
-
-  def cancelled?
-    status == 'cancelled'
   end
 
   def enough_inventory?
