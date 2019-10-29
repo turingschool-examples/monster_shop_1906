@@ -4,7 +4,7 @@
   <h1 class="mt-4 mb-2">All Items</h1>
 <% end %>
 <section class="container-fluid row justify-content-center">
-  <% @items.active_only.each do |item| %>
+  <% @items.each do |item| %>
     <section class = "card card-body bg-light m-3 p-4 col-md-3" id= 'item-<%=item.id%>'>
       <h2 class="text-center"> <%=link_to item.name, "/items/#{item.id}" %> </h2>
       <h6 class="text-center mt-2">Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></h6>
