@@ -13,7 +13,7 @@
       <tr id="user-<%= user.id %>">
         <th scope="row"><%= link_to "#{user.name}", "/admin/users/#{user.id}" %></th>
         <td><%= user.created_at.strftime("%m/%d/%Y") %></td>
-        <td><%= user.role %></td>
+        <td><%= user.titleize_role %></td>
       </tr>
     <% end %>
   </tbody>
