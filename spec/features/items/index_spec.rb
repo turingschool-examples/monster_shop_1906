@@ -21,7 +21,7 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@pull_toy.merchant.name)
     end
 
-    it "I can see a list of all of the items except disabled items "do
+    it "I can see a list of all of the items" do
 
       visit '/items'
 
@@ -45,13 +45,14 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
       end
 
-      expect(page).to_not have_link(@dog_bone.name)
-      expect(page).to_not have_content(@dog_bone.description)
-      expect(page).to_not have_content("Price: $#{@dog_bone.price}")
-      expect(page).to_not have_content("Inactive")
-      expect(page).to_not have_content("Inventory: #{@dog_bone.inventory}")
-      expect(page).to_not have_css("img[src*='#{@dog_bone.image}']")
-      expect(page).to_not have_css("#item-#{@dog_bone.id}")
+      within "#item-#{@dog_bone.id}" do
+        expect(page).to have_link(@dog_bone.name)
+        expect(page).to have_content(@dog_bone.description)
+        expect(page).to have_content("Price: $#{@dog_bone.price}")
+        expect(page).to have_content("Inactive")
+        expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
+        expect(page).to have_css("img[src*='#{@dog_bone.image}']")
+      end
     end
 
     it "can click on item images to redirect to show page" do

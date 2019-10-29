@@ -11,7 +11,7 @@ class UserOrdersController < ApplicationController
 
   def update
     order = Order.find(params[:id])
-    order.update(status: 'cancelled')
+    order.update(status: 3)
     order.item_orders.each do |item_order|
       if item_order.fulfilled?
         item = item_order.item

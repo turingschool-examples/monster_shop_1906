@@ -34,7 +34,7 @@ RSpec.describe "Cancel Order" do
     visit '/profile/orders'
 
     within "#order-#{@order_1.id}" do
-      expect(page).to have_content("cancelled")
+      expect(page).to have_content("Cancelled")
     end
   end
 
