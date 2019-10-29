@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'When I visit an order show page as a merchant employee' do
+RSpec.describe 'When I visit an order show page as a merchant admin' do
   before :each do
     @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
 
