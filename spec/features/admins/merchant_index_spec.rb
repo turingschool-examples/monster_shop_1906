@@ -62,8 +62,8 @@ RSpec.describe "As an admin user" do
     visit '/merchants'
 
     within "#merchant-#{@florist.id}" do
-      expect(page).to have_link("disable")
-      click_link "disable"
+      expect(page).to have_link("Disable")
+      click_link "Disable"
     end
 
     expect(current_path).to eq('/merchants')
@@ -73,8 +73,8 @@ RSpec.describe "As an admin user" do
     expect(page).to have_content("#{@florist.name} has been disabled")
 
     within "#merchant-#{@florist.id}" do
-      expect(page).to have_link("enable")
-      click_link "enable"
+      expect(page).to have_link("Enable")
+      click_link "Enable"
     end
 
     expect(current_path).to eq('/merchants')
@@ -89,7 +89,7 @@ RSpec.describe "As an admin user" do
     visit '/merchants'
 
     within "#merchant-#{@florist.id}" do
-      click_link "disable"
+      click_link "Disable"
     end
 
     visit "/merchants/#{@florist.id}/items"
@@ -137,7 +137,7 @@ describe "As a default user" do
     visit '/merchants'
 
     within "#merchant-#{@florist.id}" do
-      expect(page).to_not have_link("disable")
+      expect(page).to_not have_link("Disable")
     end
   end
 end

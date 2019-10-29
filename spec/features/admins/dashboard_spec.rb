@@ -46,7 +46,7 @@ RSpec.describe 'Admin dashboard page', type: :feature do
     end
   end
 
-  xit 'shows links to user profile who placed order' do
+  it 'shows links to user profile who placed order' do
     click_link "#{@user_1.name}"
 
     expect(current_path).to eq("/admin/users/#{@user_1.id}")
