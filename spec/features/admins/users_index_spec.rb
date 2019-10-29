@@ -23,19 +23,19 @@ RSpec.describe 'Admin Users Index Page', type: :feature do
     within "#user-#{user_1.id}" do
       expect(page).to have_link(user_1.name)
       expect(page).to have_content(user_1.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(user_1.role)
+      expect(page).to have_content('Default')
     end
 
     within "#user-#{user_2.id}" do
       expect(page).to have_link(user_2.name)
       expect(page).to have_content(user_2.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(user_2.role)
+      expect(page).to have_content('Default')
     end
 
     within "#user-#{user_3.id}" do
       expect(page).to have_link(user_3.name)
       expect(page).to have_content(user_3.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(user_3.role)
+      expect(page).to have_content('Default')
     end
   end
 
