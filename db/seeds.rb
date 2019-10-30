@@ -166,25 +166,30 @@ admin = User.create(
 )
 
 #---------------------------- Orders ----------------------------#
-order_1 = cynthia.orders.create!
-order_1.item_orders.create(item_id: dahlia.id, quantity: 2, price: dahlia.price)
-order_1.item_orders.create(item_id: rose.id, quantity: 1, price: rose.price)
+order_1 = cynthia.orders.create(status: 3)
+order_1.item_orders.create(item_id: dahlia.id, quantity: 2, price: dahlia.price, status: 2)
+order_1.item_orders.create(item_id: rose.id, quantity: 1, price: rose.price, status: 2)
 
-order_2 = lynda.orders.create!
+order_2 = lynda.orders.create
 order_2.item_orders.create(item_id: plumeria.id, quantity: 1, price: plumeria.price)
 order_2.item_orders.create(item_id: rose.id, quantity: 3, price: rose.price)
 order_2.item_orders.create(item_id: hibiscus.id, quantity: 1, price: hibiscus.price)
 
-order_3 = cynthia.orders.create!
+order_3 = cynthia.orders.create
 order_3.item_orders.create(item_id: maple.id, quantity: 2, price: maple.price)
 order_3.item_orders.create(item_id: tulip.id, quantity: 6, price: tulip.price)
 
-order_4 = lynda.orders.create!
-order_4.item_orders.create(item_id: hibiscus.id, quantity: 4, price: hibiscus.price)
+order_4 = lynda.orders.create(status: 2)
+order_4.item_orders.create(item_id: hibiscus.id, quantity: 4, price: hibiscus.price, status: 1)
 
-order_5 = lynda.orders.create!
-order_5.item_orders.create(item_id: lily.id, quantity: 3, price: lily.price)
-order_5.item_orders.create(item_id: dahlia.id, quantity: 4, price: dahlia.price)
+order_5 = lynda.orders.create(status: 0)
+order_5.item_orders.create(item_id: lily.id, quantity: 3, price: lily.price, status: 1)
+order_5.item_orders.create(item_id: dahlia.id, quantity: 4, price: dahlia.price, status: 1)
+
+order_6 = cynthia.orders.create
+order_6.item_orders.create(item_id: lily.id, quantity: 2, price: maple.price)
+order_6.item_orders.create(item_id: tulip.id, quantity: 3, price: tulip.price)
+order_6.item_orders.create(item_id: rose.id, quantity: 10, price: tulip.price)
 
 #---------------------------- Reviews ----------------------------#
 plumeria.reviews.create([
