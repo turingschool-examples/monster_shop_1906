@@ -16,7 +16,7 @@
   <tbody>
     <% @orders.each_with_index do |order, index| %>
       <tr class="order-<%= index %>" id="order-<%= order.id %>">
-        <th scope="row"><%= order.id %></th>
+        <th scope="row"><%= link_to order.id, "/admin/users/#{order.user_id}/orders/#{order.id}" %></th>
         <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
         <td><%= order.status.capitalize %></td>
         <th scope="row"><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></th>
