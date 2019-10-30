@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
     if current_user
       flash[:error] = ['Sorry, you are already logged in.']
       redirect(current_user)
@@ -13,6 +14,7 @@ class SessionsController < ApplicationController
       flash[:success] = ["#{user.name}, you have successfully logged in."]
       redirect(user)
     else
+      @user = User.new(email: params[:email])
       flash[:error] = ["Sorry, credentials were invalid. Please try again."]
       render :new
     end
