@@ -54,7 +54,7 @@
     </tbody>
   </table>
 
-<% if @order.status != 'cancelled' %>
+<% if @order.pending? || @order.packaged? %>
   <article class="justify-content-center row">
     <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch, class: 'btn btn-danger mt-4' %>
   </article>
