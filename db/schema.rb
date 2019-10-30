@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20191029012458) do
     t.string "name"
     t.string "description"
     t.float "price"
-    t.string "image"
+    t.string "image", default: "https://i.ytimg.com/vi/Xw1C5T-fH2Y/maxresdefault.jpg"
     t.boolean "active?", default: true
     t.integer "inventory"
     t.bigint "merchant_id"
