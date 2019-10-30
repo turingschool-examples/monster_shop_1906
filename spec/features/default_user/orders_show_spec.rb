@@ -57,4 +57,10 @@ RSpec.describe "Order show page" do
 
     expect(page).to_not have_css("#item-#{@pencil.id}")
   end
+
+  it 'cannot go to an order show page that does not exist' do
+    visit "/profile/orders/41436"
+
+    expect(page).to have_content('The page you were looking for doesn\'t exist (404)')
+  end
 end
