@@ -10,7 +10,7 @@ class OrdersController <ApplicationController
 
   def create
     order = Order.create(user_id: current_user.id)
-    if order.save
+    if cart.contents.any? && order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
           item: item,
@@ -22,8 +22,8 @@ class OrdersController <ApplicationController
       flash[:success] = ['Your order has been successfully created!']
       redirect_to '/profile/orders'
     else
-      flash[:notice] = ["Please complete address form to create an order."]
-      render :new
+      flash[:error] = ["Please add something to your cart to place an order"]
+      redirect_to '/items'
     end
   end
 
