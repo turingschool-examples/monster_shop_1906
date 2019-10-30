@@ -2,13 +2,15 @@
   <section class="container-fluid row justify-content-center">
     <% @merchants.each do |merchant|%>
       <section class='card card-body bg-light m-3 p-4 col-md-3', id= 'merchant-<%=merchant.id%>' >
-        <h2 class='text-center'><%= link_to merchant.name, "/merchants/#{merchant.id}" %></h2>
         <% if current_admin? %>
+          <h2 class='text-center'><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></h2>
           <% if merchant.enabled? %>
             <p class="enabled mx-auto"> <%= link_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch, class: 'btn btn-danger mt-3' %> </p>
           <% else %>
             <p class="disabled mx-auto"> <%= link_to 'Enable', "/admin/merchants/#{merchant.id}", method: :patch, class: 'btn btn-success mt-3' %> </p>
           <% end %>
+        <% else %>
+          <h2 class='text-center'><%= link_to merchant.name, "/merchants/#{merchant.id}" %></h2>
         <% end %>
       </section>
     <% end %>

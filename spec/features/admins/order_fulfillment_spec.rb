@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'When I visit an order show page as a merchant employee' do
+RSpec.describe 'When I visit an order show page as an admin' do
   before :each do
-    @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+    @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "user@gmail.com", password: "password123", password_confirmation: "password123")
 
     @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd', city: 'Denver', state: 'CO', zip: 80203)
     @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd', city: 'Denver', state: 'CO', zip: 80203)
     @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-    @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 4)
+    @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
     @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
     @order = Order.create!(user_id: @user.id)
@@ -15,21 +15,22 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
     @order.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 104)
     @order.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
 
-    @mike.users.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "test1@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
-    @meg.users.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "test2@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
+    @admin = User.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "admin@gmail.com", password: "password123", password_confirmation: "password123", role: 3)
 
     visit '/login'
 
-    fill_in :email, with: 'test1@gmail.com'
+    fill_in :email, with: 'admin@gmail.com'
     fill_in :password, with: 'password123'
 
     click_button 'Login'
   end
 
-  it 'can see customer info and info only for my items' do
+  it 'can see customer info and info only the merchants items' do
+    visit "/admin/merchants/#{@mike.id}"
+
     within("#order-#{@order.id}") { click_link("#{@order.id}") }
 
-    expect(current_path).to eq("/merchant/orders/#{@order.id}")
+    expect(current_path).to eq("/admin/merchants/#{@mike.id}/orders/#{@order.id}")
 
     within '#customer-info' do
       expect(page).to have_content('Gmoney')
@@ -55,11 +56,11 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
   end
 
   it 'can fulfill an unfulfilled item and it decreased item inventory' do
-    visit "/merchant/orders/#{@order.id}"
+    visit "/admin/merchants/#{@mike.id}/orders/#{@order.id}"
 
     within("#item-#{@paper.id}") { click_button('Fulfill Item') }
 
-    expect(current_path).to eq("/merchant/orders/#{@order.id}")
+    expect(current_path).to eq("/admin/merchants/#{@mike.id}/orders/#{@order.id}")
     expect(page).to have_content("You have successfully fulfilled Lined Paper for Order ##{@order.id}")
 
     within "#item-#{@paper.id}" do
@@ -69,11 +70,11 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
 
     visit "/items/#{@paper.id}"
 
-    expect(page).to have_content("Inventory: 1")
+    expect(page).to have_content("Inventory: 0")
   end
 
   it 'cannot fulfill an item if it does not have enough inventory' do
-    visit "/merchant/orders/#{@order.id}"
+    visit "/admin/merchants/#{@mike.id}/orders/#{@order.id}"
 
     within "#item-#{@pencil.id}" do
       expect(page).to have_content('Unfulfilled')
@@ -86,7 +87,7 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
     click_link 'Logout'
 
     visit '/login'
-    fill_in :email, with: 'test@gmail.com'
+    fill_in :email, with: 'user@gmail.com'
     fill_in :password, with: 'password123'
     click_button 'Login'
 
@@ -96,11 +97,11 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
     click_link 'Logout'
 
     visit '/login'
-    fill_in :email, with: 'test1@gmail.com'
+    fill_in :email, with: 'admin@gmail.com'
     fill_in :password, with: 'password123'
     click_button 'Login'
 
-    visit "/merchant/orders/#{@order.id}"
+    visit "/admin/merchants/#{@mike.id}/orders/#{@order.id}"
 
     within "#item-#{@pencil.id}" do
       expect(page).to have_content('Cancelled')
@@ -118,29 +119,17 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
     order.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 50)
 
     visit '/login'
-    fill_in :email, with: 'test1@gmail.com'
+    fill_in :email, with: 'admin@gmail.com'
     fill_in :password, with: 'password123'
     click_button 'Login'
 
-    visit "/merchant/orders/#{order.id}"
+    visit "/admin/merchants/#{@mike.id}/orders/#{order.id}"
     within("#item-#{@pencil.id}") { click_button('Fulfill Item') }
-    click_link 'Logout'
 
-    visit '/login'
-    fill_in :email, with: 'test2@gmail.com'
-    fill_in :password, with: 'password123'
-    click_button 'Login'
-
-    visit "/merchant/orders/#{order.id}"
+    visit "/admin/merchants/#{@meg.id}/orders/#{order.id}"
     within("#item-#{@tire.id}") { click_button('Fulfill Item') }
-    click_link 'Logout'
 
-    visit '/login'
-    fill_in :email, with: 'test@gmail.com'
-    fill_in :password, with: 'password123'
-    click_button 'Login'
-
-    visit '/profile/orders'
+    visit "/admin/users/#{@user.id}/orders"
     within("#order-#{order.id}") { expect(page).to have_content('Packaged') }
   end
 end

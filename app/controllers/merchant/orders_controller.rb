@@ -17,6 +17,11 @@ class Merchant::OrdersController < Merchant::BaseController
     item.reduce_inventory(item_order.quantity)
     item.save
 
+    order = item_order.order
+    if order.item_orders.all? { |item_ord| item_ord.fulfilled? }
+      order.update(status: 0)
+    end
+
     flash[:success] = ["You have successfully fulfilled #{item.name} for Order ##{item_order.order_id}"]
     redirect_to "/merchant/orders/#{item_order.order_id}"
   end
