@@ -17,8 +17,11 @@ class Merchant::ItemsController < Merchant::BaseController
       redirect_to '/merchant/items'
     else
       @item.update(item_params)
+      if params[:image] == ''
+        @item.update(image: 'https://i.ytimg.com/vi/Xw1C5T-fH2Y/maxresdefault.jpg')
+      end
       if @item.save
-        flash.now[:success] = ["#{@item.name} has been successfully updated"]
+        flash[:success] = ["#{@item.name} has been successfully updated"]
         redirect_to '/merchant/items'
       else
         flash.now[:error] = @item.errors.full_messages
@@ -33,21 +36,22 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def destroy
     item = Item.find(params[:id])
-    if item.item_orders.empty?
-      item.destroy
-      flash[:success] = ["#{item.name} has been successfully deleted"]
-    end
+    item.destroy
+    flash[:success] = ["#{item.name} has been successfully deleted"]
     redirect_to '/merchant/items'
   end
 
   def new
     @merchant = current_user.merchant
-    @item = Item.new
+    @item = Item.new(image: nil)
   end
 
   def create
     @merchant = current_user.merchant
     @item = @merchant.items.create(item_params)
+    if params[:image] == ''
+      @item.update(image: 'https://i.ytimg.com/vi/Xw1C5T-fH2Y/maxresdefault.jpg')
+    end
     if @item.save
       flash[:success] = ["#{@item.name} has been successfully created"]
       redirect_to '/merchant/items'
