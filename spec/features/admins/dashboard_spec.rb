@@ -34,14 +34,14 @@ RSpec.describe 'Admin dashboard page', type: :feature do
     within '#order-0' do
       expect(page).to have_content(@order_2.id)
       expect(page).to have_content(@order_2.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_2.status)
+      expect(page).to have_content(@order_2.status.capitalize)
       expect(page).to have_link(@user_2.name)
     end
 
     within '#order-1' do
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content(@order_1.created_at.strftime("%m/%d/%Y"))
-      expect(page).to have_content(@order_1.status)
+      expect(page).to have_content(@order_1.status.capitalize)
       expect(page).to have_link(@user_1.name)
     end
   end
