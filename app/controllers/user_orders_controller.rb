@@ -6,7 +6,12 @@ class UserOrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    orders = current_user.orders.where(id: params[:id])
+    if orders.empty?
+      render_404
+    else
+      @order = orders.first
+    end
   end
 
   def update
