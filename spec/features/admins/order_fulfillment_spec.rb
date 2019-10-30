@@ -110,4 +110,26 @@ RSpec.describe 'When I visit an order show page as an admin' do
       expect(page).to_not have_button('Fulfill Item')
     end
   end
+
+  it 'changes order status to packaged if all items are fulfilled' do
+    click_link 'Logout'
+
+    order = Order.create!(user_id: @user.id)
+    order.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 7)
+    order.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 50)
+
+    visit '/login'
+    fill_in :email, with: 'admin@gmail.com'
+    fill_in :password, with: 'password123'
+    click_button 'Login'
+
+    visit "/admin/merchants/#{@mike.id}/orders/#{order.id}"
+    within("#item-#{@pencil.id}") { click_button('Fulfill Item') }
+
+    visit "/admin/merchants/#{@meg.id}/orders/#{order.id}"
+    within("#item-#{@tire.id}") { click_button('Fulfill Item') }
+
+    visit "/admin/users/#{@user.id}/orders"
+    within("#order-#{order.id}") { expect(page).to have_content('Packaged') }
+  end
 end

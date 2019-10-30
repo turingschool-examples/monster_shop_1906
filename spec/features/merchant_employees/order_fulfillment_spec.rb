@@ -15,7 +15,8 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
     @order.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 104)
     @order.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
 
-    @employee = @mike.users.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "test1@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
+    @mike.users.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "test1@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
+    @meg.users.create!(name: "Harry", address: "123 Cherry St", city: "Augusta", state: "ME", zip: 23840, email: "test2@gmail.com", password: "password123", password_confirmation: "password123", role: 1)
 
     visit '/login'
 
@@ -107,5 +108,39 @@ RSpec.describe 'When I visit an order show page as a merchant employee' do
       expect(page).to_not have_content('Unfulfilled')
       expect(page).to_not have_button('Fulfill Item')
     end
+  end
+
+  it 'changes order status to packaged if all items are fulfilled' do
+    click_link 'Logout'
+
+    order = Order.create!(user_id: @user.id)
+    order.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 7)
+    order.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 50)
+
+    visit '/login'
+    fill_in :email, with: 'test1@gmail.com'
+    fill_in :password, with: 'password123'
+    click_button 'Login'
+
+    visit "/merchant/orders/#{order.id}"
+    within("#item-#{@pencil.id}") { click_button('Fulfill Item') }
+    click_link 'Logout'
+
+    visit '/login'
+    fill_in :email, with: 'test2@gmail.com'
+    fill_in :password, with: 'password123'
+    click_button 'Login'
+
+    visit "/merchant/orders/#{order.id}"
+    within("#item-#{@tire.id}") { click_button('Fulfill Item') }
+    click_link 'Logout'
+
+    visit '/login'
+    fill_in :email, with: 'test@gmail.com'
+    fill_in :password, with: 'password123'
+    click_button 'Login'
+
+    visit '/profile/orders'
+    within("#order-#{order.id}") { expect(page).to have_content('Packaged') }
   end
 end
