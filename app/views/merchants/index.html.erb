@@ -4,6 +4,7 @@
       <section class='card card-body bg-light m-3 p-4 col-md-3', id= 'merchant-<%=merchant.id%>' >
         <% if current_admin? %>
           <h2 class='text-center'><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></h2>
+          <h5 class='text-center'><%= "#{merchant.city}, #{merchant.state}" %></h5>
           <% if merchant.enabled? %>
             <p class="enabled mx-auto"> <%= link_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch, class: 'btn btn-danger mt-3' %> </p>
           <% else %>
