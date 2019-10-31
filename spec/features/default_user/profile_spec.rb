@@ -66,6 +66,23 @@ RSpec.describe 'As a default user' do
     end
   end
 
+  it 'sees flash messages if fields are blank' do
+    visit '/profile/edit'
+
+    fill_in :name, with: ''
+    fill_in :address, with: '542 Broadway St'
+    fill_in :city, with: ''
+    fill_in :state, with: 'KS'
+    fill_in :zip, with: 54205
+    fill_in :email, with: 'billy.bob@gmail.com'
+
+    click_button 'Update Info'
+
+    expect(current_path).to eq('/profile')
+    expect(page).to have_content("Name can't be blank\nCity can't be blank")
+  end
+
+
   it 'can click a button to update password' do
     visit '/profile'
 
@@ -96,6 +113,19 @@ RSpec.describe 'As a default user' do
 
     expect(page).to have_field :password
     expect(page).to have_field :password_confirmation
+  end
+
+  it "cannot change password if both fields are filled in but don't match" do
+    visit '/profile/edit?info=false'
+
+    fill_in :password, with: 'gmoneyiswack'
+    fill_in :password_confirmation, with: 'gmoneyisawesome'
+
+    click_button 'Update Password'
+
+    expect(current_path).to eq('/profile')
+
+    expect(page).to have_content('Password confirmation doesn\'t match Password')
   end
 
   it "shows a link to orders if user has orders" do
