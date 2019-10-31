@@ -51,9 +51,6 @@ class UsersController < ApplicationController
       elsif user.update(user_params)
         flash[:success] = ['You have successfully updated your password!']
         redirect_to '/profile'
-      else
-        flash.now[:error] = user.errors.full_messages
-        render :edit
       end
     end
   end
