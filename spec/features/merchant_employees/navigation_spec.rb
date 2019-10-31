@@ -17,5 +17,9 @@ RSpec.describe "As a merchant employee" do
     visit '/admin'
 
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
+
+    visit '/merchant/orders/1'
+
+    expect(page).to have_content("The page you were looking for doesn't exist (404)")
   end
 end

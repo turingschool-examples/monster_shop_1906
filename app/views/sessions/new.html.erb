@@ -4,7 +4,7 @@
   <section class='form-group form-width'>
     <p>
       <%= label_tag :email_address %>
-      <%= email_field_tag :email, nil, class: 'form-control' %>
+      <%= email_field_tag :email, @user.email, class: 'form-control' %>
     </p>
 
     <p>

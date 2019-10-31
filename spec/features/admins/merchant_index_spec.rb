@@ -58,7 +58,6 @@ RSpec.describe "As an admin user" do
   end
 
   it "I can disable/enable a merchant and show flash message" do
-
     visit '/merchants'
 
     within "#merchant-#{@florist.id}" do
@@ -85,7 +84,6 @@ RSpec.describe "As an admin user" do
   end
 
   it "will disable all items associated with disabled merchant" do
-
     visit '/merchants'
 
     within "#merchant-#{@florist.id}" do
@@ -94,13 +92,8 @@ RSpec.describe "As an admin user" do
 
     visit "/merchants/#{@florist.id}/items"
 
-    within "#item-#{@plumeria.id}" do
-      expect(page).to have_content("Inactive")
-    end
-
-    within "#item-#{@dahlia.id}" do
-      expect(page).to have_content("Inactive")
-    end
+    expect(page).to_not have_css "#item-#{@plumeria.id}"
+    expect(page).to_not have_css "#item-#{@dahlia.id}"
   end
 end
 

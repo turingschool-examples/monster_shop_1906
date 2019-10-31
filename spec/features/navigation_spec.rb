@@ -23,6 +23,12 @@ RSpec.describe 'Site Navigation' do
 
     end
 
+    it "can't access edit profile" do
+      visit '/profile/edit'
+
+      expect(page).to have_content("The page you were looking for doesn't exist")
+    end
+
     it "I cannot see links I'm not authorized for" do
       visit '/items'
 
