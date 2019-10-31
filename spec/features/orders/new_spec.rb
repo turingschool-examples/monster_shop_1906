@@ -34,5 +34,14 @@ RSpec.describe("Order Creation") do
 
       expect(page).to have_content('Cart (0)')
     end
+
+    # it 'cannot create an order without items', js: true do
+    #   page.evaluate_script('window.history.back()')
+    #
+    #   click_on 'Checkout'
+    #
+    #   expect(current_path).to eq('/items')
+    #   expect(page).to have_content("Please add something to your cart to place an order")
+    # end
   end
 end
