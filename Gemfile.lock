@@ -41,7 +41,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (8.0.0)
-    autoprefixer-rails (9.6.5)
+    autoprefixer-rails (9.7.0)
       execjs
     bcrypt (3.1.13)
     bindex (0.8.1)
@@ -59,7 +59,6 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    childprocess (3.0.0)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -92,7 +91,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.3.0)
+    loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -100,7 +99,7 @@ GEM
     method_source (0.9.2)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.12.2)
+    minitest (5.13.0)
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
@@ -160,7 +159,6 @@ GEM
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
     ruby_dep (1.5.0)
-    rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -180,9 +178,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.6)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     shoulda-matchers (4.1.2)
       activesupport (>= 4.2.0)
     simplecov (0.17.1)
@@ -234,7 +229,6 @@ DEPENDENCIES
   rails (~> 5.1.7)
   rspec-rails
   sass-rails (~> 5.0)
-  selenium-webdriver
   shoulda-matchers
   simplecov
   tzinfo-data
