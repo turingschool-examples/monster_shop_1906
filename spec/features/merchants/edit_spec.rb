@@ -31,7 +31,7 @@ RSpec.describe "As a Visitor" do
 
       expect(current_path).to eq("/merchants/#{@bike_shop.id}")
       expect(page).to have_content("Brian's Super Cool Bike Shop")
-      expect(page).to have_content("1234 New Bike Rd.\nDenver, CO 80204")
+      expect(page).to have_content("1234 New Bike Rd. Denver, CO 80204")
     end
 
     it 'I see a flash message if i dont fully complete form' do
@@ -46,7 +46,7 @@ RSpec.describe "As a Visitor" do
 
       click_button "Update Merchant"
 
-      expect(page).to have_content("Name can't be blank and City can't be blank")
+      expect(page).to have_content("Name can't be blank\nCity can't be blank")
       expect(page).to have_button("Update Merchant")
     end
   end

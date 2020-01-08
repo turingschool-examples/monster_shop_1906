@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor" do
   describe "When I visit a merchant show page" do
+    before :each do
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      visit '/login'
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+      click_button 'Login'
+    end
     it "I can delete a merchant" do
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
@@ -37,36 +44,19 @@ RSpec.describe "As a visitor" do
 
 
       visit "/items/#{paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{tire.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{pencil.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
 
       visit "/cart"
       click_on "Checkout"
 
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
-
-      click_button "Create Order"
-
       visit "/merchants/#{meg.id}"
       expect(page).to_not have_link("Delete Merchant")
-
-      # visit "/merchants/#{brian.id}"
-      # expect(page).to have_link("Delete Merchant")
     end
   end
 end

@@ -23,7 +23,7 @@ class ItemsController<ApplicationController
     if item.save
       redirect_to "/merchants/#{@merchant.id}/items"
     else
-      flash[:error] = item.errors.full_messages.to_sentence
+      flash[:error] = item.errors.full_messages
       render :new
     end
   end
@@ -38,7 +38,7 @@ class ItemsController<ApplicationController
     if @item.save
       redirect_to "/items/#{@item.id}"
     else
-      flash[:error] = @item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages
       render :edit
     end
   end

@@ -1,4 +1,4 @@
-RSpec.describe("New Order Page") do
+RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -8,56 +8,40 @@ RSpec.describe("New Order Page") do
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
       visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{@tire.id}"
-      click_on "Add To Cart"
+      click_on "Add Item to Cart"
       visit "/items/#{@pencil.id}"
-      click_on "Add To Cart"
-    end
-    it "I see all the information about my current cart" do
-      visit "/cart"
+      click_on "Add Item to Cart"
 
-      click_on "Checkout"
+      @user = User.create!(name: "Gmoney", address: "123 Lincoln St", city: "Denver", state: "CO", zip: 23840, email: "test@gmail.com", password: "password123", password_confirmation: "password123")
+      visit '/login'
+      fill_in :email, with: 'test@gmail.com'
+      fill_in :password, with: 'password123'
+      click_button 'Login'
 
-      within "#order-item-#{@tire.id}" do
-        expect(page).to have_link(@tire.name)
-        expect(page).to have_link("#{@tire.merchant.name}")
-        expect(page).to have_content("$#{@tire.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$100")
-      end
-
-      within "#order-item-#{@paper.id}" do
-        expect(page).to have_link(@paper.name)
-        expect(page).to have_link("#{@paper.merchant.name}")
-        expect(page).to have_content("$#{@paper.price}")
-        expect(page).to have_content("2")
-        expect(page).to have_content("$40")
-      end
-
-      within "#order-item-#{@pencil.id}" do
-        expect(page).to have_link(@pencil.name)
-        expect(page).to have_link("#{@pencil.merchant.name}")
-        expect(page).to have_content("$#{@pencil.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$2")
-      end
-
-      expect(page).to have_content("Total: $142")
-    end
-
-    it "I see a form where I can enter my shipping info" do
       visit "/cart"
       click_on "Checkout"
-
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
-      expect(page).to have_button("Create Order")
     end
+
+    it 'redirects to profile orders page after creating order and shows flash message' do
+
+      expect(current_path).to eq("/profile/orders")
+
+      expect(page).to have_content('Your order has been successfully created!')
+
+      expect(page).to have_content('Cart (0)')
+    end
+
+    # it 'cannot create an order without items', js: true do
+    #   page.evaluate_script('window.history.back()')
+    #
+    #   click_on 'Checkout'
+    #
+    #   expect(current_path).to eq('/items')
+    #   expect(page).to have_content("Please add something to your cart to place an order")
+    # end
   end
 end

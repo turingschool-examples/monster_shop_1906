@@ -28,13 +28,13 @@ RSpec.describe 'item show page', type: :feature do
     within "#review-#{review_1.id}" do
       expect(page).to have_content(review_1.title)
       expect(page).to have_content(review_1.content)
-      expect(page).to have_content("Rating: #{review_1.rating}/5")
+      expect(page).to have_content("Rating: #{review_1.rating}")
     end
 
     within "#review-#{review_2.id}" do
       expect(page).to have_content(review_2.title)
       expect(page).to have_content(review_2.content)
-      expect(page).to have_content("Rating: #{review_2.rating}/5")
+      expect(page).to have_content("Rating: #{review_2.rating}")
     end
   end
 

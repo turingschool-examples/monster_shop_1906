@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190824200540) do
+ActiveRecord::Schema.define(version: 20191029012458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20190824200540) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
   end
@@ -29,8 +30,8 @@ ActiveRecord::Schema.define(version: 20190824200540) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "price"
-    t.string "image"
+    t.float "price"
+    t.string "image", default: "https://i.ytimg.com/vi/Xw1C5T-fH2Y/maxresdefault.jpg"
     t.boolean "active?", default: true
     t.integer "inventory"
     t.bigint "merchant_id"
@@ -44,31 +45,47 @@ ActiveRecord::Schema.define(version: 20190824200540) do
     t.string "address"
     t.string "city"
     t.string "state"
-    t.integer "zip"
+    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "enabled?", default: true
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.integer "zip"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
     t.integer "rating"
     t.bigint "item_id"
     t.index ["item_id"], name: "index_reviews_on_item_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "email"
+    t.string "password_digest"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "merchant_id"
+    t.index ["merchant_id"], name: "index_users_on_merchant_id"
+  end
+
   add_foreign_key "item_orders", "items"
   add_foreign_key "item_orders", "orders"
   add_foreign_key "items", "merchants"
+  add_foreign_key "orders", "users"
   add_foreign_key "reviews", "items"
+  add_foreign_key "users", "merchants"
 end

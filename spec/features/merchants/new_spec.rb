@@ -9,7 +9,7 @@ RSpec.describe 'merchant new page', type: :feature do
       address = '123 Kindalikeapizza Dr.'
       city = "Denver"
       state = "CO"
-      zip = 80204
+      zip = '80204'
 
       fill_in :name, with: name
       fill_in :address, with: address
@@ -36,7 +36,7 @@ RSpec.describe 'merchant new page', type: :feature do
       address = ''
       city = "Denver"
       state = ""
-      zip = 80204
+      zip = '80204'
 
       fill_in :name, with: name
       fill_in :address, with: address
@@ -46,7 +46,7 @@ RSpec.describe 'merchant new page', type: :feature do
 
       click_button "Create Merchant"
 
-      expect(page).to have_content("Address can't be blank and State can't be blank")
+      expect(page).to have_content("Address can't be blank\nState can't be blank")
       expect(page).to have_button("Create Merchant")
     end
 
